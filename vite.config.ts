@@ -14,7 +14,7 @@ export default defineConfig({
       fileName: (format) => `react-doc-editor.${format}.js`
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', 'katex', 'lexical', '@lexical/react', '@excalidraw/excalidraw'],
       output: {
         globals: {
           react: 'React'

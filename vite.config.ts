@@ -8,7 +8,6 @@ export default defineConfig({
         lib: {
             entry: path.resolve("src", 'DocumentEditor.tsx'),
             name: 'react-doc-editor',
-            formats: ['es', 'cjs', 'umd'],
             fileName: (format) => `react-doc-editor.${format}.ts`
         },
         rollupOptions: {

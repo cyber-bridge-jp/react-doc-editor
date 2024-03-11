@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build"
   },
   "main": "./dist/react-doc-editor.umd.js",
   "module": "./dist/react-doc-editor.es.js",
@@ -15,15 +16,23 @@
     ".": {
       "import": "./dist/react-doc-editor.es.js",
       "require": "./dist/react-doc-editor.umd.js"
-    }
+    },
+    "./style": "./dist/style.css"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cyber-bridge-jp/react-doc-editor.git"
+  },
+  "author": "Aizhigit Orozmamatov",
+  "license": "MIT",
   "dependencies": {
     "@excalidraw/excalidraw": "^0.17.3",
     "@lexical/react": "^0.13.1",
     "katex": "^0.16.9",
     "lexical": "^0.13.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite-plugin-dts": "^3.7.3"
   },
   "devDependencies": {
     "@types/katex": "^0.16.7",

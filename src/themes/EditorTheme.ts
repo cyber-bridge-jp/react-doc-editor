@@ -1,0 +1,78 @@
+import type {EditorThemeClasses} from 'lexical';
+import './EditorTheme.css';
+
+const theme: EditorThemeClasses = {
+    blockCursor: 'et_block-cursor',
+    code: 'et_code',
+    characterLimit: 'character-limit',
+    embedBlock: {
+        base: 'et_embed-block',
+        focus: 'et_embed-block-focus',
+    },
+    hashtag: 'et_hashtag',
+    heading: {
+        h1: 'et_h1',
+        h2: 'et_h2',
+        h3: 'et_h3',
+        h4: 'et_h4',
+        h5: 'et_h5',
+        h6: 'et_h6',
+    },
+    image: 'editor-image',
+    indent: 'et_indent',
+    inlineImage: 'inline-editor-image',
+    layoutContainer: 'et_layout-container',
+    layoutItem: 'et_layout-item',
+    link: 'et_link',
+    list: {
+        checklist: 'et_checklist',
+        listitem: 'et_listitem',
+        listitemChecked: 'et_listitem-checked',
+        listitemUnchecked: 'et_listitem-unchecked',
+        nested: {
+            listitem: 'et_nested-listitem',
+        },
+        olDepth: [
+            'et_ol1',
+            'et_ol2',
+            'et_ol3',
+            'et_ol4',
+            'et_ol5',
+        ],
+        ul: 'et_ul'
+    },
+    ltr: 'et_ltr',
+    mark: 'et_mark',
+    markOverlap: 'et_mark-overlap',
+    paragraph: 'et_paragraph',
+    quote: 'et_quote',
+    rtl: 'et_rtl',
+    table: 'et_table',
+    tableAddColumns: 'et_table-add-columns',
+    tableAddRows: 'et_table-add-rows',
+    tableCell: 'et_table-cell',
+    tableCellActionButton: 'et_table-cell-action-button',
+    tableCellActionButtonContainer: 'et_table-cell-action-button-container',
+    tableCellEditing: 'et_table-cell-editing',
+    tableCellHeader: 'et_table-cell-header',
+    tableCellPrimarySelected: 'et_table-cell-primary-selected',
+    tableCellResizer: 'et_table-cell-resizer',
+    tableCellSelected: 'et_table-cell-selected',
+    tableCellSortedIndicator: 'et_table-cell-sorted-indicator',
+    tableResizeRuler: 'et_table-resize-ruler',
+    tableSelected: 'et_table-selected',
+    tableSelection: 'et_table-selection',
+    text: {
+        bold: 'et_text-bold',
+        code: 'et_text-code',
+        italic: 'et_text-italic',
+        strikethrough: 'et_text-strikethrough',
+        subscript: 'et_text-subscript',
+        superscript: 'et_text-superscript',
+        underline: 'et_text-underline',
+        underlineStrikethrough: 'et_text-underline-strikethrough',
+    },
+    dataMention: 'et_data-mention',
+};
+
+export default theme;

@@ -1,0 +1,32 @@
+.data-mention-input-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.data-mention-input-modal input {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    width: 300px;
+}
+
+.data-mention-input-modal button {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    width: 300px;
+    cursor: pointer;
+}

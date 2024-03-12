@@ -12,12 +12,16 @@
   },
   "main": "./dist/react-doc-editor.umd.js",
   "module": "./dist/react-doc-editor.es.js",
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/react-doc-editor.es.js",
       "require": "./dist/react-doc-editor.umd.js"
     },
-    "./style": "./dist/style.css"
+    "./dist/style.css": "./dist/style.css"
   },
   "repository": {
     "type": "git",
@@ -33,6 +37,14 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "vite-plugin-dts": "^3.7.3"
+  },
+  "peerDependencies": {
+    "@excalidraw/excalidraw": "^0.17.3",
+    "@lexical/react": "^0.13.1",
+    "katex": "^0.16.9",
+    "lexical": "^0.13.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/katex": "^0.16.7",

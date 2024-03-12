@@ -1,5 +1,5 @@
 import React from "react";
-import DocumentEditor from "./DocumentEditor.tsx";
+import DocumentEditor from "./components/DocumentEditor.tsx";
 
 
 const App: React.FC = () => {

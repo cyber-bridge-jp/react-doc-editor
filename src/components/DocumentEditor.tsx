@@ -1,16 +1,15 @@
 import {InitialConfigType, InitialEditorStateType, LexicalComposer} from '@lexical/react/LexicalComposer';
-import EditorTheme from "./themes/EditorTheme.ts";
-import EditorNodes from "./nodes/EditorNodes.ts";
-import {SharedHistoryContext} from "./context/SharedHistoryContext.tsx";
+import EditorTheme from "../themes/EditorTheme.ts";
+import EditorNodes from "../nodes/EditorNodes.ts";
+import {SharedHistoryContext} from "../context/SharedHistoryContext.tsx";
 import Editor from "./Editor.tsx";
-import "./styles.css";
-import {DataMentionNode} from "./nodes/DataMentionNode.tsx";
+import {DataMentionNode} from "../nodes/DataMentionNode.tsx";
 import {HistoryState} from "@lexical/react/LexicalHistoryPlugin";
 import React from "react";
 import {EditorState} from "lexical";
-import {DataMentionObject} from "./plugins/DataMentionPlugin";
+import {DataMentionObject} from "../plugins/DataMentionPlugin";
 
-interface DocumentEditorProps {
+export interface DocumentEditorProps {
     editorState?: InitialEditorStateType;
     historyState?: HistoryState;
     step?: 1 | 2 | 3;

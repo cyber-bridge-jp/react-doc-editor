@@ -34,7 +34,7 @@ import useModal from "../hooks/useModal.tsx";
 import LinkPlugin from "../plugins/LinkPlugin";
 import {ContentEditable} from "@lexical/react/LexicalContentEditable";
 import Placeholder from "../ui/Placeholder.tsx";
-import FloatingTextFormatToolbarPlugin from "../plugins/FloatingTextFormatToolbarPlugin ";
+import FloatingTextFormatToolbarPlugin from "../plugins/FloatingTextFormatToolbarPlugin";
 
 
 const imageCache = new Set();

@@ -19,7 +19,8 @@
   "exports": {
     ".": {
       "import": "./dist/react-doc-editor.es.js",
-      "require": "./dist/react-doc-editor.umd.js"
+      "require": "./dist/react-doc-editor.umd.js",
+      "types": "./dist/types/index.d.ts"
     },
     "./dist/style.css": "./dist/style.css"
   },

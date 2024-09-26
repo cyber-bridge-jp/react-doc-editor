@@ -7,7 +7,11 @@ import * as packageJson from './package.json'
 export default defineConfig({
     plugins: [
         react(),
-        dts({insertTypesEntry: true, include: ['src/components/']})
+        dts({
+            insertTypesEntry: true,
+            include: ['src/components/'],
+            outDir: 'dist/types'
+        })
     ],
     build: {
         lib: {

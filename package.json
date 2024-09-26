@@ -15,7 +15,7 @@
   "files": [
     "dist"
   ],
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/react-doc-editor.es.ts",

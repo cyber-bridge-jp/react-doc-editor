@@ -18,8 +18,8 @@
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/react-doc-editor.es.ts",
-      "require": "./dist/react-doc-editor.umd.ts"
+      "import": "./dist/react-doc-editor.es.js",
+      "require": "./dist/react-doc-editor.umd.js"
     },
     "./dist/style.css": "./dist/style.css"
   },

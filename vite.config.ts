@@ -18,7 +18,7 @@ export default defineConfig({
             entry: path.resolve("src", 'components/index.ts'),
             name: 'react-doc-editor',
             formats: ['es', 'umd'],
-            fileName: (format) => `react-doc-editor.${format}.ts`
+            fileName: (format) => `react-doc-editor.${format}.js`
         },
         rollupOptions: {
             external: [...Object.keys(packageJson.peerDependencies)],

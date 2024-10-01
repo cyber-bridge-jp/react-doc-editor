@@ -42,13 +42,13 @@ import EmojiPickerPlugin from "../plugins/EmojiPickerPlugin";
 import DraggableBlockPlugin from "../plugins/DraggableBlockPlugin";
 import DataMentionPlugin, {DataMentionObject} from "../plugins/DataMentionPlugin";
 import {OnChangePlugin} from "@lexical/react/LexicalOnChangePlugin";
-import {EditorState} from "lexical";
+import {EditorState, LexicalEditor} from 'lexical'
 
 interface EditorProps {
     step: 1 | 2 | 3;
     autoMentionData: DataMentionObject[]
     autoAfterMentionData: DataMentionObject[]
-    onChange?: (editorState: EditorState) => void;
+    onChange?: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => void;
 }
 
 export default function Editor(props: EditorProps): React.ReactElement {
@@ -92,7 +92,6 @@ export default function Editor(props: EditorProps): React.ReactElement {
                 <EmojiPickerPlugin/>
                 <AutoEmbedPlugin/>
                 <DataMentionPlugin step={step} autoData={autoMentionData} afterAutoData={autoAfterMentionData}/>
-
                 <EmojisPlugin/>
                 <KeywordsPlugin/>
                 <OnChangePlugin ignoreSelectionChange={true} onChange={onChange} />

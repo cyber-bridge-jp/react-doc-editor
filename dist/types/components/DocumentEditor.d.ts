@@ -1,8 +1,9 @@
 import { InitialEditorStateType } from '@lexical/react/LexicalComposer';
-import { HistoryState } from "@lexical/react/LexicalHistoryPlugin";
-import React from "react";
+import { HistoryState } from '@lexical/react/LexicalHistoryPlugin';
+import { default as React } from 'react';
 import { EditorState, LexicalEditor } from 'lexical';
-import { DataMentionObject } from "../plugins/DataMentionPlugin";
+import { DataMentionObject } from '../plugins/DataMentionPlugin';
+
 export interface DocumentEditorProps {
     editorState?: InitialEditorStateType;
     historyState?: HistoryState;

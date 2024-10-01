@@ -1,5 +1,5 @@
-import { g as b, f as k, p as v, h as S, j as t, B as D, q as g, s as L } from "./index-OsErVNU-.js";
-import { r as I } from "./LexicalCollaborationContext-PFB_jjs6.js";
+import { g as b, f as k, p as v, h as S, j as t, B as D, q as g, s as L } from "./index-D6zAFZpw.js";
+import { r as I } from "./LexicalCollaborationContext-CYOOCLTg.js";
 import { $isNodeSelection as P, $getSelection as j, $getNodeByKey as E, CLICK_COMMAND as M, COMMAND_PRIORITY_LOW as h, KEY_DELETE_COMMAND as A, KEY_BACKSPACE_COMMAND as $ } from "lexical";
 import { useMemo as R, useState as V, useRef as O, useCallback as y, useEffect as B } from "react";
 var T = I();

@@ -1,6 +1,6 @@
-import * as React from "react";
-import { DataMentionObject } from "../plugins/DataMentionPlugin";
+import { DataMentionObject } from '../plugins/DataMentionPlugin';
 import { EditorState, LexicalEditor } from 'lexical';
+import * as React from "react";
 interface EditorProps {
     step: 1 | 2 | 3;
     autoMentionData: DataMentionObject[];

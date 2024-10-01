@@ -1,5 +1,5 @@
 import { r as K } from "./LexicalCollaborationContext-PFB_jjs6.js";
-import { r as k } from "./index-OsErVNU-.js";
+import { r as k } from "./index-CP_DG8xS.js";
 import R from "react";
 var y = {}, N;
 function O() {

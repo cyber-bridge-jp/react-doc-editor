@@ -1,11 +1,10 @@
-import { j as o, M as T, B as z, g as H, f as $, o as j, h as P } from "./index-OsErVNU-.js";
-import { $isNodeSelection as F, $getSelection as W, $getNodeByKey as R, CLICK_COMMAND as Y, COMMAND_PRIORITY_LOW as y, KEY_DELETE_COMMAND as J, KEY_BACKSPACE_COMMAND as K } from "lexical";
-import * as S from "react";
-import { useState as b, useEffect as M, useRef as _, useLayoutEffect as V, useMemo as p, useCallback as I } from "react";
-import { I as U } from "./ImageResizer-6mDoIhqX.js";
-import { exportToSvg as q, Excalidraw as G } from "@excalidraw/excalidraw";
-import { createPortal as Q } from "react-dom";
-const X = (n) => {
+import { j as o, M as z, B as I, g as S, f as $, h as u, p as v, i as P } from "./index-CP_DG8xS.js";
+import * as T from "react";
+import { useState as b, useEffect as N, useRef as j, useLayoutEffect as H, useMemo as p, useCallback as B } from "react";
+import { I as K } from "./ImageResizer-o-orjCbK.js";
+import { exportToSvg as W, Excalidraw as Y } from "@excalidraw/excalidraw";
+import { createPortal as F } from "react-dom";
+const J = (n) => {
   var r;
   const l = (r = n == null ? void 0 : n.firstElementChild) == null ? void 0 : r.firstElementChild, t = n.getAttribute("viewBox");
   if (t != null) {
@@ -14,73 +13,73 @@ const X = (n) => {
   }
   l && l.tagName === "style" && l.remove();
 };
-function Z({
+function V({
   elements: n,
   files: l,
   imageContainerRef: t,
   appState: r,
   rootClassName: a = null
 }) {
-  const [m, u] = b(null);
-  return M(() => {
+  const [x, f] = b(null);
+  return N(() => {
     (async () => {
-      const i = await q({
+      const i = await W({
         appState: r,
         elements: n,
         files: l
       });
-      X(i), i.setAttribute("width", "100%"), i.setAttribute("height", "100%"), i.setAttribute("display", "block"), u(i);
+      J(i), i.setAttribute("width", "100%"), i.setAttribute("height", "100%"), i.setAttribute("display", "block"), f(i);
     })();
   }, [n, l, r]), /* @__PURE__ */ o.jsx(
     "div",
     {
       ref: t,
       className: a ?? "",
-      dangerouslySetInnerHTML: { __html: (m == null ? void 0 : m.outerHTML) ?? "" }
+      dangerouslySetInnerHTML: { __html: (x == null ? void 0 : x.outerHTML) ?? "" }
     }
   );
 }
-const ee = () => {
-  const [n, l] = S.useState(null), t = S.useCallback(
+const U = () => {
+  const [n, l] = T.useState(null), t = T.useCallback(
     (r) => l(r),
     []
   );
   return [n, t];
 };
-function te({
+function q({
   closeOnClickOutside: n = !1,
   onSave: l,
   initialElements: t,
   initialAppState: r,
   initialFiles: a,
-  isShown: m = !1,
-  onDelete: u,
+  isShown: x = !1,
+  onDelete: f,
   onClose: k
 }) {
-  const i = _(null), [E, N] = ee(), [h, x] = b(!1), [g, C] = b(t), [v, D] = b(a);
-  M(() => {
+  const i = j(null), [C, R] = U(), [h, g] = b(!1), [E, M] = b(t), [_, D] = b(a);
+  N(() => {
     i.current !== null && i.current.focus();
-  }, []), M(() => {
+  }, []), N(() => {
     var s;
     let e = null;
-    const f = (c) => {
+    const m = (c) => {
       const d = c.target;
-      i.current !== null && !i.current.contains(d) && n && u();
+      i.current !== null && !i.current.contains(d) && n && f();
     };
-    return i.current !== null && (e = (s = i.current) == null ? void 0 : s.parentElement, e !== null && (e == null || e.addEventListener("click", f))), () => {
-      e !== null && (e == null || e.removeEventListener("click", f));
+    return i.current !== null && (e = (s = i.current) == null ? void 0 : s.parentElement, e !== null && (e == null || e.addEventListener("click", m))), () => {
+      e !== null && (e == null || e.removeEventListener("click", m));
     };
-  }, [n, u]), V(() => {
-    const e = i.current, f = (s) => {
-      s.key === "Escape" && u();
+  }, [n, f]), H(() => {
+    const e = i.current, m = (s) => {
+      s.key === "Escape" && f();
     };
-    return e !== null && e.addEventListener("keydown", f), () => {
-      e !== null && e.removeEventListener("keydown", f);
+    return e !== null && e.addEventListener("keydown", m), () => {
+      e !== null && e.removeEventListener("keydown", m);
     };
-  }, [g, v, u]);
+  }, [E, _, f]);
   const L = () => {
-    if (g.filter((e) => !e.isDeleted).length > 0) {
-      const e = E == null ? void 0 : E.getAppState(), f = {
+    if (E.filter((e) => !e.isDeleted).length > 0) {
+      const e = C == null ? void 0 : C.getAppState(), m = {
         exportBackground: e == null ? void 0 : e.exportBackground,
         exportScale: e == null ? void 0 : e.exportScale,
         exportWithDarkMode: (e == null ? void 0 : e.theme) === "dark",
@@ -93,39 +92,39 @@ function te({
         zenModeEnabled: e == null ? void 0 : e.zenModeEnabled,
         zoom: e == null ? void 0 : e.zoom
       };
-      l(g, f, v);
+      l(E, m, _);
     } else
-      u();
+      f();
   }, A = () => {
-    g.filter((e) => !e.isDeleted).length === 0 ? u() : x(!0);
+    E.filter((e) => !e.isDeleted).length === 0 ? f() : g(!0);
   };
-  function B() {
+  function O() {
     return /* @__PURE__ */ o.jsxs(
-      T,
+      z,
       {
         title: "Discard",
         onClose: () => {
-          x(!1);
+          g(!1);
         },
         closeOnClickOutside: !1,
         children: [
           "Are you sure you want to discard the changes?",
           /* @__PURE__ */ o.jsxs("div", { className: "ExcalidrawModal__discardModal", children: [
             /* @__PURE__ */ o.jsx(
-              z,
+              I,
               {
                 onClick: () => {
-                  x(!1), k();
+                  g(!1), k();
                 },
                 children: "Discard"
               }
             ),
             " ",
             /* @__PURE__ */ o.jsx(
-              z,
+              I,
               {
                 onClick: () => {
-                  x(!1);
+                  g(!1);
                 },
                 children: "Cancel"
               }
@@ -135,12 +134,12 @@ function te({
       }
     );
   }
-  if (m === !1)
+  if (x === !1)
     return null;
-  const w = (e, f, s) => {
-    C(e), D(s);
+  const w = (e, m, s) => {
+    M(e), D(s);
   };
-  return Q(
+  return F(
     /* @__PURE__ */ o.jsx("div", { className: "ExcalidrawModal__overlay", role: "dialog", children: /* @__PURE__ */ o.jsx(
       "div",
       {
@@ -148,12 +147,12 @@ function te({
         ref: i,
         tabIndex: -1,
         children: /* @__PURE__ */ o.jsxs("div", { className: "ExcalidrawModal__row", children: [
-          h && /* @__PURE__ */ o.jsx(B, {}),
+          h && /* @__PURE__ */ o.jsx(O, {}),
           /* @__PURE__ */ o.jsx(
-            G,
+            Y,
             {
               onChange: w,
-              excalidrawAPI: N,
+              excalidrawAPI: R,
               initialData: {
                 appState: r || { isLoading: !1 },
                 elements: t,
@@ -171,82 +170,82 @@ function te({
     document.body
   );
 }
-function ae({
+function te({
   nodeKey: n,
   data: l
 }) {
-  const [t] = H.useLexicalComposerContext(), [r, a] = b(
+  const [t] = S.useLexicalComposerContext(), [r, a] = b(
     l === "[]" && t.isEditable()
-  ), m = _(null), u = _(null), k = _(null), [i, E, N] = $.useLexicalNodeSelection(n), [h, x] = b(!1), g = p(() => t.isEditable(), []), C = I(
-    (s) => (i && F(W()) && (s.preventDefault(), t.update(() => {
-      const c = R(n);
-      if (j(c))
+  ), x = j(null), f = j(null), k = j(null), [i, C, R] = $.useLexicalNodeSelection(n), [h, g] = b(!1), E = p(() => t.isEditable(), []), M = B(
+    (s) => (i && u.$isNodeSelection(u.$getSelection()) && (s.preventDefault(), t.update(() => {
+      const c = u.$getNodeByKey(n);
+      if (v(c))
         return c.remove(), !0;
     })), !1),
     [t, i, n]
   );
-  M(() => {
-    g && (r ? t.setEditable(!1) : t.setEditable(!0));
-  }, [r, t, g]), M(() => P.mergeRegister(
+  N(() => {
+    E && (r ? t.setEditable(!1) : t.setEditable(!0));
+  }, [r, t, E]), N(() => P.mergeRegister(
     t.registerCommand(
-      Y,
+      u.CLICK_COMMAND,
       (s) => {
-        const c = u.current, d = s.target;
-        return h ? !0 : c !== null && c.contains(d) ? (s.shiftKey || N(), E(!i), s.detail > 1 && a(!0), !0) : !1;
+        const c = f.current, d = s.target;
+        return h ? !0 : c !== null && c.contains(d) ? (s.shiftKey || R(), C(!i), s.detail > 1 && a(!0), !0) : !1;
       },
-      y
+      u.COMMAND_PRIORITY_LOW
     ),
     t.registerCommand(
-      J,
-      C,
-      y
+      u.KEY_DELETE_COMMAND,
+      M,
+      u.COMMAND_PRIORITY_LOW
     ),
     t.registerCommand(
-      K,
-      C,
-      y
+      u.KEY_BACKSPACE_COMMAND,
+      M,
+      u.COMMAND_PRIORITY_LOW
     )
-  ), [N, t, i, h, C, E]);
-  const v = I(() => (a(!1), t.update(() => {
-    const s = R(n);
-    j(s) && s.remove();
+  ), [R, t, i, h, M, C]);
+  const _ = B(() => (a(!1), t.update(() => {
+    const s = u.$getNodeByKey(n);
+    v(s) && s.remove();
   })), [t, n]), D = (s, c, d) => {
     if (t.isEditable())
       return t.update(() => {
-        const O = R(n);
-        j(O) && (s.length > 0 || Object.keys(d).length > 0 ? O.setData(
+        const y = u.$getNodeByKey(n);
+        v(y) && (s.length > 0 || Object.keys(d).length > 0 ? y.setData(
           JSON.stringify({
             appState: c,
             elements: s,
             files: d
           })
-        ) : O.remove());
+        ) : y.remove());
       });
   }, L = () => {
-    x(!0);
+    g(!0);
   }, A = (s, c) => {
     setTimeout(() => {
-      x(!1);
+      g(!1);
     }, 200), t.update(() => {
-      const d = R(n);
-      j(d) && (d.setWidth(s), d.setHeight(c));
+      const d = u.$getNodeByKey(n);
+      v(d) && (d.setWidth(s), d.setHeight(c));
     });
-  }, B = I(() => {
+  }, O = B(() => {
     a(!0);
   }, []), {
     elements: w = [],
     files: e = {},
-    appState: f = {}
+    appState: m = {}
   } = p(() => JSON.parse(l), [l]);
   return /* @__PURE__ */ o.jsxs(o.Fragment, { children: [
     /* @__PURE__ */ o.jsx(
-      te,
+      q,
       {
         initialElements: w,
         initialFiles: e,
-        initialAppState: f,
+        initialAppState: m,
         isShown: r,
-        onDelete: v,
+        onDelete: _,
         onClose: () => a(!1),
         onSave: (s, c, d) => {
           t.setEditable(!0), D(s, c, d), a(!1);
@@ -257,17 +256,17 @@ function ae({
     w.length > 0 && /* @__PURE__ */ o.jsxs(
       "button",
       {
-        ref: u,
+        ref: f,
         className: `excalidraw-button ${i ? "selected" : ""}`,
         children: [
           /* @__PURE__ */ o.jsx(
-            Z,
+            V,
             {
-              imageContainerRef: m,
+              imageContainerRef: x,
               className: "image",
               elements: w,
               files: e,
-              appState: f
+              appState: m
             }
           ),
           i && /* @__PURE__ */ o.jsx(
@@ -277,16 +276,16 @@ function ae({
               role: "button",
               tabIndex: 0,
               onMouseDown: (s) => s.preventDefault(),
-              onClick: B
+              onClick: O
             }
           ),
           (i || h) && /* @__PURE__ */ o.jsx(
-            U,
+            K,
             {
               buttonRef: k,
               showCaption: !0,
               setShowCaption: () => null,
-              imageRef: m,
+              imageRef: x,
               editor: t,
               onResizeStart: L,
               onResizeEnd: A,
@@ -299,5 +298,5 @@ function ae({
   ] });
 }
 export {
-  ae as default
+  te as default
 };

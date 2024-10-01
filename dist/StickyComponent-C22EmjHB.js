@@ -1,15 +1,14 @@
-import { w as j, x as F, y as P, r as U, z as W, A as X, C as G, G as te, H as ne, g as re, u as ie, j as O, b as oe, I as ae, P as se, e as le, J as x } from "./index-OsErVNU-.js";
-import { L as ce } from "./LexicalNestedComposer-DUjfi4tu.js";
-import z, { useLayoutEffect as ue, useEffect as w, useRef as b } from "react";
-import V from "react-dom";
-import J, { $getNodeByKey as N } from "lexical";
+import { x as j, y as F, z as P, A as U, r as W, C as X, G, H as z, I as te, J as ne, g as re, u as ie, j as T, b as oe, N as ae, P as se, e as le, h as x, O as N } from "./index-CP_DG8xS.js";
+import { L as ce } from "./LexicalNestedComposer-fyOUBMoC.js";
+import V, { useLayoutEffect as ue, useEffect as w, useRef as b } from "react";
+import J from "react-dom";
 var L = {}, $ = {}, k;
 function fe() {
   if (k)
     return $;
   k = 1;
-  var R = j(), g = F(), a = P(), e = J;
-  const u = typeof window < "u" && typeof window.document < "u" && typeof window.document.createElement < "u", f = u && "documentMode" in document ? document.documentMode : null, C = u && "InputEvent" in window && !f ? "getTargetRanges" in new window.InputEvent("input") : !1, E = u && /Version\/[\d.]+.*Safari/.test(navigator.userAgent), _ = u && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream, T = u && /^(?=.*Chrome).*/i.test(navigator.userAgent), D = u && /AppleWebKit\/[\d.]+/.test(navigator.userAgent) && !T;
+  var R = j(), g = F(), a = P(), e = U();
+  const u = typeof window < "u" && typeof window.document < "u" && typeof window.document.createElement < "u", f = u && "documentMode" in document ? document.documentMode : null, C = u && "InputEvent" in window && !f ? "getTargetRanges" in new window.InputEvent("input") : !1, E = u && /Version\/[\d.]+.*Safari/.test(navigator.userAgent), _ = u && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream, O = u && /^(?=.*Chrome).*/i.test(navigator.userAgent), D = u && /AppleWebKit\/[\d.]+/.test(navigator.userAgent) && !O;
   function m(t, r) {
     r.update(() => {
       if (t !== null) {
@@ -125,8 +124,8 @@ function ge() {
   if (K)
     return h;
   K = 1;
-  var R = j(), g = F(), a = P(), e = J;
-  let u = typeof window < "u" && typeof window.document < "u" && typeof window.document.createElement < "u", f = u && "documentMode" in document ? document.documentMode : null, C = u && "InputEvent" in window && !f ? "getTargetRanges" in new window.InputEvent("input") : !1, E = u && /Version\/[\d.]+.*Safari/.test(navigator.userAgent), _ = u && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream, T = u && /^(?=.*Chrome).*/i.test(navigator.userAgent), D = u && /AppleWebKit\/[\d.]+/.test(navigator.userAgent) && !T;
+  var R = j(), g = F(), a = P(), e = U();
+  let u = typeof window < "u" && typeof window.document < "u" && typeof window.document.createElement < "u", f = u && "documentMode" in document ? document.documentMode : null, C = u && "InputEvent" in window && !f ? "getTargetRanges" in new window.InputEvent("input") : !1, E = u && /Version\/[\d.]+.*Safari/.test(navigator.userAgent), _ = u && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream, O = u && /^(?=.*Chrome).*/i.test(navigator.userAgent), D = u && /AppleWebKit\/[\d.]+/.test(navigator.userAgent) && !O;
   function m(i, t) {
     t.update(() => {
       if (i !== null) {
@@ -263,7 +262,7 @@ function Re() {
   if (q)
     return L;
   q = 1;
-  var R = U(), g = W(), a = z, e = X(), u = P(), f = V, C = G(), E = Q(), D = typeof window < "u" && typeof window.document < "u" && typeof window.document.createElement < "u" ? a.useLayoutEffect : a.useEffect;
+  var R = W(), g = X(), a = V, e = G(), u = P(), f = J, C = z(), E = Q(), D = typeof window < "u" && typeof window.document < "u" && typeof window.document.createElement < "u" ? a.useLayoutEffect : a.useEffect;
   function m(n) {
     return n.getEditorState().read(e.$canShowPlaceholderCurry(n.isComposing()));
   }
@@ -328,15 +327,15 @@ function Ce() {
   if (H)
     return y;
   H = 1;
-  var R = U(), g = W(), a = z, e = X(), u = P(), f = V, C = G(), E = Q(), _ = typeof window < "u" && typeof window.document < "u" && typeof window.document.createElement < "u" ? a.useLayoutEffect : a.useEffect;
-  function T(i) {
+  var R = W(), g = X(), a = V, e = G(), u = P(), f = J, C = z(), E = Q(), _ = typeof window < "u" && typeof window.document < "u" && typeof window.document.createElement < "u" ? a.useLayoutEffect : a.useEffect;
+  function O(i) {
     return i.getEditorState().read(e.$canShowPlaceholderCurry(i.isComposing()));
   }
   function D(i) {
-    let [t, r] = a.useState(() => T(i));
+    let [t, r] = a.useState(() => O(i));
     return _(() => {
       function n() {
-        let o = T(i);
+        let o = O(i);
         r(o);
       }
       return n(), u.mergeRegister(i.registerUpdateListener(() => {
@@ -382,12 +381,12 @@ var Ee = de;
 const me = te ? ue : w, _e = me, De = {
   ...ne,
   paragraph: "st__paragraph"
-}, Te = De;
+}, Oe = De;
 function A(R, g) {
   const a = R.style, e = g.rootElementRect, u = e !== null ? e.left : 0, f = e !== null ? e.top : 0;
   a.top = f + g.y + "px", a.left = u + g.x + "px";
 }
-function Ae({
+function Ie({
   x: R,
   y: g,
   nodeKey: a,
@@ -438,24 +437,24 @@ function Ae({
   const _ = (s) => {
     const i = C.current, t = E.current, r = t.rootElementRect;
     i !== null && t.isDragging && r !== null && (t.x = s.pageX - t.offsetX - r.left, t.y = s.pageY - t.offsetY - r.top, A(i, t));
-  }, T = (s) => {
+  }, O = (s) => {
     const i = C.current, t = E.current;
     i !== null && (t.isDragging = !1, i.classList.remove("dragging"), f.update(() => {
-      const r = N(a);
-      x(r) && r.setPosition(t.x, t.y);
-    })), document.removeEventListener("pointermove", _), document.removeEventListener("pointerup", T);
+      const r = x.$getNodeByKey(a);
+      N(r) && r.setPosition(t.x, t.y);
+    })), document.removeEventListener("pointermove", _), document.removeEventListener("pointerup", O);
   }, D = () => {
     f.update(() => {
-      const s = N(a);
-      x(s) && s.remove();
+      const s = x.$getNodeByKey(a);
+      N(s) && s.remove();
     });
   }, m = () => {
     f.update(() => {
-      const s = N(a);
-      x(s) && s.toggleColor();
+      const s = x.$getNodeByKey(a);
+      N(s) && s.toggleColor();
     });
   }, { historyState: M } = ie();
-  return /* @__PURE__ */ O.jsx("div", { ref: C, className: "sticky-note-container", children: /* @__PURE__ */ O.jsxs(
+  return /* @__PURE__ */ T.jsx("div", { ref: C, className: "sticky-note-container", children: /* @__PURE__ */ T.jsxs(
     "div",
     {
       className: `sticky-note ${e}`,
@@ -466,11 +465,11 @@ function Ae({
         const t = i, r = E.current;
         if (t !== null && f.isEditable()) {
           const { top: n, left: o } = t.getBoundingClientRect();
-          r.offsetX = s.clientX - o, r.offsetY = s.clientY - n, r.isDragging = !0, t.classList.add("dragging"), document.addEventListener("pointermove", _), document.addEventListener("pointerup", T), s.preventDefault();
+          r.offsetX = s.clientX - o, r.offsetY = s.clientY - n, r.isDragging = !0, t.classList.add("dragging"), document.addEventListener("pointermove", _), document.addEventListener("pointerup", O), s.preventDefault();
         }
       },
       children: [
-        /* @__PURE__ */ O.jsx(
+        /* @__PURE__ */ T.jsx(
           "button",
           {
             disabled: !f.isEditable(),
@@ -481,7 +480,7 @@ function Ae({
             children: "X"
           }
         ),
-        /* @__PURE__ */ O.jsx(
+        /* @__PURE__ */ T.jsx(
           "button",
           {
             disabled: !f.isEditable(),
@@ -489,21 +488,21 @@ function Ae({
             className: "color",
             "aria-label": "Change sticky note color",
             title: "Color",
-            children: /* @__PURE__ */ O.jsx("i", { className: "bucket" })
+            children: /* @__PURE__ */ T.jsx("i", { className: "bucket" })
           }
         ),
-        /* @__PURE__ */ O.jsxs(
+        /* @__PURE__ */ T.jsxs(
           ce.LexicalNestedComposer,
           {
             initialEditor: u,
-            initialTheme: Te,
+            initialTheme: Oe,
             children: [
-              /* @__PURE__ */ O.jsx(oe.HistoryPlugin, { externalHistoryState: M }),
-              /* @__PURE__ */ O.jsx(
+              /* @__PURE__ */ T.jsx(oe.HistoryPlugin, { externalHistoryState: M }),
+              /* @__PURE__ */ T.jsx(
                 Ee.PlainTextPlugin,
                 {
-                  contentEditable: /* @__PURE__ */ O.jsx(ae, { className: "StickyNode__contentEditable" }),
-                  placeholder: /* @__PURE__ */ O.jsx(se, { className: "StickyNode__placeholder", children: "What's up?" }),
+                  contentEditable: /* @__PURE__ */ T.jsx(ae, { className: "StickyNode__contentEditable" }),
+                  placeholder: /* @__PURE__ */ T.jsx(se, { className: "StickyNode__placeholder", children: "What's up?" }),
                   ErrorBoundary: le
                 }
               )
@@ -515,6 +514,6 @@ function Ae({
   ) });
 }
 export {
-  Ae as default,
+  Ie as default,
   A as positionSticky
 };

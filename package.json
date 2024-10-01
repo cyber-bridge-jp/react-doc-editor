@@ -44,7 +44,11 @@
     "@lexical/react": "^0.13.1",
     "katex": "^0.16.9",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "lexical": "^0.13.1"
+  },
+  "resolutions": {
+    "lexical": "^0.13.1"
   },
   "devDependencies": {
     "@types/katex": "^0.16.7",

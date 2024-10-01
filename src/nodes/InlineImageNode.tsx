@@ -9,11 +9,10 @@ import type {
   SerializedEditor,
   SerializedLexicalNode,
   Spread,
-} from 'lexical';
-
-import {$applyNodeReplacement, createEditor, DecoratorNode} from 'lexical';
-import * as React from 'react';
-import {Suspense} from 'react';
+} from 'lexical'
+import {$applyNodeReplacement, createEditor, DecoratorNode} from 'lexical'
+import * as React from 'react'
+import {Suspense} from 'react'
 
 const InlineImageComponent = React.lazy(() => import('./InlineImageComponent'));
 
@@ -136,11 +135,14 @@ export class InlineImageNode extends DecoratorNode<JSX.Element> {
   }
 
   exportDOM(): DOMExportOutput {
-    const element = document.createElement('img');
-    element.setAttribute('src', this.__src);
-    element.setAttribute('alt', this.__altText);
-    element.setAttribute('width', this.__width.toString());
-    element.setAttribute('height', this.__height.toString());
+    const element = document.createElement('span');
+    element.className = `inline-editor-image position-${this.__position}`;
+    const img = document.createElement('img');
+    img.setAttribute('src', this.__src);
+    img.setAttribute('alt', this.__altText);
+    img.setAttribute('width', this.__width.toString());
+    img.setAttribute('height', this.__height.toString());
+    element.appendChild(img);
     return {element};
   }
 
@@ -216,10 +218,7 @@ export class InlineImageNode extends DecoratorNode<JSX.Element> {
 
   createDOM(config: EditorConfig): HTMLElement {
     const span = document.createElement('span');
-    const className = `${config.theme.inlineImage} position-${this.__position}`;
-    if (className !== undefined) {
-      span.className = className;
-    }
+    span.className = `${config.theme.inlineImage} position-${this.__position}`;
     return span;
   }
 
@@ -230,10 +229,7 @@ export class InlineImageNode extends DecoratorNode<JSX.Element> {
   ): false {
     const position = this.__position;
     if (position !== prevNode.__position) {
-      const className = `${config.theme.inlineImage} position-${position}`;
-      if (className !== undefined) {
-        dom.className = className;
-      }
+      dom.className = `${config.theme.inlineImage} position-${position}`;
     }
     return false;
   }

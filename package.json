@@ -43,7 +43,6 @@
     "@excalidraw/excalidraw": "^0.17.3",
     "@lexical/react": "^0.13.1",
     "katex": "^0.16.9",
-    "lexical": "^0.13.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

@@ -523,21 +523,21 @@
 }
 
 .et_data-mention[data-mention-type='after-auto'] div::before {
-    content: '(After Auto)';
+    content: '(作成後自動挿入)';
     display: inline-block;
     color: #999;
     font-weight: normal;
 }
 
 .et_data-mention[data-mention-type='auto'] div::before {
-    content: '(Auto)';
+    content: '(自動挿入)';
     display: inline-block;
     color: #999;
     font-weight: normal;
 }
 
 .et_data-mention[data-mention-type='input'] > div::before {
-    content: '(Input)';
+    content: '(入力フィールド)';
     display: inline-block;
     color: #999;
     font-weight: normal;

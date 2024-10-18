@@ -85,13 +85,10 @@ const AtSignMentionsRegexAliasRegex = new RegExp(
     ')$',
 );
 
-// At most, 5 suggestions are shown in the popup.
-const SUGGESTION_LIST_LENGTH_LIMIT = 5;
-
 const inputData: DataMentionObject[] = [
     {
         inputField: {
-            label: 'Create a new input',
+            label: '入力フィールドを追加',
             value: null,
         }
     }
@@ -260,8 +257,7 @@ export default function DataMentionPlugin(
                         const key = Object.keys(result)[0];
                         return new MentionTypeaheadOption(trigger === AUTO_TRIGGER ? 'auto' : 'after-auto', key, result[key].label, result[key].value);
                     },
-                )
-                .slice(0, SUGGESTION_LIST_LENGTH_LIMIT),
+                ),
         [results],
     );
 
@@ -278,7 +274,6 @@ export default function DataMentionPlugin(
                 return;
             }
             editor.update(() => {
-                console.log(trigger, AUTO_TRIGGER, trigger === AUTO_TRIGGER)
                 const mentionNode = $createDataMentionNode(
                     {
                         dataMention: trigger === AUTO_TRIGGER ? 'auto' : trigger == INPUT_TRIGGER ? 'input' : 'after-auto',

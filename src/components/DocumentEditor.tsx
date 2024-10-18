@@ -25,7 +25,7 @@ function DocumentEditor(props: DocumentEditorProps): React.ReactElement {
         onChange,
         autoAfterMentionData = [],
         autoMentionData = [],
-        step = 1
+        step = 1,
     } = props;
 
     DataMentionNode.prototype.defaultStep = step;

@@ -1,4 +1,4 @@
-import { Q as t } from "./index-C8lGVrIl.js";
+import { Q as t } from "./index-DA3fcQye.js";
 export {
   t as DocumentEditor
 };

@@ -1,4 +1,4 @@
-import React, {Suspense} from "react";
+import React, {Suspense} from 'react'
 import {LexicalNestedComposer} from "@lexical/react/LexicalNestedComposer";
 import {AutoFocusPlugin} from "@lexical/react/LexicalAutoFocusPlugin";
 import LinkPlugin from "../plugins/LinkPlugin";
@@ -13,7 +13,9 @@ import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import {LexicalEditor} from "lexical/LexicalEditor";
 import {useSharedHistoryContext} from "../context/SharedHistoryContext.tsx";
 import './DataMentionNode.css';
-
+import {LineBreakNode, ParagraphNode, RootNode, TextNode} from 'lexical'
+import {EmojiNode} from './EmojiNode.tsx'
+import {KeywordNode} from './KeywordNode.ts'
 export default function DataMentionComponent(
     {
         dataMention,
@@ -30,7 +32,6 @@ export default function DataMentionComponent(
     }
 ): React.JSX.Element {
     const {historyState} = useSharedHistoryContext();
-
     return (
         <Suspense fallback={null}>
             {
@@ -51,7 +52,10 @@ export default function DataMentionComponent(
                         step !== 1 && value ?
                             <div className="data-mention-input-container" data-mention-input-step={step}>
                                 <b>{label}</b>
-                                <LexicalNestedComposer initialEditor={value}>
+                                <LexicalNestedComposer
+                                  initialEditor={value}
+                                  initialNodes={[RootNode, TextNode, LineBreakNode, ParagraphNode, EmojiNode, KeywordNode]}
+                                >
                                     <AutoFocusPlugin/>
                                     <LinkPlugin/>
                                     <EmojisPlugin/>

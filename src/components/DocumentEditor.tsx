@@ -5,6 +5,7 @@ import {SharedHistoryContext} from "../context/SharedHistoryContext.tsx";
 import Editor from "./Editor.tsx";
 import {DataMentionNode} from "../nodes/DataMentionNode.tsx";
 import {HistoryState} from "@lexical/react/LexicalHistoryPlugin";
+import { EditorRefPlugin } from "@lexical/react/LexicalEditorRefPlugin"
 import React from "react";
 import {EditorState, LexicalEditor} from 'lexical'
 import {DataMentionObject} from "../plugins/DataMentionPlugin";
@@ -16,6 +17,7 @@ export interface DocumentEditorProps {
     onChange?: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => void;
     autoMentionData?: DataMentionObject[]
     autoAfterMentionData?: DataMentionObject[]
+    editorRef?: React.MutableRefObject<LexicalEditor | null | undefined>;
 }
 
 function DocumentEditor(props: DocumentEditorProps): React.ReactElement {
@@ -26,6 +28,7 @@ function DocumentEditor(props: DocumentEditorProps): React.ReactElement {
         autoAfterMentionData = [],
         autoMentionData = [],
         step = 1,
+        editorRef = {current: null},
     } = props;
 
     DataMentionNode.prototype.defaultStep = step;
@@ -43,6 +46,7 @@ function DocumentEditor(props: DocumentEditorProps): React.ReactElement {
 
     return (
         <LexicalComposer initialConfig={initialConfig}>
+            <EditorRefPlugin editorRef={editorRef} />
             <SharedHistoryContext initHistoryState={historyState}>
                 <div className="editor-shell">
                     <Editor step={step} autoAfterMentionData={autoAfterMentionData} autoMentionData={autoMentionData} onChange={onChange}/>

@@ -10,8 +10,8 @@ import {
     NodeKey,
     SerializedEditor,
     SerializedLexicalNode,
-    Spread
-} from "lexical";
+    Spread,
+} from 'lexical'
 import {LexicalEditor} from "lexical/LexicalEditor";
 import React, {Suspense} from "react";
 
@@ -65,7 +65,6 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     __data: string | number | null;
     __step: 1 | 2 | 3;
     defaultStep: 1 | 2 | 3 = 1;
-
 
     constructor(
         dataMention: DataMentionType,
@@ -182,6 +181,11 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     setData(data: string | number | null) {
         const writable = this.getWritable();
         writable.__data = data;
+    }
+
+    setLabel(label: string) {
+        const writable = this.getWritable();
+        writable.__label = label;
     }
 
     decorate(): React.JSX.Element {

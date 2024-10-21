@@ -11,6 +11,7 @@ export interface DocumentEditorProps {
     onChange?: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => void;
     autoMentionData?: DataMentionObject[];
     autoAfterMentionData?: DataMentionObject[];
+    editorRef?: React.MutableRefObject<LexicalEditor | null | undefined>;
 }
 declare function DocumentEditor(props: DocumentEditorProps): React.ReactElement;
 export default DocumentEditor;

@@ -43,6 +43,7 @@ import DraggableBlockPlugin from "../plugins/DraggableBlockPlugin";
 import DataMentionPlugin, {DataMentionObject} from "../plugins/DataMentionPlugin";
 import {OnChangePlugin} from "@lexical/react/LexicalOnChangePlugin";
 import {EditorState, LexicalEditor} from 'lexical'
+import TableHoverActionsPlugin from '../plugins/TableHoverActionsPlugin'
 
 interface EditorProps {
     step: 1 | 2 | 3;
@@ -141,6 +142,7 @@ export default function Editor(props: EditorProps): React.ReactElement {
                             isLinkEditMode={isLinkEditMode}
                             setIsLinkEditMode={setIsLinkEditMode}
                         />
+                        <TableHoverActionsPlugin anchorElem={floatingAnchorElem} />
                         <FloatingTextFormatToolbarPlugin
                             anchorElem={floatingAnchorElem}
                         />

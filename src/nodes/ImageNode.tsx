@@ -133,6 +133,7 @@ export class ImageNode extends DecoratorNode<React.JSX.Element> {
         element.setAttribute('alt', this.__altText);
         element.setAttribute('width', this.__width.toString());
         element.setAttribute('height', this.__height.toString());
+        element.setAttribute('style', 'max-width: 100%; object-fit: contain;');
         return {element};
     }
 

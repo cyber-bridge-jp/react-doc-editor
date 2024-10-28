@@ -32,6 +32,8 @@ function DocumentEditor(props: DocumentEditorProps): React.ReactElement {
     } = props;
 
     DataMentionNode.prototype.defaultStep = step;
+    DataMentionNode.prototype.autoMentionData = autoMentionData;
+    DataMentionNode.prototype.autoAfterMentionData = autoAfterMentionData;
 
     const initialConfig: InitialConfigType = {
         editorState: editorState,

@@ -26,6 +26,7 @@ import {LexicalEditor, TextNodeThemeClasses} from 'lexical/LexicalEditor'
 import React, {Suspense} from 'react'
 import {getCachedClassNameArray, toggleTextFormatType} from '../LexicalUtils.tsx'
 import invariant from '../utils/invariant.ts'
+import {DataMentionObject} from '../plugins/DataMentionPlugin'
 
 const LazyDataMentionComponent = React.lazy(() => import('./DataMentionComponent'))
 
@@ -200,6 +201,8 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
   __style: string
   __decoratorSpan: HTMLSpanElement | null
   defaultStep: 1 | 2 | 3 = 1
+  autoMentionData: DataMentionObject[] = []
+  autoAfterMentionData: DataMentionObject[] = []
 
   static getType() {
     return 'data-mention'
@@ -413,6 +416,7 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
       step: this.prototype.defaultStep,
       format,
       style,
+
     })
     if (dataMention === 'input' && node.__value) {
       const nestedEditor = node.__value
@@ -421,6 +425,18 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
         if (!editorState.isEmpty()) {
           nestedEditor.setEditorState(editorState)
         }
+      }
+    }
+    if (node.__dataMention === 'auto' && node.__step === 2) {
+      const data = this.prototype.autoMentionData.find((d) => d[node.__fieldName] && d[node.__fieldName].label === node.__label)
+      if (data) {
+        node.setData(data[node.__fieldName].value)
+      }
+    }
+    if (node.__dataMention === 'after-auto' && node.__step === 3) {
+      const data = this.prototype.autoAfterMentionData.find((d) => d[node.__fieldName] && d[node.__fieldName].label === node.__label)
+      if (data) {
+        node.setData(data[node.__fieldName].value)
       }
     }
     return node

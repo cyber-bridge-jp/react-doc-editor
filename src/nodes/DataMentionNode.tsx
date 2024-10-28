@@ -427,16 +427,23 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
         }
       }
     }
-    if (node.__dataMention === 'auto' && node.__step === 2) {
-      const data = this.prototype.autoMentionData.find((d) => d[node.__fieldName] && d[node.__fieldName].label === node.__label)
-      if (data) {
-        node.setData(data[node.__fieldName].value)
+    if ((node.__dataMention === 'auto' && node.__step === 2) || (node.__dataMention === 'after-auto' && node.__step === 3)) {
+      let data: DataMentionObject | undefined
+      if (node.__dataMention === 'auto') {
+        data = this.prototype.autoMentionData.find((d) => d[node.__fieldName] && d[node.__fieldName].label === node.__label)
+      } else {
+        data = this.prototype.autoAfterMentionData.find((d) => d[node.__fieldName] && d[node.__fieldName].label === node.__label)
       }
-    }
-    if (node.__dataMention === 'after-auto' && node.__step === 3) {
-      const data = this.prototype.autoAfterMentionData.find((d) => d[node.__fieldName] && d[node.__fieldName].label === node.__label)
       if (data) {
-        node.setData(data[node.__fieldName].value)
+        const dataOption = data[node.__fieldName]
+        let value = dataOption.value
+        if (value && dataOption.isMan) {
+          value = parseInt(value.toString()) * 10000
+        }
+        if (value && dataOption.isNumber) {
+          value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        }
+        node.setData(value)
       }
     }
     return node

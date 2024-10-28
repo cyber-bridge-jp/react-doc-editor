@@ -151,13 +151,17 @@ class MentionTypeaheadOption extends MenuOption {
   fieldName: string
   label: string
   data: string | number | null
+  isMan: boolean
+  isNumber: boolean
 
-  constructor(dataMention: DataMentionType, fieldName: string, label: string, data: string | number | null) {
+  constructor(dataMention: DataMentionType, fieldName: string, label: string, data: string | number | null, isMan = false, isNumber = false) {
     super(dataMention + label)
     this.dataMention = dataMention
     this.fieldName = fieldName
     this.label = label
     this.data = data
+    this.isMan = isMan
+    this.isNumber = isNumber
   }
 }
 
@@ -198,6 +202,8 @@ function MentionsTypeaheadMenuItem({
 export type DataMentionData = {
   label: string;
   value: string | number | null;
+  isMan?: boolean;
+  isNumber?: boolean;
 }
 
 export type DataMentionObject = { [key: string]: DataMentionData }
@@ -234,7 +240,7 @@ export default function DataMentionPlugin(
         .map(
           (result) => {
             const key = Object.keys(result)[0]
-            return new MentionTypeaheadOption(trigger === AUTO_TRIGGER ? 'auto' : 'after-auto', key, result[key].label, result[key].value)
+            return new MentionTypeaheadOption(trigger === AUTO_TRIGGER ? 'auto' : 'after-auto', key, result[key].label, result[key].value, result[key].isMan, result[key].isNumber)
           },
         ),
     [results],
@@ -247,12 +253,20 @@ export default function DataMentionPlugin(
       closeMenu: () => void,
     ) => {
       editor.update(() => {
+        let data = selectedOption.data
+        if (selectedOption.isMan && typeof data === 'number' && data) {
+          data = 10000 * data
+        }
+        if (selectedOption.isNumber && data) {
+          // make comma separated number
+          data = data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        }
         const mentionNode = $createDataMentionNode(
           {
             dataMention: trigger === AUTO_TRIGGER ? 'auto' : trigger == INPUT_TRIGGER ? 'input' : 'after-auto',
             fieldName: selectedOption.fieldName,
             label: selectedOption.label,
-            data: selectedOption.data,
+            data: data,
             format: nodeToReplace?.getFormat(),
             style: nodeToReplace?.getStyle(),
           },

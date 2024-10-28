@@ -5,7 +5,7 @@ import './components/styles.css';
 
 const App: React.FC = () => {
     return (
-        <DocumentEditor />
+        <DocumentEditor autoMentionData={[{test: {label: "Test", value: "Test"}}]}/>
     )
 }
 

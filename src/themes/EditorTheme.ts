@@ -73,6 +73,7 @@ const theme: EditorThemeClasses = {
         underlineStrikethrough: 'et_text-underline-strikethrough',
     },
     dataMention: 'et_data-mention',
+    fileAttachment: 'file-attach',
 };
 
 export default theme;

@@ -32,17 +32,17 @@
   "license": "MIT",
   "dependencies": {
     "@excalidraw/excalidraw": "^0.17.3",
-    "@lexical/react": "0.13.1",
+    "@lexical/react": "0.18.0",
     "katex": "^0.16.9",
     "vite-plugin-dts": "^3.7.3"
   },
   "peerDependencies": {
+    "lexical": "0.18.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "lexical": "0.13.1"
+    "react-dom": "^18.2.0"
   },
   "resolutions": {
-    "lexical": "0.13.1"
+    "lexical": "0.18.0"
   },
   "devDependencies": {
     "@types/katex": "^0.16.7",

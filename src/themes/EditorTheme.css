@@ -22,24 +22,21 @@
 }
 
 .et_h1 {
-    font-size: 24px;
-    color: rgb(5, 5, 5);
-    font-weight: 400;
+    font-size: 32px;
+    font-weight: bolder;
     margin: 0;
 }
 
 .et_h2 {
-    font-size: 15px;
-    color: rgb(101, 103, 107);
-    font-weight: 700;
+    font-size: 24px;
+    font-weight: bolder;
     margin: 0;
-    text-transform: uppercase;
 }
 
 .et_h3 {
-    font-size: 12px;
+    font-size: 19px;
     margin: 0;
-    text-transform: uppercase;
+    font-weight: bolder;
 }
 
 .et_indent {
@@ -507,14 +504,12 @@
     display: inline-block;
 }
 /* Check if element has attribute with specific value */
-.et_data-mention[data-mention-type='after-auto'] div {
-    color: #8421a2;
-    font-weight: bold;
+.et_data-mention[data-mention-type='after-auto'] span[data-decorate="true"] {
+    color: inherit;
 }
 
-.et_data-mention[data-mention-type='auto'] div {
-    color: #b72727;
-    font-weight: bold;
+.et_data-mention[data-mention-type='auto'] span[data-decorate="true"] {
+    color: inherit;
 }
 
 .et_data-mention[data-mention-type='input'] > div b {
@@ -522,24 +517,24 @@
     font-weight: bold;
 }
 
-.et_data-mention[data-mention-type='after-auto'] div::before {
+.et_data-mention[data-mention-type='after-auto'] span[data-decorate="true"]::before {
     content: '(作成後自動挿入)';
     display: inline-block;
-    color: #999;
+    color: #8421a2;
     font-weight: normal;
 }
 
-.et_data-mention[data-mention-type='auto'] div::before {
+.et_data-mention[data-mention-type='auto'] span[data-decorate="true"]::before {
     content: '(自動挿入)';
     display: inline-block;
-    color: #999;
+    color: #b72727;
     font-weight: normal;
 }
 
-.et_data-mention[data-mention-type='input'] > div::before {
+.et_data-mention[data-mention-type='input'] > span[data-decorate="true"]::before {
     content: '(入力フィールド)';
     display: inline-block;
-    color: #999;
+    color: #e1971a;
     font-weight: normal;
 }
 

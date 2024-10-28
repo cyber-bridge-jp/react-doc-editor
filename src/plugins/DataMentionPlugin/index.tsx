@@ -253,6 +253,8 @@ export default function DataMentionPlugin(
             fieldName: selectedOption.fieldName,
             label: selectedOption.label,
             data: selectedOption.data,
+            format: nodeToReplace?.getFormat(),
+            style: nodeToReplace?.getStyle(),
           },
         )
         if (selectedOption.fieldName === 'inputField') {

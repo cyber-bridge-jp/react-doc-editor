@@ -1,4 +1,4 @@
-import React, {Suspense} from 'react'
+import React, {Suspense, useCallback, useEffect} from 'react'
 import {LexicalNestedComposer} from '@lexical/react/LexicalNestedComposer'
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin'
 import LinkPlugin from '../plugins/LinkPlugin'
@@ -13,9 +13,24 @@ import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
 import {LexicalEditor} from 'lexical/LexicalEditor'
 import {useSharedHistoryContext} from '../context/SharedHistoryContext.tsx'
 import './DataMentionNode.css'
-import {LineBreakNode, ParagraphNode, RootNode, TextNode} from 'lexical'
+import {
+  $getNodeByKey,
+  $getSelection,
+  $isNodeSelection,
+  CLICK_COMMAND,
+  COMMAND_PRIORITY_LOW, FORMAT_TEXT_COMMAND, KEY_BACKSPACE_COMMAND, KEY_DELETE_COMMAND,
+  LineBreakNode,
+  type NodeKey,
+  ParagraphNode,
+  RootNode, TextFormatType,
+  TextNode,
+} from 'lexical'
 import {EmojiNode} from './EmojiNode.tsx'
 import {KeywordNode} from './KeywordNode.ts'
+import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection'
+import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext'
+import {mergeRegister} from '@lexical/utils'
+import {$isDataMentionNode, DataMentionNode} from './DataMentionNode.tsx'
 
 export default function DataMentionComponent(
   {
@@ -24,34 +39,119 @@ export default function DataMentionComponent(
     value,
     data,
     step,
+    nodeKey,
   }: {
     dataMention: 'auto' | 'input' | 'after-auto';
     label: string;
     value?: LexicalEditor;
     data: string | number | null;
     step: 1 | 2 | 3;
+    nodeKey: NodeKey;
   },
 ): React.JSX.Element {
   const {historyState} = useSharedHistoryContext()
+  const divRef = React.useRef<HTMLSpanElement>(null)
+  const [isSelected, setSelected, clearSelection] = useLexicalNodeSelection(nodeKey)
+  const [editor] = useLexicalComposerContext()
+
+  const onClick = useCallback(
+    (payload: MouseEvent) => {
+      if (payload.target === divRef.current) {
+        clearSelection()
+        setSelected(true)
+        return true
+      }
+
+      return false
+    },
+    [setSelected, clearSelection],
+  )
+
+  const onDelete = useCallback((payload: KeyboardEvent) => {
+    const selection = $getSelection()
+    const node = $getNodeByKey(nodeKey) as DataMentionNode
+    if (node && node.setSpanRef) {
+      node.setSpanRef(divRef.current)
+    }
+    if (isSelected && $isNodeSelection(selection)) {
+      payload.preventDefault()
+      if ($isDataMentionNode(node) && node.getKey() === nodeKey) {
+        node.remove()
+        return true
+      }
+    }
+    return false
+  }, [nodeKey, isSelected])
+
+  const onFormatText = useCallback((format: TextFormatType) => {
+    if (isSelected && $isNodeSelection($getSelection())) {
+      const node = $getNodeByKey(nodeKey)
+      if ($isDataMentionNode(node)) {
+        node.toggleFormat(format)
+        return true
+      }
+    }
+    return false
+  }, [isSelected, nodeKey])
+
+  useEffect(() => {
+    const unregister = mergeRegister(
+      editor.registerCommand<MouseEvent>(
+        CLICK_COMMAND,
+        onClick,
+        COMMAND_PRIORITY_LOW,
+      ),
+      editor.registerCommand(
+        KEY_DELETE_COMMAND,
+        onDelete,
+        COMMAND_PRIORITY_LOW,
+      ),
+      editor.registerCommand(
+        KEY_BACKSPACE_COMMAND,
+        onDelete,
+        COMMAND_PRIORITY_LOW,
+      ),
+      editor.registerCommand<TextFormatType>(
+        FORMAT_TEXT_COMMAND,
+        onFormatText,
+        COMMAND_PRIORITY_LOW,
+      ),
+    )
+
+    if (divRef.current) {
+      const sibling = divRef.current.previousSibling || divRef.current.nextSibling
+      if (sibling) {
+        // then we need to insert this ref inside the previousSibling
+        sibling.appendChild(divRef.current)
+      }
+    }
+
+    return () => {
+      unregister()
+    }
+  }, [editor, onClick, onDelete])
+
+
   return (
     <Suspense fallback={null}>
       {
         dataMention !== 'input' ?
           step === 3 ?
             (
-              <div>
+              <span data-decorate="true">
                 {data}
-              </div>
+              </span>
             ) : step === 2 ?
               (
-                <div>{dataMention === 'after-auto' ? label : data}</div>
+                <span data-decorate="true">{dataMention === 'after-auto' ? label : data}</span>
               ) :
               (
-                <div>{label}</div>
+                <span data-decorate="true" ref={divRef}
+                      style={isSelected ? {border: '1px solid blue'} : {}}>{label}</span>
               )
           : (
             step !== 1 && value ?
-              <div className="data-mention-input-container" data-mention-input-step={step}>
+              <span className="data-mention-input-container" data-mention-input-step={step}>
                 <b>{label}</b>
                 <LexicalNestedComposer
                   initialEditor={value}
@@ -77,8 +177,8 @@ export default function DataMentionComponent(
                     ErrorBoundary={LexicalErrorBoundary}
                   />
                 </LexicalNestedComposer>
-              </div> :
-              <div><b>{label}</b></div>
+              </span> :
+              <span data-decorate="true"><b>{label}</b></span>
           )
       }
     </Suspense>

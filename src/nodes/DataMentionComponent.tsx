@@ -18,11 +18,17 @@ import {
   $getSelection,
   $isNodeSelection,
   CLICK_COMMAND,
-  COMMAND_PRIORITY_LOW, FORMAT_TEXT_COMMAND, KEY_BACKSPACE_COMMAND, KEY_DELETE_COMMAND,
+  COMMAND_PRIORITY_LOW,
+  DELETE_LINE_COMMAND,
+  DELETE_WORD_COMMAND,
+  FORMAT_TEXT_COMMAND,
+  KEY_BACKSPACE_COMMAND,
+  KEY_DELETE_COMMAND,
   LineBreakNode,
   type NodeKey,
-  ParagraphNode,
-  RootNode, TextFormatType,
+  ParagraphNode, REMOVE_TEXT_COMMAND,
+  RootNode,
+  TextFormatType,
   TextNode,
 } from 'lexical'
 import {EmojiNode} from './EmojiNode.tsx'
@@ -103,6 +109,21 @@ export default function DataMentionComponent(
       ),
       editor.registerCommand(
         KEY_DELETE_COMMAND,
+        onDelete,
+        COMMAND_PRIORITY_LOW,
+      ),
+      editor.registerCommand(
+        DELETE_WORD_COMMAND,
+        onDelete,
+        COMMAND_PRIORITY_LOW,
+      ),
+      editor.registerCommand(
+        DELETE_LINE_COMMAND,
+        onDelete,
+        COMMAND_PRIORITY_LOW,
+      ),
+      editor.registerCommand(
+        REMOVE_TEXT_COMMAND,
         onDelete,
         COMMAND_PRIORITY_LOW,
       ),

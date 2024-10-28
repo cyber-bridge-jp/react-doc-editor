@@ -27,6 +27,7 @@ import React, {Suspense} from 'react'
 import {getCachedClassNameArray, toggleTextFormatType} from '../LexicalUtils.tsx'
 import invariant from '../utils/invariant.ts'
 import {DataMentionObject} from '../plugins/DataMentionPlugin'
+import {$generateHtmlFromNodes} from '@lexical/html'
 
 const LazyDataMentionComponent = React.lazy(() => import('./DataMentionComponent'))
 
@@ -456,7 +457,21 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     element.setAttribute('data-mention-field', this.__fieldName)
     element.setAttribute('data-mention-label', this.__label)
     element.setAttribute('data-lexical-data-mention', 'true')
-    element.setAttribute('data-mention-data', this.__data?.toString() || '')
+    if (this.__dataMention === 'input' && this.__value) {
+      const value = document.createElement('span')
+      const editorState = this.__value.getEditorState()
+      editorState.read(() => {
+        const parser = new DOMParser()
+        const dom = parser.parseFromString(
+          $generateHtmlFromNodes(this.__value as LexicalEditor),
+          'text/html',
+        )
+        value.append(...(dom.body.firstChild?.childNodes ?? []))
+      })
+      element.appendChild(value)
+    } else {
+      element.innerHTML = this.__data ? this.__data.toString() : ''
+    }
     return {element}
   }
 

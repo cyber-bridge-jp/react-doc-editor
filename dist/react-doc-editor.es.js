@@ -1,4 +1,4 @@
-import { W as t } from "./index-D3E3MB_h.js";
+import { W as t } from "./index-BCw3i3sF.js";
 export {
   t as DocumentEditor
 };

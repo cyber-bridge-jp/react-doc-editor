@@ -459,6 +459,10 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     element.setAttribute('data-lexical-data-mention', 'true')
     if (this.__dataMention === 'input' && this.__value) {
       const value = document.createElement('span')
+      value.style.wordBreak = 'break-word'
+      value.style.whiteSpace = 'pre-wrap'
+      value.style.overflowWrap = 'break-word'
+      value.style.display = 'inline-grid'
       const editorState = this.__value.getEditorState()
       editorState.read(() => {
         const parser = new DOMParser()
@@ -466,11 +470,18 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
           $generateHtmlFromNodes(this.__value as LexicalEditor),
           'text/html',
         )
-        value.append(...(dom.body.firstChild?.childNodes ?? []))
+        const nodes: ChildNode[] = []
+        dom.body.childNodes.forEach((node) => {
+          // create a span node
+          const span = document.createElement('span')
+          span.append(...(node.childNodes))
+          nodes.push(span)
+        })
+        value.append(...(nodes))
       })
       element.appendChild(value)
     } else {
-      element.innerHTML = this.__data ? this.__data.toString() : ''
+      element.textContent = this.__data ? this.__data.toString() : ''
     }
     return {element}
   }

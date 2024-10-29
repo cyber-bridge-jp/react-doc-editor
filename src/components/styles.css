@@ -1795,12 +1795,6 @@ hr.selected {
     width: 100%;
 }
 
-.data-mention-input-container {
-    display: flex;
-    min-width: 100px;
-    position: relative;
-}
-
 .data-mention-input-container[data-mention-input-step='3'] {
     min-width: unset;
 }

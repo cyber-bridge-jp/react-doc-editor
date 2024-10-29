@@ -1,6 +1,5 @@
-import { $ as t, Y as e, X as n } from "./index-C7H99GxM.js";
+import { $ as a, X as e } from "./index-CZheSgaM.js";
 export {
-  t as $isDataMentionNode,
-  e as DataMentionNode,
-  n as DocumentEditor
+  a as $isDataMentionNode,
+  e as DocumentEditor
 };

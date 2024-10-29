@@ -212,7 +212,7 @@ export default function DataMentionComponent(
                     }
                     placeholder={
                       <Placeholder
-                        className={error ? 'DataMention__placeholder_error' : 'DataMention__placeholder'}
+                        className={error != null ? 'DataMention__placeholder_error' : 'DataMention__placeholder'}
                       >
                         {error ? error : `${label}を入力してください`}
                       </Placeholder>

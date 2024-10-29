@@ -581,6 +581,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
       (_payload, newEditor) => {
         $updateToolbar()
         setActiveEditor(newEditor)
+        setIsEditable(newEditor.isEditable())
         return false
       },
       COMMAND_PRIORITY_CRITICAL,

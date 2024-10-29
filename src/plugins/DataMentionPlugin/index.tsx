@@ -9,7 +9,7 @@ import {
 import './index.css'
 
 import {
-  COMMAND_PRIORITY_LOW, SELECTION_CHANGE_COMMAND,
+  $nodesOfType,
   TextNode,
 } from 'lexical'
 import {useCallback, useEffect, useMemo, useState} from 'react'
@@ -226,6 +226,7 @@ export default function DataMentionPlugin(
   const [inputVal, setInputVal] = useState<string>()
   const [showInput, setShowInput] = useState<boolean>(false)
   const [selectedItem, setSelectedItem] = useState<DataMentionNode | null>(null)
+  const isMounted = React.useRef(true)
 
   const data = trigger === AUTO_TRIGGER ? autoData : trigger === AFTER_AUTO_TRIGGER ? afterAutoData : inputData
   const results = useMentionLookupService(queryString, data, trigger)
@@ -301,21 +302,41 @@ export default function DataMentionPlugin(
   )
 
   useEffect(() => {
+    if (!isMounted.current) return
+    // get data-mention nodes
     if (step === 2) {
-      editor.registerCommand(SELECTION_CHANGE_COMMAND,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        (_, e) => {
-          if (e.getRootElement()?.className === 'DataMention__contentEditable' && !editor.isEditable()) {
-            editor.setEditable(true)
-            e.focus()
-          } else if (e.getRootElement()?.className !== 'DataMention__contentEditable' && editor.isEditable()) {
-            editor.setEditable(false)
+      editor.update(() => {
+        const nodes = $nodesOfType(DataMentionNode)
+        nodes.forEach(node => {
+          if ((node.__dataMention === 'auto' && node.__step === 2) || (node.__dataMention === 'after-auto' && node.__step === 3)) {
+            let data: DataMentionObject | undefined
+            if (node.__dataMention === 'auto') {
+              data = autoData.find((d) => d[node.__fieldName] && d[node.__fieldName].label === node.__label)
+            } else {
+              data = afterAutoData.find((d) => d[node.__fieldName] && d[node.__fieldName].label === node.__label)
+            }
+            if (data) {
+              const dataOption = data[node.__fieldName]
+              let value = dataOption.value
+              if (value && dataOption.isMan) {
+                value = parseInt(value.toString()) * 10000
+              }
+              if (value && dataOption.isNumber) {
+                value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              }
+              node.setData(value)
+            }
           }
-          return true
-        },
-        COMMAND_PRIORITY_LOW)
+        })
+      })
     }
-  }, [step, editor])
+
+    isMounted.current = false
+
+    return () => {
+      isMounted.current = false
+    }
+  }, [])
 
 
   return (

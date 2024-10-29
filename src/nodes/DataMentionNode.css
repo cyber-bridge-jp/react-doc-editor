@@ -14,6 +14,21 @@
     min-width: unset;
 }
 
+.DataMention__contentEditable[data-mention-input-error] {
+    border: 1px solid red;
+}
+
+.DataMention__contentEditable[data-mention-input-error]:before {
+    content: attr(data-mention-input-error);
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    word-break: keep-all;
+}
+
 .DataMention__contentEditable:focus {
     outline-color: #e1971a;
 }

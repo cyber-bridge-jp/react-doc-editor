@@ -26,7 +26,6 @@ import {LexicalEditor, TextNodeThemeClasses} from 'lexical/LexicalEditor'
 import React, {Suspense} from 'react'
 import {getCachedClassNameArray, toggleTextFormatType} from '../LexicalUtils.tsx'
 import invariant from '../utils/invariant.ts'
-import {DataMentionObject} from '../plugins/DataMentionPlugin'
 import {$generateHtmlFromNodes} from '@lexical/html'
 
 const LazyDataMentionComponent = React.lazy(() => import('./DataMentionComponent'))
@@ -62,11 +61,9 @@ function convertDataMentionElement(
   const dataMention = domNode.getAttribute('data-mention-type') as DataMentionType
   const fieldName = domNode.getAttribute('data-mention-field')
   const label = domNode.getAttribute('data-mention-label')
-  const step = domNode.getAttribute('data-mention-step')
 
-
-  if (dataMention !== null && fieldName !== null && label !== null && step !== null) {
-    const node = $createDataMentionNode({dataMention, fieldName, label, data, step: parseInt(step) as 1 | 2 | 3})
+  if (dataMention !== null && fieldName !== null && label !== null) {
+    const node = $createDataMentionNode({dataMention, fieldName, label, data})
     return {
       node,
     }
@@ -201,9 +198,8 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
   __format: number
   __style: string
   __decoratorSpan: HTMLSpanElement | null
+  __inputError: string | null = null
   defaultStep: 1 | 2 | 3 = 1
-  autoMentionData: DataMentionObject[] = []
-  autoAfterMentionData: DataMentionObject[] = []
 
   static getType() {
     return 'data-mention'
@@ -219,6 +215,7 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
       node.__step,
       node.__format,
       node.__style,
+      node.__inputError,
       node.__key,
     )
   }
@@ -232,6 +229,7 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     step?: 1 | 2 | 3,
     format?: number,
     style?: string,
+    inputError?: string | null,
     key?: NodeKey,
   ) {
     super(key)
@@ -244,6 +242,7 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     this.__format = format || 0
     this.__style = style || ''
     this.__decoratorSpan = null
+    this.__inputError = inputError || null
   }
   getFormat(): number {
     const self = this.getLatest()
@@ -282,7 +281,6 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     const className = theme.dataMention
     // copy dom
     dom.setAttribute('data-mention-type', this.__dataMention)
-    dom.setAttribute('data-mention-step', this.__step.toString())
     dom.setAttribute('data-mention-field', this.__fieldName)
     dom.setAttribute('data-mention-label', this.__label)
     dom.setAttribute('data-lexical-data-mention', 'true')
@@ -428,32 +426,12 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
         }
       }
     }
-    if ((node.__dataMention === 'auto' && node.__step === 2) || (node.__dataMention === 'after-auto' && node.__step === 3)) {
-      let data: DataMentionObject | undefined
-      if (node.__dataMention === 'auto') {
-        data = this.prototype.autoMentionData.find((d) => d[node.__fieldName] && d[node.__fieldName].label === node.__label)
-      } else {
-        data = this.prototype.autoAfterMentionData.find((d) => d[node.__fieldName] && d[node.__fieldName].label === node.__label)
-      }
-      if (data) {
-        const dataOption = data[node.__fieldName]
-        let value = dataOption.value
-        if (value && dataOption.isMan) {
-          value = parseInt(value.toString()) * 10000
-        }
-        if (value && dataOption.isNumber) {
-          value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        }
-        node.setData(value)
-      }
-    }
     return node
   }
 
   exportDOM(): DOMExportOutput {
     const element = document.createElement('span')
     element.setAttribute('data-mention-type', this.__dataMention)
-    element.setAttribute('data-mention-step', this.__step.toString())
     element.setAttribute('data-mention-field', this.__fieldName)
     element.setAttribute('data-mention-label', this.__label)
     element.setAttribute('data-lexical-data-mention', 'true')
@@ -539,6 +517,11 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     self.__decoratorSpan = span
   }
 
+  setError(error: string | null) {
+    const self = this.getWritable()
+    self.__inputError = error
+  }
+
   patchStyle(styles: Record<string, string>): this {
     if (this.isInput()) {
       return this
@@ -583,6 +566,7 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
           value={this.__value}
           data={this.__data}
           step={this.__step}
+          error={this.__inputError}
           nodeKey={this.__key}
         />
       </Suspense>

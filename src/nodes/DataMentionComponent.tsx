@@ -46,6 +46,7 @@ export default function DataMentionComponent(
     data,
     step,
     nodeKey,
+    error,
   }: {
     dataMention: 'auto' | 'input' | 'after-auto';
     label: string;
@@ -53,6 +54,7 @@ export default function DataMentionComponent(
     data: string | number | null;
     step: 1 | 2 | 3;
     nodeKey: NodeKey;
+    error: string | null;
   },
 ): React.JSX.Element {
   const {historyState} = useSharedHistoryContext()
@@ -147,6 +149,12 @@ export default function DataMentionComponent(
       }
     }
 
+    if (value && step == 2) {
+      editor.update(() => {
+        value.setEditable(true)
+      })
+    }
+
     return () => {
       unregister()
     }
@@ -188,6 +196,7 @@ export default function DataMentionComponent(
                     contentEditable={
                       <ContentEditable
                         data-mention-input-step={step}
+                        {...error ? {'data-mention-input-error': error} : {}}
                         className="DataMention__contentEditable"/>
                     }
                     placeholder={

@@ -1,6 +1,6 @@
 export type { InitialConfigType, InitialEditorStateType } from '@lexical/react/LexicalComposer';
 export type { DocumentEditorProps } from './DocumentEditor';
-export type { DataMentionNode } from '../nodes/DataMentionNode';
+export type { DataMentionNode as DataMentionNodeT } from '../nodes/DataMentionNode';
 export { default as DocumentEditor } from './DocumentEditor';
-export { $isDataMentionNode } from '../nodes/DataMentionNode';
+export { $isDataMentionNode, DataMentionNode } from '../nodes/DataMentionNode';
 //# sourceMappingURL=index.d.ts.map

@@ -207,12 +207,12 @@ export default function DataMentionComponent(
                       <ContentEditable
                         ref={(ref) => {editorRef.current = ref}}
                         data-mention-input-step={step}
-                        {...error ? {'data-mention-input-error': error} : {}}
+                        {...error !== null ? {'data-mention-input-error': error} : {}}
                         className="DataMention__contentEditable"/>
                     }
                     placeholder={
                       <Placeholder
-                        className={error != null ? 'DataMention__placeholder_error' : 'DataMention__placeholder'}
+                        className={error !== null ? 'DataMention__placeholder_error' : 'DataMention__placeholder'}
                       >
                         {error ? error : `${label}を入力してください`}
                       </Placeholder>

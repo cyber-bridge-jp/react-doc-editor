@@ -304,7 +304,7 @@ export default function DataMentionPlugin(
   useEffect(() => {
     if (!isMounted.current) return
     // get data-mention nodes
-    if (step === 2) {
+    if (step === 2 || step === 3) {
       editor.update(() => {
         const nodes = $nodesOfType(DataMentionNode)
         nodes.forEach(node => {

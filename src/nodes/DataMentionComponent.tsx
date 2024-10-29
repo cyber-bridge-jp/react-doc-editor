@@ -59,6 +59,7 @@ export default function DataMentionComponent(
 ): React.JSX.Element {
   const {historyState} = useSharedHistoryContext()
   const divRef = React.useRef<HTMLSpanElement>(null)
+  const editorRef = React.useRef<HTMLDivElement | null>(null)
   const [isSelected, setSelected, clearSelection] = useLexicalNodeSelection(nodeKey)
   const [editor] = useLexicalComposerContext()
 
@@ -160,6 +161,16 @@ export default function DataMentionComponent(
     }
   }, [editor, onClick, onDelete])
 
+  useEffect(() => {
+    if (editorRef.current) {
+      const elem = editorRef.current
+      const sibling = elem?.nextSibling?.firstChild?.parentElement
+      if (sibling && elem) {
+        elem.style.minWidth = `${sibling.offsetWidth}px`
+      }
+    }
+  }, [])
+
 
   return (
     <Suspense fallback={null}>
@@ -181,7 +192,6 @@ export default function DataMentionComponent(
           : (
             step !== 1 && value ?
               <span className="data-mention-input-container" data-mention-input-step={step}>
-                <b>{label}</b>
                 <LexicalNestedComposer
                   initialEditor={value}
                   initialNodes={[RootNode, TextNode, LineBreakNode, ParagraphNode, EmojiNode, KeywordNode]}
@@ -195,13 +205,16 @@ export default function DataMentionComponent(
                   <RichTextPlugin
                     contentEditable={
                       <ContentEditable
+                        ref={(ref) => {editorRef.current = ref}}
                         data-mention-input-step={step}
                         {...error ? {'data-mention-input-error': error} : {}}
                         className="DataMention__contentEditable"/>
                     }
                     placeholder={
-                      <Placeholder className="DataMention__placeholder">
-                        Enter a {label}...
+                      <Placeholder
+                        className={error ? 'DataMention__placeholder_error' : 'DataMention__placeholder'}
+                      >
+                        {error ? error : `${label}を入力してください`}
                       </Placeholder>
                     }
                     ErrorBoundary={LexicalErrorBoundary}

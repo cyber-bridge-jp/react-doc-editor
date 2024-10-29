@@ -18,21 +18,24 @@
     border: 1px solid red;
 }
 
-.DataMention__contentEditable[data-mention-input-error]:before {
-    content: attr(data-mention-input-error);
-    color: red;
-    font-size: 12px;
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    word-break: keep-all;
-}
-
 .DataMention__contentEditable:focus {
     outline-color: #e1971a;
 }
 
+
+.DataMention__placeholder,
+.DataMention__placeholder_error {
+    color: red;
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    left: 5px;
+    user-select: none;
+    white-space: nowrap;
+    display: inline-block;
+    pointer-events: none;
+}
+
 .DataMention__placeholder {
-    display: none;
+    color: #e1971a;
 }

@@ -91,6 +91,7 @@ const blockTypeToBlockName = {
 }
 
 const FONT_FAMILY_OPTIONS: [string, string][] = [
+  ['"Noto Sans JP", serif', 'Noto Sans JP'],
   ['Arial', 'Arial'],
   ['Courier New', 'Courier New'],
   ['Georgia', 'Georgia'],
@@ -316,7 +317,7 @@ function FontDropDown({
     <DropDown
       disabled={disabled}
       buttonClassName={'toolbar-item ' + style}
-      buttonLabel={value}
+      buttonLabel={FONT_FAMILY_OPTIONS.find(([option]) => option === value)?.[1] || value}
       buttonIconClassName={
         style === 'font-family' ? 'icon block-type font-family' : ''
       }
@@ -451,7 +452,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
   const [fontSize, setFontSize] = useState<string>('15px')
   const [fontColor, setFontColor] = useState<string>('#000')
   const [bgColor, setBgColor] = useState<string>('#fff')
-  const [fontFamily, setFontFamily] = useState<string>('Arial')
+  const [fontFamily, setFontFamily] = useState<string>('"Noto Sans JP", serif')
   const [elementFormat, setElementFormat] = useState<ElementFormatType>('left')
   const [isLink, setIsLink] = useState(false)
   const [isBold, setIsBold] = useState(false)
@@ -482,7 +483,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
       setFontSize(node.getStyleValue('font-size', '15px'))
       setFontColor(node.getStyleValue('color', '#000'))
       setBgColor(node.getStyleValue('background-color', '#fff'))
-      setFontFamily(node.getStyleValue('font-family', 'Arial'))
+      setFontFamily(node.getStyleValue('font-family', '"Noto Sans JP", serif'))
     } else if ($isRangeSelection(selection)) {
       const anchorNode = selection.anchor.getNode()
       let element =
@@ -552,7 +553,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
         ),
       )
       setFontFamily(
-        $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial'),
+        $getSelectionStyleValueForProperty(selection, 'font-family', '"Noto Sans JP", serif'),
       )
       let matchingParent
       if ($isLinkNode(parent)) {

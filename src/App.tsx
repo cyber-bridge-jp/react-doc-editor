@@ -28,7 +28,7 @@ const App: React.FC = () => {
             editorRef.current = editor
           }
         }}
-        step={2}
+        step={1}
       />
       <button onClick={() => setUpdated(updated + 1)}>Update</button>
       <div dangerouslySetInnerHTML={{__html: html}}/>

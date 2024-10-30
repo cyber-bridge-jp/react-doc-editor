@@ -244,6 +244,32 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     this.__decoratorSpan = null
     this.__inputError = inputError || null
   }
+
+  getDataMention(): DataMentionType {
+    const self = this.getLatest()
+    return self.__dataMention
+  }
+
+  getFieldName(): string {
+    const self = this.getLatest()
+    return self.__fieldName
+  }
+
+  getLabel(): string {
+    const self = this.getLatest()
+    return self.__label
+  }
+
+  getValue(): LexicalEditor | undefined {
+    const self = this.getLatest()
+    return self.__value
+  }
+
+  getData(): string | number | null {
+    const self = this.getLatest()
+    return self.__data
+  }
+
   getFormat(): number {
     const self = this.getLatest()
     return self.__format
@@ -268,6 +294,10 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
 
   canHaveFormat(): boolean {
     return true
+  }
+
+  isInput(): boolean {
+    return this.getDataMention() === 'input'
   }
 
   createDOM(config: EditorConfig): HTMLElement {
@@ -465,12 +495,13 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
   }
 
   exportJSON(): SerializedDataMentionNode {
+    const val = this.getValue()
     return {
-      dataMention: this.__dataMention,
-      fieldName: this.__fieldName,
-      label: this.__label,
-      value: this.__value && this.__value.toJSON(),
-      data: this.__data,
+      dataMention: this.getDataMention(),
+      fieldName: this.getFieldName(),
+      label: this.getLabel(),
+      value: val && val.toJSON(),
+      data: this.getData(),
       version: 1,
       type: 'data-mention',
       format: this.getFormat(),
@@ -478,18 +509,22 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     }
   }
 
-  isInput(): boolean {
-    return this.__dataMention === 'input'
+  setData(data: string | number | null): this {
+    const self = this.getWritable()
+    self.__data = data
+    return self
   }
 
-  setData(data: string | number | null) {
-    const writable = this.getWritable()
-    writable.__data = data
+  setLabel(label: string): this {
+    const self = this.getWritable()
+    self.__label = label
+    return self
   }
 
-  setLabel(label: string) {
-    const writable = this.getWritable()
-    writable.__label = label
+  setValue(value: LexicalEditor): this {
+    const self = this.getWritable()
+    self.__value = value
+    return self
   }
 
   setFormat(format: TextFormatType | number): this {
@@ -574,7 +609,7 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
   }
 
   remove(preserveEmptyParent?: boolean) {
-    if (this.__dataMention !== 'input' && this.__decoratorSpan) {
+    if (this.__data !== 'input' && this.__decoratorSpan) {
       setToOutsideDecorator(this.__decoratorSpan)
     }
     super.remove(preserveEmptyParent)

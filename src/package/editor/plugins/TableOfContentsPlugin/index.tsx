@@ -60,7 +60,7 @@ function TableOfContentsList(
           domElement.scrollIntoView()
         } else {
           scrollElementRef.current?.scrollTo({
-            top: domElement.offsetTop - scrollElementRef.current.offsetTop,
+            top: domElement.offsetTop,
             behavior: 'smooth',
           })
         }

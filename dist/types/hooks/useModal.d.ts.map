@@ -1,0 +1,1 @@
+{"version":3,"file":"useModal.d.ts","sourceRoot":"","sources":["../../../src/package/editor/hooks/useModal.tsx"],"names":[],"mappings":"AACA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAI/B,MAAM,CAAC,OAAO,UAAU,QAAQ,IAAI;IAClC,KAAK,CAAC,GAAG,CAAC,OAAO,GAAG,IAAI;IACxB,CAAC,KAAK,EAAE,MAAM,EAAE,SAAS,EAAE,CAAC,OAAO,EAAE,MAAM,IAAI,KAAK,KAAK,CAAC,GAAG,CAAC,OAAO,KAAK,IAAI;CAC/E,CA2CA"}

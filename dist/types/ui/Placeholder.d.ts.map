@@ -1,0 +1,1 @@
+{"version":3,"file":"Placeholder.d.ts","sourceRoot":"","sources":["../../../src/package/editor/ui/Placeholder.tsx"],"names":[],"mappings":"AAAA,OAAO,mBAAmB,CAAC;AAE3B,OAAO,KAAK,MAAM,OAAO,CAAC;AAE1B,MAAM,CAAC,OAAO,UAAU,WAAW,CAAC,EAClC,QAAQ,EACR,SAAS,GACV,EAAE;IACD,QAAQ,EAAE,KAAK,CAAC,SAAS,CAAC;IAC1B,SAAS,CAAC,EAAE,MAAM,CAAC;CACpB,GAAG,KAAK,CAAC,YAAY,CAErB"}

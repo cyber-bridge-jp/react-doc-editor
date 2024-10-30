@@ -9,13 +9,13 @@ export default defineConfig({
         react(),
         dts({
             insertTypesEntry: true,
-            include: ['src/components/'],
+            include: ['src/package/editor'],
             outDir: 'dist/types'
         })
     ],
     build: {
         lib: {
-            entry: path.resolve("src", 'components/index.ts'),
+            entry: path.resolve("src", 'package/editor/index.ts'),
             name: 'react-doc-editor',
             formats: ['es', 'umd'],
             fileName: (format) => `react-doc-editor.${format}.js`

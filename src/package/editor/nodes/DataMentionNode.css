@@ -1,0 +1,42 @@
+.DataMention__contentEditable {
+    border-radius: 10px;
+    border: 1px solid #e1971a;
+    font-size: 15px;
+    padding-left: 4px;
+    padding-right: 4px;
+    min-width: 50px;
+}
+
+.DataMention__contentEditable[data-mention-input-step='3'] {
+    border-radius: unset;
+    border: unset;
+    font-size: unset;
+    padding-left: unset;
+    min-width: unset;
+}
+
+.DataMention__contentEditable[data-mention-input-error] {
+    border: 1px solid red;
+}
+
+.DataMention__contentEditable:focus {
+    outline-color: #e1971a;
+}
+
+
+.DataMention__placeholder,
+.DataMention__placeholder_error {
+    color: red;
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    left: 5px;
+    user-select: none;
+    white-space: nowrap;
+    display: inline-block;
+    pointer-events: none;
+}
+
+.DataMention__placeholder {
+    color: #e1971a;
+}

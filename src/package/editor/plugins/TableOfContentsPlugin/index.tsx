@@ -9,7 +9,7 @@ import {TableOfContentsPlugin as LexicalTableOfContentsPlugin} from '@lexical/re
 import {useEffect, useRef, useState} from 'react'
 import * as React from 'react'
 
-const MARGIN_ABOVE_EDITOR = 624
+const MARGIN_ABOVE_EDITOR = 300
 const HEADING_WIDTH = 9
 
 function indent(tagName: HeadingTagType) {
@@ -47,7 +47,7 @@ function TableOfContentsList(
 ): React.ReactElement {
   const [selectedKey, setSelectedKey] = useState('')
   const tableOfContentsRef = useRef<HTMLUListElement | null>(null)
-  const scrollElementRef = useRef<HTMLElement | null>(null)
+  const scrollElementRef = useRef<HTMLElement | Document | null>(null)
   const selectedIndex = useRef(0)
   const [editor] = useLexicalComposerContext()
   const scrollPosition = useRef(new Map<HTMLElement, number>())
@@ -56,13 +56,13 @@ function TableOfContentsList(
     editor.getEditorState().read(() => {
       const domElement = editor.getElementByKey(key)
       if (domElement !== null) {
-        if (!scrollElementRef.current) {
-          domElement.scrollIntoView()
-        } else {
-          scrollElementRef.current?.scrollTo({
+        if (scrollElementRef.current && scrollElementRef.current instanceof HTMLElement) {
+          scrollElementRef.current.scrollTo({
             top: domElement.offsetTop,
             behavior: 'smooth',
           })
+        } else {
+          domElement.scrollIntoView({behavior: 'smooth'})
         }
         setSelectedKey(key)
         selectedIndex.current = currIndex
@@ -171,7 +171,7 @@ function TableOfContentsList(
       const lastScrollTop = scrollPosition.current.get(target) || 0
       if (target.scrollTop !== lastScrollTop) {
         scrollPosition.current.set(target, target.scrollTop)
-        debounceFunction(scrollCallback, 10)(ev)
+        debounceFunction(scrollCallback, 50)(ev)
       }
     }
 

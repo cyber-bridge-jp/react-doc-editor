@@ -9,7 +9,7 @@ import {
 import './index.css'
 
 import {
-  $nodesOfType,
+  $nodesOfType, COMMAND_PRIORITY_EDITOR, createCommand,
   TextNode,
 } from 'lexical'
 import {useCallback, useEffect, useMemo, useState} from 'react'
@@ -20,6 +20,9 @@ import {
   $createDataMentionNode, DataMentionNode,
   DataMentionType,
 } from '../../nodes/DataMentionNode.tsx'
+import {mergeRegister} from '@lexical/utils'
+
+export const UPDATE_AUTO_DATA_COMMAND = createCommand('UPDATE_AUTO_DATA_COMMAND')
 
 const PUNCTUATION =
   '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;'
@@ -226,7 +229,6 @@ export default function DataMentionPlugin(
   const [inputVal, setInputVal] = useState<string>()
   const [showInput, setShowInput] = useState<boolean>(false)
   const [selectedItem, setSelectedItem] = useState<DataMentionNode | null>(null)
-  const isMounted = React.useRef(true)
 
   const data = trigger === AUTO_TRIGGER ? autoData : trigger === AFTER_AUTO_TRIGGER ? afterAutoData : inputData
   const results = useMentionLookupService(queryString, data, trigger)
@@ -302,9 +304,11 @@ export default function DataMentionPlugin(
   )
 
   useEffect(() => {
-    if (!isMounted.current) return
-    // get data-mention nodes
-    if (step === 2 || step === 3) {
+    if (!editor.hasNodes([DataMentionNode])) {
+      throw new Error('DataMentionPlugin: DataMentionNode not registered on editor')
+    }
+
+    const updateAutoData = () => {
       editor.update(() => {
         const nodes = $nodesOfType(DataMentionNode)
         nodes.forEach(node => {
@@ -331,12 +335,23 @@ export default function DataMentionPlugin(
       })
     }
 
-    isMounted.current = false
+    updateAutoData()
 
-    return () => {
-      isMounted.current = false
-    }
-  }, [afterAutoData, autoData, editor, step])
+    return mergeRegister(
+      editor.registerCommand(
+        UPDATE_AUTO_DATA_COMMAND,
+        () => {
+          if (step === 2 || step === 3) {
+            updateAutoData()
+            return true
+          }
+          return false
+        },
+        COMMAND_PRIORITY_EDITOR,
+      ),
+    )
+
+  }, [editor])
 
 
   return (

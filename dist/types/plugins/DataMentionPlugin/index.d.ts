@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+export declare const UPDATE_AUTO_DATA_COMMAND: import('lexical').LexicalCommand<unknown>;
 export type DataMentionData = {
     label: string;
     value: string | number | null;

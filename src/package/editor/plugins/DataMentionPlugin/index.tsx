@@ -336,7 +336,7 @@ export default function DataMentionPlugin(
     return () => {
       isMounted.current = false
     }
-  }, [])
+  }, [afterAutoData, autoData, editor, step])
 
 
   return (

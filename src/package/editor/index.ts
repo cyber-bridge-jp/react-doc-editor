@@ -4,4 +4,3 @@ export type { DataMentionNode as DataMentionNodeT } from './nodes/DataMentionNod
 export { default as DocumentEditor } from './DocumentEditor.tsx';
 export { $isDataMentionNode, DataMentionNode } from './nodes/DataMentionNode.tsx';
 export { UPDATE_AUTO_DATA_COMMAND } from './plugins/DataMentionPlugin';
-import './styles.css';

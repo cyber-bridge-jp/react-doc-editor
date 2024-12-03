@@ -10,7 +10,7 @@ export default defineConfig({
         dts({
             insertTypesEntry: true,
             include: ['src/package/editor'],
-            outDir: 'dist/types'
+            outDir: 'dist/types',
         })
     ],
     build: {

@@ -9,6 +9,7 @@ import { EditorRefPlugin } from "@lexical/react/LexicalEditorRefPlugin"
 import React from "react";
 import {EditorState, LexicalEditor} from 'lexical'
 import {DataMentionObject} from "./plugins/DataMentionPlugin";
+import './styles.css';
 
 export interface DocumentEditorProps {
     editorState?: InitialEditorStateType;

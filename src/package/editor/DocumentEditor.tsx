@@ -50,7 +50,7 @@ function DocumentEditor(props: DocumentEditorProps): React.ReactElement {
         <LexicalComposer initialConfig={initialConfig}>
             <EditorRefPlugin editorRef={editorRef} />
             <SharedHistoryContext initHistoryState={historyState}>
-                <div className="editor-shell">
+                <div className="doc-editor-shell">
                     <Editor
                       step={step}
                       autoAfterMentionData={autoAfterMentionData}

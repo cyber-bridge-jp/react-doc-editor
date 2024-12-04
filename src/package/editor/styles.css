@@ -38,7 +38,7 @@ header h1 {
     margin: 20px 0 0 0;
 }
 
-.editor-shell {
+.doc-editor-shell {
     border-radius: 2px;
     max-width: 1100px;
     color: #000;
@@ -47,7 +47,7 @@ header h1 {
     font-weight: 400;
 }
 
-.editor-shell .editor-container {
+.doc-editor-shell .editor-container {
     background: #fff;
     position: relative;
     display: block;
@@ -55,16 +55,16 @@ header h1 {
     border-bottom-right-radius: 10px;
 }
 
-.editor-shell .editor-container.tree-view {
+.doc-editor-shell .editor-container.tree-view {
     border-radius: 0;
 }
 
-.editor-shell .editor-container.plain-text {
+.doc-editor-shell .editor-container.plain-text {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
 
-.editor-scroller {
+.doc-editor-shell .editor-scroller {
     min-height: 150px;
     border: 0;
     display: flex;
@@ -75,19 +75,19 @@ header h1 {
     resize: vertical;
 }
 
-.editor {
+.doc-editor-shell .editor {
     flex: auto;
     position: relative;
     resize: vertical;
     z-index: -1;
 }
 
-.test-recorder-output {
+.doc-editor-shell .test-recorder-output {
     margin: 20px auto 20px auto;
     width: 100%;
 }
 
-pre {
+.doc-editor-shell pre {
     line-height: 1.1;
     background: #222;
     color: #fff;
@@ -98,7 +98,7 @@ pre {
     max-height: 400px;
 }
 
-.tree-view-output {
+.doc-editor-shell .tree-view-output {
     display: block;
     background: #222;
     color: #fff;
@@ -111,16 +111,16 @@ pre {
     border-bottom-right-radius: 10px;
 }
 
-pre::-webkit-scrollbar {
+.doc-editor-shell pre::-webkit-scrollbar {
     background: transparent;
     width: 10px;
 }
 
-pre::-webkit-scrollbar-thumb {
+.doc-editor-shell pre::-webkit-scrollbar-thumb {
     background: #999;
 }
 
-.editor-dev-button {
+.doc-editor-shell .editor-dev-button {
     position: relative;
     display: block;
     width: 40px;
@@ -134,7 +134,7 @@ pre::-webkit-scrollbar-thumb {
     background-color: #444;
 }
 
-.editor-dev-button::after {
+.doc-editor-shell .editor-dev-button::after {
     content: '';
     position: absolute;
     top: 10px;
@@ -146,19 +146,19 @@ pre::-webkit-scrollbar-thumb {
     filter: invert(1);
 }
 
-.editor-dev-button:hover {
+.doc-editor-shell .editor-dev-button:hover {
     background-color: #555;
 }
 
-.editor-dev-button.active {
+.doc-editor-shell .editor-dev-button.active {
     background-color: rgb(233, 35, 35);
 }
 
-.test-recorder-toolbar {
+.doc-editor-shell .test-recorder-toolbar {
     display: flex;
 }
 
-.test-recorder-button {
+.doc-editor-shell .test-recorder-button {
     position: relative;
     display: block;
     width: 32px;
@@ -174,15 +174,15 @@ pre::-webkit-scrollbar-thumb {
     transition: box-shadow 50ms ease-out;
 }
 
-.test-recorder-button:active {
+.doc-editor-shell .test-recorder-button:active {
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-.test-recorder-button + .test-recorder-button {
+.doc-editor-shell .test-recorder-button + .test-recorder-button {
     margin-left: 4px;
 }
 
-.test-recorder-button::after {
+.doc-editor-shell .test-recorder-button::after {
     content: '';
     position: absolute;
     top: 8px;
@@ -194,69 +194,69 @@ pre::-webkit-scrollbar-thumb {
     filter: invert(1);
 }
 
-#options-button {
+.doc-editor-shell #options-button {
     position: fixed;
     left: 20px;
     bottom: 20px;
 }
 
-#test-recorder-button {
+.doc-editor-shell #test-recorder-button {
     position: fixed;
     left: 70px;
     bottom: 20px;
 }
 
-#paste-log-button {
+.doc-editor-shell #paste-log-button {
     position: fixed;
     left: 120px;
     bottom: 20px;
 }
 
-#docs-button {
+.doc-editor-shell #docs-button {
     position: fixed;
     left: 170px;
     bottom: 20px;
 }
 
-#options-button::after {
+.doc-editor-shell #options-button::after {
     background-image: url(../../assets/icons/gear.svg);
 }
 
-#test-recorder-button::after {
+.doc-editor-shell #test-recorder-button::after {
     background-image: url(../../assets/icons/journal-code.svg);
 }
 
-#paste-log-button::after {
+.doc-editor-shell #paste-log-button::after {
     background-image: url(../../assets/icons/clipboard.svg);
 }
 
-#docs-button::after {
+.doc-editor-shell #docs-button::after {
     background-image: url(../../assets/icons/file-earmark-text.svg);
 }
 
-#test-recorder-button-snapshot {
+.doc-editor-shell #test-recorder-button-snapshot {
     margin-right: auto;
 }
 
-#test-recorder-button-snapshot::after {
+.doc-editor-shell #test-recorder-button-snapshot::after {
     background-image: url(../../assets/icons/camera.svg);
 }
 
-#test-recorder-button-copy::after {
+.doc-editor-shell #test-recorder-button-copy::after {
     background-image: url(../../assets/icons/clipboard.svg);
 }
 
-#test-recorder-button-download::after {
+.doc-editor-shell #test-recorder-button-download::after {
     background-image: url(../../assets/icons/download.svg);
 }
 
-.typeahead-popover {
+.doc-editor-shell .typeahead-popover {
     background: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
 }
 
-.typeahead-popover ul {
+.doc-editor-shell .typeahead-popover ul {
     padding: 0;
     list-style: none;
     margin: 0;
@@ -265,16 +265,16 @@ pre::-webkit-scrollbar-thumb {
     overflow-y: scroll;
 }
 
-.typeahead-popover ul::-webkit-scrollbar {
+.doc-editor-shell .typeahead-popover ul::-webkit-scrollbar {
     display: none;
 }
 
-.typeahead-popover ul {
+.doc-editor-shell .typeahead-popover ul {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
 
-.typeahead-popover ul li {
+.doc-editor-shell .typeahead-popover ul li {
     margin: 0;
     min-width: 180px;
     font-size: 14px;
@@ -283,11 +283,11 @@ pre::-webkit-scrollbar-thumb {
     border-radius: 8px;
 }
 
-.typeahead-popover ul li.selected {
+.doc-editor-shell .typeahead-popover ul li.selected {
     background: #eee;
 }
 
-.typeahead-popover li {
+.doc-editor-shell .typeahead-popover li {
     margin: 0 8px 0 8px;
     padding: 8px;
     color: #050505;
@@ -303,33 +303,33 @@ pre::-webkit-scrollbar-thumb {
     border: 0;
 }
 
-.typeahead-popover li.active {
+.doc-editor-shell .typeahead-popover li.active {
     display: flex;
     width: 20px;
     height: 20px;
     background-size: contain;
 }
 
-.typeahead-popover li:first-child {
+.doc-editor-shell .typeahead-popover li:first-child {
     border-radius: 8px 8px 0 0;
 }
 
-.typeahead-popover li:last-child {
+.doc-editor-shell .typeahead-popover li:last-child {
     border-radius: 0 0 8px 8px;
 }
 
-.typeahead-popover li:hover {
+.doc-editor-shell .typeahead-popover li:hover {
     background-color: #eee;
 }
 
-.typeahead-popover li .text {
+.doc-editor-shell .typeahead-popover li .text {
     display: flex;
     line-height: 20px;
     flex-grow: 1;
     min-width: 150px;
 }
 
-.typeahead-popover li .icon {
+.doc-editor-shell .typeahead-popover li .icon {
     display: flex;
     width: 20px;
     height: 20px;
@@ -341,95 +341,95 @@ pre::-webkit-scrollbar-thumb {
     background-position: center;
 }
 
-.component-picker-menu {
+.doc-editor-shell .component-picker-menu {
     width: 200px;
 }
 
-.mentions-menu {
+.doc-editor-shell .mentions-menu {
     width: 250px;
 }
 
-.auto-embed-menu {
+.doc-editor-shell .auto-embed-menu {
     width: 150px;
 }
 
-.emoji-menu {
+.doc-editor-shell .emoji-menu {
     width: 200px;
 }
 
-i.palette {
+.doc-editor-shell i.palette {
     background-image: url(../../assets/icons/palette.svg);
 }
 
-i.bucket {
+.doc-editor-shell i.bucket {
     background-image: url(../../assets/icons/paint-bucket.svg);
 }
 
-i.bold {
+.doc-editor-shell i.bold {
     background-image: url(../../assets/icons/type-bold.svg);
 }
 
-i.italic {
+.doc-editor-shell i.italic {
     background-image: url(../../assets/icons/type-italic.svg);
 }
 
-i.clear {
+.doc-editor-shell i.clear {
     background-image: url(../../assets/icons/trash.svg);
 }
 
-i.code {
+.doc-editor-shell i.code {
     background-image: url(../../assets/icons/code.svg);
 }
 
-i.underline {
+.doc-editor-shell i.underline {
     background-image: url(../../assets/icons/type-underline.svg);
 }
 
-i.strikethrough {
+.doc-editor-shell i.strikethrough {
     background-image: url(../../assets/icons/type-strikethrough.svg);
 }
 
-i.subscript {
+.doc-editor-shell i.subscript {
     background-image: url(../../assets/icons/type-subscript.svg);
 }
 
-i.superscript {
+.doc-editor-shell i.superscript {
     background-image: url(../../assets/icons/type-superscript.svg);
 }
 
-i.link {
+.doc-editor-shell i.link {
     background-image: url(../../assets/icons/link.svg);
 }
 
-i.horizontal-rule {
+.doc-editor-shell i.horizontal-rule {
     background-image: url(../../assets/icons/horizontal-rule.svg);
 }
 
-.icon.plus {
+.doc-editor-shell .icon.plus {
     background-image: url(../../assets/icons/plus.svg);
 }
 
-.icon.caret-right {
+.doc-editor-shell .icon.caret-right {
     background-image: url(../../assets/icons/caret-right-fill.svg);
 }
 
-.icon.dropdown-more {
+.doc-editor-shell .icon.dropdown-more {
     background-image: url(../../assets/icons/dropdown-more.svg);
 }
 
-.icon.font-color {
+.doc-editor-shell .icon.font-color {
     background-image: url(../../assets/icons/font-color.svg);
 }
 
-.icon.font-family {
+.doc-editor-shell .icon.font-family {
     background-image: url(../../assets/icons/font-family.svg);
 }
 
-.icon.bg-color {
+.doc-editor-shell .icon.bg-color {
     background-image: url(../../assets/icons/bg-color.svg);
 }
 
-.icon.table {
+.doc-editor-shell .icon.table {
     background-color: #6c757d;
     mask-image: url(../../assets/icons/table.svg);
     -webkit-mask-image: url(../../assets/icons/table.svg);
@@ -439,35 +439,35 @@ i.horizontal-rule {
     -webkit-mask-size: contain;
 }
 
-i.image {
+.doc-editor-shell i.image {
     background-image: url(../../assets/icons/file-image.svg);
 }
 
-i.table {
+.doc-editor-shell i.table {
     background-image: url(../../assets/icons/table.svg);
 }
 
-i.close {
+.doc-editor-shell i.close {
     background-image: url(../../assets/icons/close.svg);
 }
 
-i.figma {
+.doc-editor-shell i.figma {
     background-image: url(../../assets/icons/figma.svg);
 }
 
-i.poll {
+.doc-editor-shell i.poll {
     background-image: url(../../assets/icons/card-checklist.svg);
 }
 
-i.columns {
+.doc-editor-shell i.columns {
     background-image: url(../../assets/icons/3-columns.svg);
 }
 
-i.tweet {
+.doc-editor-shell i.tweet {
     background-image: url(../../assets/icons/tweet.svg);
 }
 
-i.youtube {
+.doc-editor-shell i.youtube {
     background-image: url(../../assets/icons/youtube.svg);
 }
 
@@ -476,100 +476,100 @@ i.left-align {
     background-image: url(../../assets/icons/text-left.svg);
 }
 
-.icon.center-align,
-i.center-align {
+.doc-editor-shell .icon.center-align,
+.doc-editor-shell i.center-align {
     background-image: url(../../assets/icons/text-center.svg);
 }
 
-.icon.right-align,
-i.right-align {
+.doc-editor-shell .icon.right-align,
+.doc-editor-shell i.right-align {
     background-image: url(../../assets/icons/text-right.svg);
 }
 
-.icon.justify-align,
-i.justify-align {
+.doc-editor-shell .icon.justify-align,
+.doc-editor-shell i.justify-align {
     background-image: url(../../assets/icons/justify.svg);
 }
 
-i.indent {
+.doc-editor-shell i.indent {
     background-image: url(../../assets/icons/indent.svg);
 }
 
-i.markdown {
+.doc-editor-shell i.markdown {
     background-image: url(../../assets/icons/markdown.svg);
 }
 
-i.outdent {
+.doc-editor-shell i.outdent {
     background-image: url(../../assets/icons/outdent.svg);
 }
 
-i.undo {
+.doc-editor-shell i.undo {
     background-image: url(../../assets/icons/arrow-counterclockwise.svg);
 }
 
-i.redo {
+.doc-editor-shell i.redo {
     background-image: url(../../assets/icons/arrow-clockwise.svg);
 }
 
-i.sticky {
+.doc-editor-shell i.sticky {
     background-image: url(../../assets/icons/sticky.svg);
 }
 
-i.mic {
+.doc-editor-shell i.mic {
     background-image: url(../../assets/icons/mic.svg);
 }
 
-i.import {
+.doc-editor-shell i.import {
     background-image: url(../../assets/icons/upload.svg);
 }
 
-i.export {
+.doc-editor-shell i.export {
     background-image: url(../../assets/icons/download.svg);
 }
 
-i.diagram-2 {
+.doc-editor-shell i.diagram-2 {
     background-image: url(../../assets/icons/diagram-2.svg);
 }
 
-i.user {
+.doc-editor-shell i.user {
     background-image: url(../../assets/icons/user.svg);
 }
 
-i.equation {
+.doc-editor-shell i.equation {
     background-image: url(../../assets/icons/plus-slash-minus.svg);
 }
 
-i.gif {
+.doc-editor-shell i.gif {
     background-image: url(../../assets/icons/filetype-gif.svg);
 }
 
-i.copy {
+.doc-editor-shell i.copy {
     background-image: url(../../assets/icons/copy.svg);
 }
 
-i.success {
+.doc-editor-shell i.success {
     background-image: url(../../assets/icons/success.svg);
 }
 
-i.prettier {
+.doc-editor-shell i.prettier {
     background-image: url(../../assets/icons/prettier.svg);
 }
 
-i.prettier-error {
+.doc-editor-shell i.prettier-error {
     background-image: url(../../assets/icons/prettier-error.svg);
 }
 
-i.page-break,
-.icon.page-break {
+.doc-editor-shell i.page-break,
+.doc-editor-shell .icon.page-break {
     background-image: url(../../assets/icons/scissors.svg);
 }
 
-.link-editor .button.active,
-.toolbar .button.active {
+.doc-editor-shell .link-editor .button.active,
+.doc-editor-shell .toolbar .button.active {
     background-color: rgb(223, 232, 250);
 }
 
-.link-editor .link-input {
+.doc-editor-shell .link-editor .link-input {
     display: block;
     width: calc(100% - 75px);
     box-sizing: border-box;
@@ -585,7 +585,7 @@ i.page-break,
     font-family: inherit;
 }
 
-.link-editor .link-view {
+.doc-editor-shell .link-editor .link-view {
     display: block;
     width: calc(100% - 24px);
     margin: 8px 12px;
@@ -599,13 +599,13 @@ i.page-break,
     font-family: inherit;
 }
 
-.link-editor .link-view a {
+.doc-editor-shell .link-editor .link-view a {
     display: block;
     word-break: break-word;
     width: calc(100% - 33px);
 }
 
-.link-editor div.link-edit {
+.doc-editor-shell .link-editor div.link-edit {
     background-image: url(../../assets/icons/pencil-fill.svg);
     background-size: 16px;
     background-position: center;
@@ -619,7 +619,7 @@ i.page-break,
     cursor: pointer;
 }
 
-.link-editor div.link-trash {
+.doc-editor-shell .link-editor div.link-trash {
     background-image: url(../../assets/icons/trash.svg);
     background-size: 16px;
     background-position: center;
@@ -633,7 +633,7 @@ i.page-break,
     cursor: pointer;
 }
 
-.link-editor div.link-cancel {
+.doc-editor-shell .link-editor div.link-cancel {
     background-image: url(../../assets/icons/close.svg);
     background-size: 16px;
     background-position: center;
@@ -648,7 +648,7 @@ i.page-break,
     cursor: pointer;
 }
 
-.link-editor div.link-confirm {
+.doc-editor-shell .link-editor div.link-confirm {
     background-image: url(../../assets/icons/success-alt.svg);
     background-size: 16px;
     background-position: center;
@@ -663,7 +663,7 @@ i.page-break,
     cursor: pointer;
 }
 
-.link-editor .link-input a {
+.doc-editor-shell .link-editor .link-input a {
     color: rgb(33, 111, 219);
     text-decoration: underline;
     white-space: nowrap;
@@ -672,29 +672,29 @@ i.page-break,
     text-overflow: ellipsis;
 }
 
-.link-editor .link-input a:hover {
+.doc-editor-shell .link-editor .link-input a:hover {
     text-decoration: underline;
 }
 
-.link-editor .font-size-wrapper,
-.link-editor .font-family-wrapper {
+.doc-editor-shell .link-editor .font-size-wrapper,
+.doc-editor-shell .link-editor .font-family-wrapper {
     display: flex;
     margin: 0 4px;
 }
 
-.link-editor select {
+.doc-editor-shell .link-editor select {
     padding: 6px;
     border: none;
     background-color: rgba(0, 0, 0, 0.075);
     border-radius: 4px;
 }
 
-.mention:focus {
+.doc-editor-shell .mention:focus {
     box-shadow: rgb(180 213 255) 0 0 0 2px;
     outline: none;
 }
 
-.characters-limit {
+.doc-editor-shell .characters-limit {
     color: #888;
     font-size: 12px;
     text-align: right;
@@ -704,11 +704,11 @@ i.page-break,
     bottom: 5px;
 }
 
-.characters-limit.characters-limit-exceeded {
+.doc-editor-shell .characters-limit.characters-limit-exceeded {
     color: red;
 }
 
-.dropdown {
+.doc-editor-shell .dropdown {
     z-index: 100;
     display: block;
     position: fixed;
@@ -719,7 +719,7 @@ i.page-break,
     background-color: #fff;
 }
 
-.dropdown .item {
+.doc-editor-shell .dropdown .item {
     margin: 0 8px 0 8px;
     padding: 8px;
     color: #050505;
@@ -738,38 +738,38 @@ i.page-break,
     min-width: 100px;
 }
 
-.dropdown .item.fontsize-item,
-.dropdown .item.fontsize-item .text {
+.doc-editor-shell .dropdown .item.fontsize-item,
+.doc-editor-shell .dropdown .item.fontsize-item .text {
     min-width: unset;
 }
 
-.dropdown .item .active {
+.doc-editor-shell .dropdown .item .active {
     display: flex;
     width: 20px;
     height: 20px;
     background-size: contain;
 }
 
-.dropdown .item:first-child {
+.doc-editor-shell .dropdown .item:first-child {
     margin-top: 8px;
 }
 
-.dropdown .item:last-child {
+.doc-editor-shell .dropdown .item:last-child {
     margin-bottom: 8px;
 }
 
-.dropdown .item:hover {
+.doc-editor-shell .dropdown .item:hover {
     background-color: #eee;
 }
 
-.dropdown .item .text {
+.doc-editor-shell .dropdown .item .text {
     display: flex;
     line-height: 20px;
     flex-grow: 1;
     min-width: 150px;
 }
 
-.dropdown .item .icon {
+.doc-editor-shell .dropdown .item .icon {
     display: flex;
     width: 20px;
     height: 20px;
@@ -781,7 +781,7 @@ i.page-break,
     background-repeat: no-repeat;
 }
 
-.dropdown .divider {
+.doc-editor-shell .dropdown .divider {
     width: auto;
     background-color: #eee;
     margin: 4px 8px;
@@ -789,75 +789,75 @@ i.page-break,
 }
 
 @media screen and (max-width: 1100px) {
-    .dropdown-button-text {
+    .doc-editor-shell .dropdown-button-text {
         display: none !important;
     }
 
-    .dialog-dropdown > .dropdown-button-text {
+    .doc-editor-shell .dialog-dropdown > .dropdown-button-text {
         display: flex !important;
     }
 
-    .font-size .dropdown-button-text {
+    .doc-editor-shell .font-size .dropdown-button-text {
         display: flex !important;
     }
 
-    .code-language .dropdown-button-text {
+    .doc-editor-shell .code-language .dropdown-button-text {
         display: flex !important;
     }
 }
 
-.icon.paragraph {
+.doc-editor-shell .icon.paragraph {
     background-image: url(../../assets/icons/text-paragraph.svg);
 }
 
-.icon.h1 {
+.doc-editor-shell .icon.h1 {
     background-image: url(../../assets/icons/type-h1.svg);
 }
 
-.icon.h2 {
+.doc-editor-shell .icon.h2 {
     background-image: url(../../assets/icons/type-h2.svg);
 }
 
-.icon.h3 {
+.doc-editor-shell .icon.h3 {
     background-image: url(../../assets/icons/type-h3.svg);
 }
 
-.icon.h4 {
+.doc-editor-shell .icon.h4 {
     background-image: url(../../assets/icons/type-h4.svg);
 }
 
-.icon.h5 {
+.doc-editor-shell .icon.h5 {
     background-image: url(../../assets/icons/type-h5.svg);
 }
 
-.icon.h6 {
+.doc-editor-shell .icon.h6 {
     background-image: url(../../assets/icons/type-h6.svg);
 }
 
-.icon.bullet-list,
-.icon.bullet {
+.doc-editor-shell .icon.bullet-list,
+.doc-editor-shell .icon.bullet {
     background-image: url(../../assets/icons/list-ul.svg);
 }
 
-.icon.check-list,
-.icon.check {
+.doc-editor-shell .icon.check-list,
+.doc-editor-shell .icon.check {
     background-image: url(../../assets/icons/square-check.svg);
 }
 
-.icon.numbered-list,
-.icon.number {
+.doc-editor-shell .icon.numbered-list,
+.doc-editor-shell .icon.number {
     background-image: url(../../assets/icons/list-ol.svg);
 }
 
-.icon.quote {
+.doc-editor-shell .icon.quote {
     background-image: url(../../assets/icons/chat-square-quote.svg);
 }
 
-.icon.code {
+.doc-editor-shell .icon.code {
     background-image: url(../../assets/icons/code.svg);
 }
 
-.switches {
+.doc-editor-shell .switches {
     z-index: 6;
     position: fixed;
     left: 10px;
@@ -877,7 +877,7 @@ i.page-break,
     }
 }
 
-.switch {
+.doc-editor-shell .switch {
     display: block;
     color: #444;
     margin: 5px 0;
@@ -886,15 +886,15 @@ i.page-break,
     border-radius: 10px;
 }
 
-#rich-text-switch {
+.doc-editor-shell #rich-text-switch {
     right: 0;
 }
 
-#character-count-switch {
+.doc-editor-shell #character-count-switch {
     right: 130px;
 }
 
-.switch label {
+.doc-editor-shell .switch label {
     margin-right: 5px;
     line-height: 24px;
     width: 100px;
@@ -903,7 +903,7 @@ i.page-break,
     vertical-align: middle;
 }
 
-.switch button {
+.doc-editor-shell .switch button {
     background-color: rgb(206, 208, 212);
     height: 24px;
     box-sizing: border-box;
@@ -918,11 +918,11 @@ i.page-break,
     border: 2px solid transparent;
 }
 
-.switch button:focus-visible {
+.doc-editor-shell .switch button:focus-visible {
     border-color: blue;
 }
 
-.switch button span {
+.doc-editor-shell .switch button span {
     top: 0;
     left: 0;
     display: block;
@@ -934,49 +934,49 @@ i.page-break,
     transition: transform 0.2s;
 }
 
-.switch button[aria-checked='true'] {
+.doc-editor-shell .switch button[aria-checked='true'] {
     background-color: rgb(24, 119, 242);
 }
 
-.switch button[aria-checked='true'] span {
+.doc-editor-shell .switch button[aria-checked='true'] span {
     transform: translateX(20px);
 }
 
-.editor-shell span.editor-image {
+.doc-editor-shell span.editor-image {
     cursor: default;
     display: inline-block;
     position: relative;
     user-select: none;
 }
 
-.editor-shell span.editor-image:has(img.sticky) {
+.doc-editor-shell span.editor-image:has(img.sticky) {
     display: block;
 }
 
-.editor-shell .editor-image img {
+.doc-editor-shell .editor-image img {
     max-width: 100%;
     cursor: default;
 }
 
-.editor-shell .editor-image img.focused {
+.doc-editor-shell .editor-image img.focused {
     outline: 2px solid rgb(60, 132, 244);
     user-select: none;
 }
 
-.editor-shell .editor-image img.focused.draggable {
+.doc-editor-shell .editor-image img.focused.draggable {
     cursor: grab;
 }
 
-.editor-shell .editor-image img.focused.draggable:active {
+.doc-editor-shell .editor-image img.focused.draggable:active {
     cursor: grabbing;
 }
 
-.editor-shell .editor-image .image-caption-container .tree-view-output {
+.doc-editor-shell .editor-image .image-caption-container .tree-view-output {
     margin: 0;
     border-radius: 0;
 }
 
-.editor-shell .editor-image .image-caption-container {
+.doc-editor-shell .editor-image .image-caption-container {
     display: block;
     position: absolute;
     bottom: 4px;
@@ -991,7 +991,7 @@ i.page-break,
     overflow: hidden;
 }
 
-.editor-shell .editor-image .image-caption-button {
+.doc-editor-shell .editor-image .image-caption-button {
     display: block;
     position: absolute;
     bottom: 20px;
@@ -1009,11 +1009,11 @@ i.page-break,
     user-select: none;
 }
 
-.editor-shell .editor-image .image-caption-button:hover {
+.doc-editor-shell .editor-image .image-caption-button:hover {
     background-color: rgba(60, 132, 244, 0.5);
 }
 
-.editor-shell .editor-image .image-edit-button {
+.doc-editor-shell .editor-image .image-edit-button {
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     background-image: url(/src/assets/icons/pencil-fill.svg);
@@ -1030,11 +1030,11 @@ i.page-break,
     user-select: none;
 }
 
-.editor-shell .editor-image .image-edit-button:hover {
+.doc-editor-shell .editor-image .image-edit-button:hover {
     background-color: rgba(60, 132, 244, 0.1);
 }
 
-.editor-shell .editor-image .image-resizer {
+.doc-editor-shell .editor-image .image-resizer {
     display: block;
     width: 7px;
     height: 7px;
@@ -1043,55 +1043,55 @@ i.page-break,
     border: 1px solid #fff;
 }
 
-.editor-shell .editor-image .image-resizer.image-resizer-n {
+.doc-editor-shell .editor-image .image-resizer.image-resizer-n {
     top: -6px;
     left: 48%;
     cursor: n-resize;
 }
 
-.editor-shell .editor-image .image-resizer.image-resizer-ne {
+.doc-editor-shell .editor-image .image-resizer.image-resizer-ne {
     top: -6px;
     right: -6px;
     cursor: ne-resize;
 }
 
-.editor-shell .editor-image .image-resizer.image-resizer-e {
+.doc-editor-shell .editor-image .image-resizer.image-resizer-e {
     bottom: 48%;
     right: -6px;
     cursor: e-resize;
 }
 
-.editor-shell .editor-image .image-resizer.image-resizer-se {
+.doc-editor-shell .editor-image .image-resizer.image-resizer-se {
     bottom: -2px;
     right: -6px;
     cursor: nwse-resize;
 }
 
-.editor-shell .editor-image .image-resizer.image-resizer-s {
+.doc-editor-shell .editor-image .image-resizer.image-resizer-s {
     bottom: -2px;
     left: 48%;
     cursor: s-resize;
 }
 
-.editor-shell .editor-image .image-resizer.image-resizer-sw {
+.doc-editor-shell .editor-image .image-resizer.image-resizer-sw {
     bottom: -2px;
     left: -6px;
     cursor: sw-resize;
 }
 
-.editor-shell .editor-image .image-resizer.image-resizer-w {
+.doc-editor-shell .editor-image .image-resizer.image-resizer-w {
     bottom: 48%;
     left: -6px;
     cursor: w-resize;
 }
 
-.editor-shell .editor-image .image-resizer.image-resizer-nw {
+.doc-editor-shell .editor-image .image-resizer.image-resizer-nw {
     top: -6px;
     left: -6px;
     cursor: nw-resize;
 }
 
-.editor-shell .editor-image .image-context-menu {
+.doc-editor-shell .editor-image .image-context-menu {
     position: absolute;
     right: 0;
     top: 0;
@@ -1103,56 +1103,56 @@ i.page-break,
     flex-direction: column;
     align-items: flex-start;
 }
-.editor-shell .editor-image .image-context-menu div {
+.doc-editor-shell .editor-image .image-context-menu div {
     text-align: left!important;
 }
 
-.editor-shell span.inline-editor-image {
+.doc-editor-shell span.inline-editor-image {
     cursor: default;
     display: inline-block;
     position: relative;
     z-index: 1;
 }
 
-.editor-shell .inline-editor-image img {
+.doc-editor-shell .inline-editor-image img {
     max-width: 100%;
     cursor: default;
 }
 
-.editor-shell .inline-editor-image img.focused {
+.doc-editor-shell .inline-editor-image img.focused {
     outline: 2px solid rgb(60, 132, 244);
 }
 
-.editor-shell .inline-editor-image img.focused.draggable {
+.doc-editor-shell .inline-editor-image img.focused.draggable {
     cursor: grab;
 }
 
-.editor-shell .inline-editor-image img.focused.draggable:active {
+.doc-editor-shell .inline-editor-image img.focused.draggable:active {
     cursor: grabbing;
 }
 
-.editor-shell .inline-editor-image .image-caption-container .tree-view-output {
+.doc-editor-shell .inline-editor-image .image-caption-container .tree-view-output {
     margin: 0;
     border-radius: 0;
 }
 
-.editor-shell .inline-editor-image.position-full {
+.doc-editor-shell .inline-editor-image.position-full {
     margin: 1em 0 1em 0;
 }
 
-.editor-shell .inline-editor-image.position-left {
+.doc-editor-shell .inline-editor-image.position-left {
     float: left;
     width: 50%;
     margin: 1em 1em 0 0;
 }
 
-.editor-shell .inline-editor-image.position-right {
+.doc-editor-shell .inline-editor-image.position-right {
     float: right;
     width: 50%;
     margin: 1em 0 0 1em;
 }
 
-.editor-shell .inline-editor-image .image-edit-button {
+.doc-editor-shell .inline-editor-image .image-edit-button {
     display: block;
     position: absolute;
     top: 12px;
@@ -1168,11 +1168,11 @@ i.page-break,
     user-select: none;
 }
 
-.editor-shell .inline-editor-image .image-edit-button:hover {
+.doc-editor-shell .inline-editor-image .image-edit-button:hover {
     background-color: rgba(60, 132, 244, 0.5);
 }
 
-.editor-shell .inline-editor-image .image-caption-container {
+.doc-editor-shell .inline-editor-image .image-caption-container {
     display: block;
     background-color: #f4f4f4;
     min-width: 100%;
@@ -1180,7 +1180,7 @@ i.page-break,
     overflow: hidden;
 }
 
-.emoji {
+.doc-editor-shell .emoji {
     color: transparent;
     caret-color: rgb(5, 5, 5);
     background-size: 16px 16px;
@@ -1190,42 +1190,42 @@ i.page-break,
     margin: 0 -1px;
 }
 
-.emoji-inner {
+.doc-editor-shell .emoji-inner {
     padding: 0 0.15em;
 }
 
-.emoji-inner::selection {
+.doc-editor-shell .emoji-inner::selection {
     color: transparent;
     background-color: rgba(150, 150, 150, 0.4);
 }
 
-.emoji-inner::-moz-selection {
+.doc-editor-shell .emoji-inner::-moz-selection {
     color: transparent;
     background-color: rgba(150, 150, 150, 0.4);
 }
 
-.emoji.happysmile {
+.doc-editor-shell .emoji.happysmile {
     background-image: url(../../assets/emoji/1F642.png);
 }
 
-.emoji.veryhappysmile {
+.doc-editor-shell .emoji.veryhappysmile {
     background-image: url(../../assets/emoji/1F600.png);
 }
 
-.emoji.unhappysmile {
+.doc-editor-shell .emoji.unhappysmile {
     background-image: url(../../assets/emoji/1F641.png);
 }
 
-.emoji.heart {
+.doc-editor-shell .emoji.heart {
     background-image: url(../../assets/emoji/2764.png);
 }
 
-.keyword {
+.doc-editor-shell .keyword {
     color: rgb(241, 118, 94);
     font-weight: bold;
 }
 
-.actions {
+.doc-editor-shell .actions {
     position: absolute;
     text-align: right;
     margin: 10px;
@@ -1233,12 +1233,12 @@ i.page-break,
     right: 0;
 }
 
-.actions.tree-view {
+.doc-editor-shell .actions.tree-view {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-.actions i {
+.doc-editor-shell .actions i {
     background-size: contain;
     display: inline-block;
     height: 15px;
@@ -1246,62 +1246,62 @@ i.page-break,
     vertical-align: -0.25em;
 }
 
-.actions i.indent {
+.doc-editor-shell .actions i.indent {
     background-image: url(../../assets/icons/indent.svg);
 }
 
-.actions i.outdent {
+.doc-editor-shell .actions i.outdent {
     background-image: url(../../assets/icons/outdent.svg);
 }
 
-.actions i.lock {
+.doc-editor-shell .actions i.lock {
     background-image: url(../../assets/icons/lock-fill.svg);
 }
 
-.actions i.image {
+.doc-editor-shell .actions i.image {
     background-image: url(../../assets/icons/file-image.svg);
 }
 
-.actions i.table {
+.doc-editor-shell .actions i.table {
     background-image: url(../../assets/icons/table.svg);
 }
 
-.actions i.unlock {
+.doc-editor-shell .actions i.unlock {
     background-image: url(../../assets/icons/lock.svg);
 }
 
-.actions i.left-align {
+.doc-editor-shell .actions i.left-align {
     background-image: url(../../assets/icons/text-left.svg);
 }
 
-.actions i.center-align {
+.doc-editor-shell .actions i.center-align {
     background-image: url(../../assets/icons/text-center.svg);
 }
 
-.actions i.right-align {
+.doc-editor-shell .actions i.right-align {
     background-image: url(../../assets/icons/text-right.svg);
 }
 
-.actions i.justify-align {
+.doc-editor-shell .actions i.justify-align {
     background-image: url(../../assets/icons/justify.svg);
 }
 
-.actions i.disconnect {
+.doc-editor-shell .actions i.disconnect {
     background-image: url(../../assets/icons/plug.svg);
 }
 
-.actions i.connect {
+.doc-editor-shell .actions i.connect {
     background-image: url(../../assets/icons/plug-fill.svg);
 }
 
-.table-cell-action-button-container {
+.doc-editor-shell .table-cell-action-button-container {
     position: absolute;
     top: 0;
     left: 0;
     will-change: transform;
 }
 
-.table-cell-action-button {
+.doc-editor-shell .table-cell-action-button {
     background-color: unset;
     justify-content: center;
     align-items: center;
@@ -1313,7 +1313,7 @@ i.page-break,
     cursor: pointer;
 }
 
-i.chevron-down {
+.doc-editor-shell i.chevron-down {
     background-color: transparent;
     background-size: contain;
     display: inline-block;
@@ -1322,7 +1322,7 @@ i.chevron-down {
     background-image: url(../../assets/icons/chevron-down.svg);
 }
 
-.action-button {
+.doc-editor-shell .action-button {
     background-color: #eee;
     border: 0;
     padding: 8px 12px;
@@ -1334,16 +1334,16 @@ i.chevron-down {
     cursor: pointer;
 }
 
-.action-button:hover {
+.doc-editor-shell .action-button:hover {
     background-color: #ddd;
     color: #000;
 }
 
-.action-button-mic.active {
+.doc-editor-shell .action-button-mic.active {
     animation: mic-pulsate-color 3s infinite;
 }
 
-button.action-button:disabled {
+.doc-editor-shell button.action-button:disabled {
     opacity: 0.6;
     background: #eee;
     cursor: not-allowed;
@@ -1363,19 +1363,19 @@ button.action-button:disabled {
     }
 }
 
-.debug-timetravel-panel {
+.doc-editor-shell .debug-timetravel-panel {
     overflow: hidden;
     padding: 0 0 10px 0;
     margin: auto;
     display: flex;
 }
 
-.debug-timetravel-panel-slider {
+.doc-editor-shell .debug-timetravel-panel-slider {
     padding: 0;
     flex: 8;
 }
 
-.debug-timetravel-panel-button {
+.doc-editor-shell .debug-timetravel-panel-button {
     padding: 0;
     border: 0;
     background: none;
@@ -1384,11 +1384,11 @@ button.action-button:disabled {
     font-size: 12px;
 }
 
-.debug-timetravel-panel-button:hover {
+.doc-editor-shell .debug-timetravel-panel-button:hover {
     text-decoration: underline;
 }
 
-.debug-timetravel-button {
+.doc-editor-shell .debug-timetravel-button {
     border: 0;
     padding: 0;
     font-size: 12px;
@@ -1399,11 +1399,11 @@ button.action-button:disabled {
     color: #fff;
 }
 
-.debug-timetravel-button:hover {
+.doc-editor-shell .debug-timetravel-button:hover {
     text-decoration: underline;
 }
 
-.debug-treetype-button {
+.doc-editor-shell .debug-treetype-button {
     border: 0;
     padding: 0;
     font-size: 12px;
@@ -1414,11 +1414,11 @@ button.action-button:disabled {
     color: #fff;
 }
 
-.debug-treetype-button:hover {
+.doc-editor-shell .debug-treetype-button:hover {
     text-decoration: underline;
 }
 
-.connecting {
+.doc-editor-shell .connecting {
     font-size: 15px;
     color: #999;
     overflow: hidden;
@@ -1432,15 +1432,15 @@ button.action-button:disabled {
     pointer-events: none;
 }
 
-.ltr {
+.doc-editor-shell .ltr {
     text-align: left;
 }
 
-.rtl {
+.doc-editor-shell .rtl {
     text-align: right;
 }
 
-.toolbar {
+.doc-editor-shell .toolbar {
     display: flex;
     margin-bottom: 1px;
     background: #fff;
@@ -1455,7 +1455,7 @@ button.action-button:disabled {
     z-index: 2;
 }
 
-button.toolbar-item {
+.doc-editor-shell button.toolbar-item {
     border: 0;
     display: flex;
     background: none;
@@ -1468,15 +1468,15 @@ button.toolbar-item {
     justify-content: space-between;
 }
 
-button.toolbar-item:disabled {
+.doc-editor-shell button.toolbar-item:disabled {
     cursor: not-allowed;
 }
 
-button.toolbar-item.spaced {
+.doc-editor-shell button.toolbar-item.spaced {
     margin-right: 2px;
 }
 
-button.toolbar-item i.format {
+.doc-editor-shell button.toolbar-item i.format {
     background-size: contain;
     height: 18px;
     width: 18px;
@@ -1485,35 +1485,35 @@ button.toolbar-item i.format {
     opacity: 0.6;
 }
 
-button.toolbar-item:disabled .icon,
-button.toolbar-item:disabled .text,
-button.toolbar-item:disabled i.format,
-button.toolbar-item:disabled .chevron-down {
+.doc-editor-shell button.toolbar-item:disabled .icon,
+.doc-editor-shell button.toolbar-item:disabled .text,
+.doc-editor-shell button.toolbar-item:disabled i.format,
+.doc-editor-shell button.toolbar-item:disabled .chevron-down {
     opacity: 0.2;
 }
 
-button.toolbar-item.active {
+.doc-editor-shell button.toolbar-item.active {
     background-color: rgba(223, 232, 250, 0.3);
 }
 
-button.toolbar-item.active i {
+.doc-editor-shell button.toolbar-item.active i {
     opacity: 1;
 }
 
-.toolbar-item:hover:not([disabled]) {
+.doc-editor-shell .toolbar-item:hover:not([disabled]) {
     background-color: #eee;
 }
 
-.toolbar-item.font-family .text {
+.doc-editor-shell .toolbar-item.font-family .text {
     display: block;
     max-width: 40px;
 }
 
-.toolbar .code-language {
+.doc-editor-shell .toolbar .code-language {
     width: 150px;
 }
 
-.toolbar .toolbar-item .text {
+.doc-editor-shell .toolbar .toolbar-item .text {
     display: flex;
     line-height: 20px;
     vertical-align: middle;
@@ -1526,7 +1526,7 @@ button.toolbar-item.active i {
     padding-right: 10px;
 }
 
-.toolbar .toolbar-item .icon {
+.doc-editor-shell .toolbar .toolbar-item .icon {
     display: flex;
     width: 20px;
     height: 20px;
@@ -1536,8 +1536,8 @@ button.toolbar-item.active i {
     background-size: contain;
 }
 
-.toolbar i.chevron-down,
-.toolbar-item i.chevron-down {
+.doc-editor-shell .toolbar i.chevron-down,
+.doc-editor-shell .toolbar-item i.chevron-down {
     margin-top: 3px;
     width: 16px;
     height: 16px;
@@ -1545,7 +1545,7 @@ button.toolbar-item.active i {
     user-select: none;
 }
 
-.toolbar i.chevron-down.inside {
+.doc-editor-shell .toolbar i.chevron-down.inside {
     width: 16px;
     height: 16px;
     display: flex;
@@ -1555,20 +1555,20 @@ button.toolbar-item.active i {
     pointer-events: none;
 }
 
-.toolbar .divider {
+.doc-editor-shell .toolbar .divider {
     width: 1px;
     background-color: #eee;
     margin: 0 4px;
 }
 
-.sticky-note-container {
+.doc-editor-shell .sticky-note-container {
     position: absolute;
     z-index: 9;
     width: 120px;
     display: inline-block;
 }
 
-.sticky-note {
+.doc-editor-shell .sticky-note {
     line-height: 1;
     text-align: left;
     width: 120px;
@@ -1583,7 +1583,7 @@ button.toolbar-item.active i {
     cursor: move;
 }
 
-.sticky-note:after {
+.doc-editor-shell .sticky-note:after {
     content: '';
     position: absolute;
     z-index: -1;
@@ -1596,7 +1596,7 @@ button.toolbar-item.active i {
     transform: matrix(-1, -0.1, 0, 1, 0, 0);
 }
 
-.sticky-note.yellow {
+.doc-editor-shell .sticky-note.yellow {
     border-top: 1px solid #fdfd86;
     background: linear-gradient(
             135deg,
@@ -1607,7 +1607,7 @@ button.toolbar-item.active i {
     );
 }
 
-.sticky-note.pink {
+.doc-editor-shell .sticky-note.pink {
     border-top: 1px solid #e7d1e4;
     background: linear-gradient(
             135deg,
@@ -1618,15 +1618,15 @@ button.toolbar-item.active i {
     );
 }
 
-.sticky-note-container.dragging {
+.doc-editor-shell .sticky-note-container.dragging {
     transition: none !important;
 }
 
-.sticky-note div {
+.doc-editor-shell .sticky-note div {
     cursor: text;
 }
 
-.sticky-note .delete {
+.doc-editor-shell .sticky-note .delete {
     border: 0;
     background: none;
     position: absolute;
@@ -1637,12 +1637,12 @@ button.toolbar-item.active i {
     opacity: 0.5;
 }
 
-.sticky-note .delete:hover {
+.doc-editor-shell .sticky-note .delete:hover {
     font-weight: bold;
     opacity: 1;
 }
 
-.sticky-note .color {
+.doc-editor-shell .sticky-note .color {
     border: 0;
     background: none;
     position: absolute;
@@ -1652,30 +1652,30 @@ button.toolbar-item.active i {
     opacity: 0.5;
 }
 
-.sticky-note .color:hover {
+.doc-editor-shell .sticky-note .color:hover {
     opacity: 1;
 }
 
-.sticky-note .color i {
+.doc-editor-shell .sticky-note .color i {
     display: block;
     width: 12px;
     height: 12px;
     background-size: contain;
 }
 
-.excalidraw-button {
+.doc-editor-shell .excalidraw-button {
     border: 0;
     padding: 0;
     margin: 0;
     background-color: transparent;
 }
 
-.excalidraw-button.selected {
+.doc-editor-shell .excalidraw-button.selected {
     outline: 2px solid rgb(60, 132, 244);
     user-select: none;
 }
 
-.github-corner:hover .octo-arm {
+.doc-editor-shell .github-corner:hover .octo-arm {
     animation: octocat-wave 560ms ease-in-out;
 }
 
@@ -1697,48 +1697,48 @@ button.toolbar-item.active i {
 }
 
 @media (max-width: 500px) {
-    .github-corner:hover .octo-arm {
+    .doc-editor-shell .github-corner:hover .octo-arm {
         animation: none;
     }
 
-    .github-corner .octo-arm {
+    .doc-editor-shell .github-corner .octo-arm {
         animation: octocat-wave 560ms ease-in-out;
     }
 }
 
-.spacer {
+.doc-editor-shell .spacer {
     letter-spacing: -2px;
 }
 
-.editor-equation {
+.doc-editor-shell .editor-equation {
     cursor: default;
     user-select: none;
 }
 
-.editor-equation.focused {
+.doc-editor-shell .editor-equation.focused {
     outline: 2px solid rgb(60, 132, 244);
 }
 
-button.item i {
+.doc-editor-shell button.item i {
     opacity: 0.6;
 }
 
-button.item.dropdown-item-active {
+.doc-editor-shell button.item.dropdown-item-active {
     background-color: rgba(223, 232, 250, 0.3);
 }
 
-button.item.dropdown-item-active i {
+.doc-editor-shell button.item.dropdown-item-active i {
     opacity: 1;
 }
 
-hr {
+.doc-editor-shell hr {
     padding: 2px 2px;
     border: none;
     margin: 1em 0;
     cursor: pointer;
 }
 
-hr:after {
+.doc-editor-shell hr:after {
     content: '';
     display: block;
     height: 2px;
@@ -1746,12 +1746,12 @@ hr:after {
     line-height: 2px;
 }
 
-hr.selected {
+.doc-editor-shell hr.selected {
     outline: 2px solid rgb(60, 132, 244);
     user-select: none;
 }
 
-.TableNode__contentEditable {
+.doc-editor-shell .TableNode__contentEditable {
     min-height: 20px;
     border: 0;
     resize: none;
@@ -1767,13 +1767,13 @@ hr.selected {
     z-index: 3;
 }
 
-.block-cursor {
+.doc-editor-shell .block-cursor {
     display: block;
     pointer-events: none;
     position: absolute;
 }
 
-.block-cursor:after {
+.doc-editor-shell .block-cursor:after {
     content: '';
     display: block;
     position: absolute;
@@ -1789,22 +1789,22 @@ hr.selected {
     }
 }
 
-.dialog-dropdown {
+.doc-editor-shell .dialog-dropdown {
     background-color: #eee !important;
     margin-bottom: 10px;
     width: 100%;
 }
 
-.data-mention-input-container {
+.doc-editor-shell .data-mention-input-container {
     display: flex;
     position: relative;
 }
 
-.data-mention-input-container[data-mention-input-step='3'] {
+.doc-editor-shell .data-mention-input-container[data-mention-input-step='3'] {
     min-width: unset;
 }
 
-.data-mention-input-label {
+.doc-editor-shell .data-mention-input-label {
     display: block;
     font-size: 14px;
     color: #777;

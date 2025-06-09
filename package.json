@@ -49,15 +49,11 @@
     "@lexical/utils": "^0.20.0",
     "katex": "^0.16.9",
     "lodash-es": "^4.17.21",
-    "vite-plugin-dts": "^3.7.3"
+    "lexical": "^0.20.0"
   },
   "peerDependencies": {
-    "lexical": "^0.20.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
-  },
-  "resolutions": {
-    "lexical": "^0.20.0"
   },
   "devDependencies": {
     "@types/katex": "^0.16.7",
@@ -72,6 +68,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "typescript": "^5.2.2",
-    "vite": "^5.1.4"
+    "vite": "^5.1.4",
+    "vite-plugin-dts": "^3.7.3"
   }
 }

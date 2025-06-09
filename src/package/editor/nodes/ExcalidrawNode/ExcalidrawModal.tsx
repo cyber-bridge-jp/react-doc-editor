@@ -1,19 +1,14 @@
 import './ExcalidrawModal.css';
 
 import {Excalidraw} from '@excalidraw/excalidraw';
-import {
-  AppState,
-  BinaryFiles,
-  ExcalidrawImperativeAPI,
-} from '@excalidraw/excalidraw/types/types';
 import * as React from 'react';
 import {ReactPortal, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {createPortal} from 'react-dom';
 
 import Button from '../../ui/Button';
 import Modal from '../../ui/Modal';
-import {ExcalidrawElement} from "@excalidraw/excalidraw/types/element/types";
-
+import {ExcalidrawElement} from "@excalidraw/excalidraw/dist/types/excalidraw/element/types";
+import {AppState, BinaryFiles, ExcalidrawImperativeAPI} from "@excalidraw/excalidraw/dist/types/excalidraw/types";
 type Props = {
   closeOnClickOutside?: boolean;
   /**

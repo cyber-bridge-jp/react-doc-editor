@@ -1,6 +1,6 @@
-import { AppState, BinaryFiles, ExcalidrawImperativeAPI } from '@excalidraw/excalidraw/types/types';
 import { ReactPortal } from 'react';
-import { ExcalidrawElement } from '@excalidraw/excalidraw/types/element/types';
+import { ExcalidrawElement } from '@excalidraw/excalidraw/dist/types/excalidraw/element/types';
+import { AppState, BinaryFiles, ExcalidrawImperativeAPI } from '@excalidraw/excalidraw/dist/types/excalidraw/types';
 
 type Props = {
     closeOnClickOutside?: boolean;

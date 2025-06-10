@@ -180,7 +180,7 @@ export default function FontSize({
         }
         onClick={() => handleButtonClick(updateFontSizeType.decrement)}
         className="toolbar-item font-decrement">
-        <i className="format minus-icon"/>
+        <i className="doc-editor-icon format minus-icon"/>
       </button>
 
       <input
@@ -203,7 +203,7 @@ export default function FontSize({
         }
         onClick={() => handleButtonClick(updateFontSizeType.increment)}
         className="toolbar-item font-increment">
-        <i className="format add-icon"/>
+        <i className="doc-editor-icon format add-icon"/>
       </button>
     </>
   )

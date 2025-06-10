@@ -223,55 +223,55 @@ function BlockFormatDropdown({
     <DropDown
       disabled={disabled}
       buttonClassName="toolbar-item block-controls"
-      buttonIconClassName={'icon block-type ' + blockType}
+      buttonIconClassName={'doc-editor-icon block-type ' + blockType}
       buttonLabel={blockTypeToBlockName[blockType]}
       buttonAriaLabel="Formatting options for text style">
       <DropDownItem
         className={'item ' + dropDownActiveClass(blockType === 'paragraph')}
         onClick={formatParagraph}>
-        <i className="icon paragraph"/>
+        <i className="doc-editor-icon paragraph"/>
         <span className="text">Normal</span>
       </DropDownItem>
       <DropDownItem
         className={'item ' + dropDownActiveClass(blockType === 'h1')}
         onClick={() => formatHeading('h1')}>
-        <i className="icon h1"/>
+        <i className="doc-editor-icon h1"/>
         <span className="text">Heading 1</span>
       </DropDownItem>
       <DropDownItem
         className={'item ' + dropDownActiveClass(blockType === 'h2')}
         onClick={() => formatHeading('h2')}>
-        <i className="icon h2"/>
+        <i className="doc-editor-icon h2"/>
         <span className="text">Heading 2</span>
       </DropDownItem>
       <DropDownItem
         className={'item ' + dropDownActiveClass(blockType === 'h3')}
         onClick={() => formatHeading('h3')}>
-        <i className="icon h3"/>
+        <i className="doc-editor-icon h3"/>
         <span className="text">Heading 3</span>
       </DropDownItem>
       <DropDownItem
         className={'item ' + dropDownActiveClass(blockType === 'bullet')}
         onClick={formatBulletList}>
-        <i className="icon bullet-list"/>
+        <i className="doc-editor-icon bullet-list"/>
         <span className="text">Bullet List</span>
       </DropDownItem>
       <DropDownItem
         className={'item ' + dropDownActiveClass(blockType === 'number')}
         onClick={formatNumberedList}>
-        <i className="icon numbered-list"/>
+        <i className="doc-editor-icon numbered-list"/>
         <span className="text">Numbered List</span>
       </DropDownItem>
       <DropDownItem
         className={'item ' + dropDownActiveClass(blockType === 'check')}
         onClick={formatCheckList}>
-        <i className="icon check-list"/>
+        <i className="doc-editor-icon check-list"/>
         <span className="text">Check List</span>
       </DropDownItem>
       <DropDownItem
         className={'item ' + dropDownActiveClass(blockType === 'quote')}
         onClick={formatQuote}>
-        <i className="icon quote"/>
+        <i className="doc-editor-icon quote"/>
         <span className="text">Quote</span>
       </DropDownItem>
     </DropDown>
@@ -319,7 +319,7 @@ function FontDropDown({
       buttonClassName={'toolbar-item ' + style}
       buttonLabel={FONT_FAMILY_OPTIONS.find(([option]) => option === value)?.[1] || value}
       buttonIconClassName={
-        style === 'font-family' ? 'icon block-type font-family' : ''
+        style === 'font-family' ? 'doc-editor-icon block-type font-family' : ''
       }
       buttonAriaLabel={buttonAriaLabel}>
       {(style === 'font-family' ? FONT_FAMILY_OPTIONS : FONT_SIZE_OPTIONS).map(
@@ -359,7 +359,7 @@ function ElementFormatDropdown({
     <DropDown
       disabled={disabled}
       buttonLabel={formatOption.name}
-      buttonIconClassName={`icon ${
+      buttonIconClassName={`doc-editor-icon ${
         isRTL ? formatOption.iconRTL : formatOption.icon
       }`}
       buttonClassName="toolbar-item spaced alignment"
@@ -369,7 +369,7 @@ function ElementFormatDropdown({
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')
         }}
         className="item">
-        <i className="icon left-align"/>
+        <i className="doc-editor-icon left-align"/>
         <span className="text">Left Align</span>
       </DropDownItem>
       <DropDownItem
@@ -377,7 +377,7 @@ function ElementFormatDropdown({
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')
         }}
         className="item">
-        <i className="icon center-align"/>
+        <i className="doc-editor-icon center-align"/>
         <span className="text">Center Align</span>
       </DropDownItem>
       <DropDownItem
@@ -385,7 +385,7 @@ function ElementFormatDropdown({
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')
         }}
         className="item">
-        <i className="icon right-align"/>
+        <i className="doc-editor-icon right-align"/>
         <span className="text">Right Align</span>
       </DropDownItem>
       <DropDownItem
@@ -393,7 +393,7 @@ function ElementFormatDropdown({
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')
         }}
         className="item">
-        <i className="icon justify-align"/>
+        <i className="doc-editor-icon justify-align"/>
         <span className="text">Justify Align</span>
       </DropDownItem>
       <DropDownItem
@@ -402,7 +402,7 @@ function ElementFormatDropdown({
         }}
         className="item">
         <i
-          className={`icon ${
+          className={`doc-editor-icon ${
             isRTL
               ? ELEMENT_FORMAT_OPTIONS.start.iconRTL
               : ELEMENT_FORMAT_OPTIONS.start.icon
@@ -416,7 +416,7 @@ function ElementFormatDropdown({
         }}
         className="item">
         <i
-          className={`icon ${
+          className={`doc-editor-icon ${
             isRTL
               ? ELEMENT_FORMAT_OPTIONS.end.iconRTL
               : ELEMENT_FORMAT_OPTIONS.end.icon
@@ -430,7 +430,7 @@ function ElementFormatDropdown({
           editor.dispatchCommand(OUTDENT_CONTENT_COMMAND, undefined)
         }}
         className="item">
-        <i className={'icon ' + (isRTL ? 'indent' : 'outdent')}/>
+        <i className={'doc-editor-icon ' + (isRTL ? 'indent' : 'outdent')}/>
         <span className="text">Outdent</span>
       </DropDownItem>
       <DropDownItem
@@ -438,7 +438,7 @@ function ElementFormatDropdown({
           editor.dispatchCommand(INDENT_CONTENT_COMMAND, undefined)
         }}
         className="item">
-        <i className={'icon ' + (isRTL ? 'outdent' : 'indent')}/>
+        <i className={'doc-editor-icon ' + (isRTL ? 'outdent' : 'indent')}/>
         <span className="text">Indent</span>
       </DropDownItem>
     </DropDown>
@@ -745,7 +745,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
         className="toolbar-item spaced"
         aria-label="Undo"
       >
-        <i className="format undo"/>
+        <i className="doc-editor-icon format undo"/>
       </button>
       <button
         disabled={!canRedo || !isEditable}
@@ -757,7 +757,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
         className="toolbar-item spaced"
         aria-label="Redo"
       >
-        <i className="format redo"/>
+        <i className="doc-editor-icon format redo"/>
       </button>
       <Divider/>
       {blockType in blockTypeToBlockName && (
@@ -790,7 +790,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
         aria-label={`Format text as bold. Shortcut: ${
           IS_APPLE ? '⌘B' : 'Ctrl+B'
         }`}>
-        <i className="format bold"/>
+        <i className="doc-editor-icon format bold"/>
       </button>
       <button
         disabled={!isEditable}
@@ -803,7 +803,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
         aria-label={`Format text as italics. Shortcut: ${
           IS_APPLE ? '⌘I' : 'Ctrl+I'
         }`}>
-        <i className="format italic"/>
+        <i className="doc-editor-icon format italic"/>
       </button>
       <button
         disabled={!isEditable}
@@ -816,7 +816,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
         aria-label={`Format text to underlined. Shortcut: ${
           IS_APPLE ? '⌘U' : 'Ctrl+U'
         }`}>
-        <i className="format underline"/>
+        <i className="doc-editor-icon format underline"/>
       </button>
       <button
         disabled={!isEditable}
@@ -827,7 +827,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
         title="Insert code block"
         type="button"
         aria-label="Insert code block">
-        <i className="format code"/>
+        <i className="doc-editor-icon format code"/>
       </button>
       <button
         disabled={!isEditable}
@@ -836,13 +836,13 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
         aria-label="Insert link"
         title="Insert link"
         type="button">
-        <i className="format link"/>
+        <i className="doc-editor-icon format link"/>
       </button>
       <DropdownColorPicker
         disabled={!isEditable}
         buttonClassName="toolbar-item color-picker"
         buttonAriaLabel="Formatting text color"
-        buttonIconClassName="icon font-color"
+        buttonIconClassName="doc-editor-icon font-color"
         color={fontColor}
         onChange={onFontColorSelect}
         title="text color"
@@ -851,7 +851,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
         disabled={!isEditable}
         buttonClassName="toolbar-item color-picker"
         buttonAriaLabel="Formatting background color"
-        buttonIconClassName="icon bg-color"
+        buttonIconClassName="doc-editor-icon bg-color"
         color={bgColor}
         onChange={onBgColorSelect}
         title="bg color"
@@ -861,7 +861,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
         buttonClassName="toolbar-item spaced"
         buttonLabel=""
         buttonAriaLabel="Formatting options for additional text styles"
-        buttonIconClassName="icon dropdown-more">
+        buttonIconClassName="doc-editor-icon dropdown-more">
         <DropDownItem
           onClick={() => {
             activeEditor.dispatchCommand(
@@ -872,7 +872,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
           className={'item ' + dropDownActiveClass(isStrikethrough)}
           title="Strikethrough"
           aria-label="Format text with a strikethrough">
-          <i className="icon strikethrough"/>
+          <i className="doc-editor-icon strikethrough"/>
           <span className="text">Strikethrough</span>
         </DropDownItem>
         <DropDownItem
@@ -882,7 +882,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
           className={'item ' + dropDownActiveClass(isSubscript)}
           title="Subscript"
           aria-label="Format text with a subscript">
-          <i className="icon subscript"/>
+          <i className="doc-editor-icon subscript"/>
           <span className="text">Subscript</span>
         </DropDownItem>
         <DropDownItem
@@ -895,7 +895,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
           className={'item ' + dropDownActiveClass(isSuperscript)}
           title="Superscript"
           aria-label="Format text with a superscript">
-          <i className="icon superscript"/>
+          <i className="doc-editor-icon superscript"/>
           <span className="text">Superscript</span>
         </DropDownItem>
         <DropDownItem
@@ -903,7 +903,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
           className="item"
           title="Clear text formatting"
           aria-label="Clear all text formatting">
-          <i className="icon clear"/>
+          <i className="doc-editor-icon clear"/>
           <span className="text">Clear Formatting</span>
         </DropDownItem>
       </DropDown>
@@ -913,7 +913,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
         buttonClassName="toolbar-item spaced"
         buttonLabel="Insert"
         buttonAriaLabel="Insert specialized editor node"
-        buttonIconClassName="icon plus">
+        buttonIconClassName="doc-editor-icon plus">
         <DropDownItem
           onClick={() => {
             activeEditor.dispatchCommand(
@@ -922,7 +922,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
             )
           }}
           className="item">
-          <i className="icon horizontal-rule"/>
+          <i className="doc-editor-icon horizontal-rule"/>
           <span className="text">Horizontal Rule</span>
         </DropDownItem>
         <DropDownItem
@@ -930,7 +930,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
             activeEditor.dispatchCommand(INSERT_PAGE_BREAK, undefined)
           }}
           className="item">
-          <i className="icon page-break"/>
+          <i className="doc-editor-icon page-break"/>
           <span className="text">Page Break</span>
         </DropDownItem>
         <DropDownItem
@@ -943,7 +943,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
             ))
           }}
           className="item">
-          <i className="icon image"/>
+          <i className="doc-editor-icon image"/>
           <span className="text">Image</span>
         </DropDownItem>
         <DropDownItem
@@ -956,7 +956,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
             ))
           }}
           className="item">
-          <i className="icon image"/>
+          <i className="doc-editor-icon image"/>
           <span className="text">Inline Image</span>
         </DropDownItem>
         <DropDownItem
@@ -967,7 +967,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
             )
           }}
           className="item">
-          <i className="icon diagram-2"/>
+          <i className="doc-editor-icon diagram-2"/>
           <span className="text">Excalidraw</span>
         </DropDownItem>
         <DropDownItem
@@ -980,7 +980,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
             ))
           }}
           className="item">
-          <i className="icon table"/>
+          <i className="doc-editor-icon table"/>
           <span className="text">Table</span>
         </DropDownItem>
         <DropDownItem
@@ -993,7 +993,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
             ))
           }}
           className="item">
-          <i className="icon poll"/>
+          <i className="doc-editor-icon poll"/>
           <span className="text">Poll</span>
         </DropDownItem>
         <DropDownItem
@@ -1006,7 +1006,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
             ))
           }}
           className="item">
-          <i className="icon columns"/>
+          <i className="doc-editor-icon columns"/>
           <span className="text">Columns Layout</span>
         </DropDownItem>
         <DropDownItem
@@ -1019,7 +1019,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
             ))
           }}
           className="item">
-          <i className="icon equation"/>
+          <i className="doc-editor-icon equation"/>
           <span className="text">Equation</span>
         </DropDownItem>
         <DropDownItem
@@ -1031,7 +1031,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
             })
           }}
           className="item">
-          <i className="icon sticky"/>
+          <i className="doc-editor-icon sticky"/>
           <span className="text">Sticky Note</span>
         </DropDownItem>
         <DropDownItem
@@ -1039,7 +1039,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
             editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined)
           }}
           className="item">
-          <i className="icon caret-right"/>
+          <i className="doc-editor-icon caret-right"/>
           <span className="text">Collapsible container</span>
         </DropDownItem>
         {EmbedConfigs.map((embedConfig) => (

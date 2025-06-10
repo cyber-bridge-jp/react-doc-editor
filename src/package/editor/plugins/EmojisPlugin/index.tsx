@@ -7,14 +7,14 @@ import {useEffect} from 'react';
 import {$createEmojiNode, EmojiNode} from '../../nodes/EmojiNode';
 
 const emojis: Map<string, [string, string]> = new Map([
-  [':)', ['emoji happysmile', '🙂']],
-  [':D', ['emoji veryhappysmile', '😀']],
-  [':(', ['emoji unhappysmile', '🙁']],
-  ['<3', ['emoji heart', '❤']],
-  ['🙂', ['emoji happysmile', '🙂']],
-  ['😀', ['emoji veryhappysmile', '😀']],
-  ['🙁', ['emoji unhappysmile', '🙁']],
-  ['❤', ['emoji heart', '❤']],
+  [':)', ['doc-editor-emoji happysmile', '🙂']],
+  [':D', ['doc-editor-emoji veryhappysmile', '😀']],
+  [':(', ['doc-editor-emoji unhappysmile', '🙁']],
+  ['<3', ['doc-editor-emoji heart', '❤']],
+  ['🙂', ['doc-editor-emoji happysmile', '🙂']],
+  ['😀', ['doc-editor-emoji veryhappysmile', '😀']],
+  ['🙁', ['doc-editor-emoji unhappysmile', '🙁']],
+  ['❤', ['doc-editor-emoji heart', '❤']],
 ]);
 
 function findAndTransformEmoji(node: TextNode): null | TextNode {

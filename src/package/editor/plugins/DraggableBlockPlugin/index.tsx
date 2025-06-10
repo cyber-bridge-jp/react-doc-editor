@@ -401,12 +401,12 @@ function useDraggableBlockMenu(
   return createPortal(
     <>
       <div
-        className="icon draggable-block-menu"
+        className="doc-editor-icon draggable-block-menu"
         ref={menuRef}
         draggable={true}
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}>
-        <div className={isEditable ? 'icon' : ''} />
+        <div className={isEditable ? 'doc-editor-icon' : ''} />
       </div>
       <div className="draggable-block-target-line" ref={targetLineRef} />
     </>,

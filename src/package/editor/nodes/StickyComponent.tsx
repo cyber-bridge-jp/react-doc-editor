@@ -183,7 +183,7 @@ export default function StickyComponent({
 
     const {historyState} = useSharedHistoryContext();
     return (
-        <div ref={stickyContainerRef} className="sticky-note-container">
+        <div ref={stickyContainerRef} className="doc-editor-sticky-note-container">
             <div
                 className={`sticky-note ${color}`}
                 onPointerDown={(event) => {
@@ -223,7 +223,7 @@ export default function StickyComponent({
                     className="color"
                     aria-label="Change sticky note color"
                     title="Color">
-                    <i className="bucket"/>
+                    <i className="doc-editor-icon bucket"/>
                 </button>
                 <LexicalNestedComposer
                     initialEditor={caption}

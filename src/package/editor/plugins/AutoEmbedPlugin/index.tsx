@@ -42,7 +42,7 @@ export const YoutubeEmbedConfig: PlaygroundEmbedConfig = {
   exampleUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
 
   // Icon for display.
-  icon: <i className="icon youtube" />,
+  icon: <i className="doc-editor-icon youtube" />,
 
   insertNode: (editor: LexicalEditor, result: EmbedMatchResult) => {
     editor.dispatchCommand(INSERT_YOUTUBE_COMMAND, result.id);
@@ -77,7 +77,7 @@ export const TwitterEmbedConfig: PlaygroundEmbedConfig = {
   exampleUrl: 'https://twitter.com/jack/status/20',
 
   // Icon for display.
-  icon: <i className="icon tweet" />,
+  icon: <i className="doc-editor-icon tweet" />,
 
   // Create the Lexical embed node from the url data.
   insertNode: (editor: LexicalEditor, result: EmbedMatchResult) => {
@@ -112,7 +112,7 @@ export const FigmaEmbedConfig: PlaygroundEmbedConfig = {
 
   exampleUrl: 'https://www.figma.com/file/LKQ4FJ4bTnCSjedbRpk931/Sample-File',
 
-  icon: <i className="icon figma" />,
+  icon: <i className="doc-editor-icon figma" />,
 
   insertNode: (editor: LexicalEditor, result: EmbedMatchResult) => {
     editor.dispatchCommand(INSERT_FIGMA_COMMAND, result.id);
@@ -191,7 +191,7 @@ function AutoEmbedMenu({
   options: Array<AutoEmbedOption>;
 }) {
   return (
-    <div className="typeahead-popover">
+    <div className="doc-editor-typeahead-popover">
       <ul>
         {options.map((option: AutoEmbedOption, i: number) => (
           <AutoEmbedMenuItem
@@ -319,7 +319,7 @@ export default function AutoEmbedPlugin(): JSX.Element {
           anchorElementRef.current
             ? ReactDOM.createPortal(
                 <div
-                  className="typeahead-popover auto-embed-menu"
+                  className="doc-editor-typeahead-popover auto-embed-menu"
                   style={{
                     marginLeft: anchorElementRef.current.style.width,
                     width: 200,

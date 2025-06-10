@@ -6,8 +6,6 @@ import {
   useBasicTypeaheadTriggerMatch,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin'
 
-import './index.css'
-
 import {
   $nodesOfType, COMMAND_PRIORITY_EDITOR, createCommand,
   TextNode,
@@ -367,7 +365,7 @@ export default function DataMentionPlugin(
         ) =>
           anchorElementRef.current && results.length
             ? ReactDOM.createPortal(
-              <div className="typeahead-popover mentions-menu">
+              <div className="doc-editor-typeahead-popover mentions-menu">
                 <ul>
                   {options.map((option, i: number) => (
                     <MentionsTypeaheadMenuItem
@@ -393,7 +391,7 @@ export default function DataMentionPlugin(
       />
       {
         showInput && selectedItem && ReactDOM.createPortal(
-          <div className="data-mention-input-modal">
+          <div className="doc-editor-typeahead-popover data-mention-input-menu">
             <input placeholder="Enter label of input field" value={inputVal || ''} type="text"
                    onChange={(e) => {
                      setInputVal(e.target.value)

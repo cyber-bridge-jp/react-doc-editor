@@ -487,7 +487,7 @@ function TableActionMenu({
 
   return createPortal(
     <div
-      className="dropdown"
+      className="doc-editor-dropdown"
       ref={dropDownRef}
       onClick={(e) => {
         e.stopPropagation();
@@ -733,7 +733,7 @@ function TableCellActionMenuContainer({
               setIsMenuOpen(!isMenuOpen);
             }}
             ref={menuRootRef}>
-            <i className="chevron-down" />
+            <i className="doc-editor-icon chevron-down" />
           </button>
           {colorPickerModal}
           {isMenuOpen && (

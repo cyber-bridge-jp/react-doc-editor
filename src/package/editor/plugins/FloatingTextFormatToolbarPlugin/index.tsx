@@ -178,7 +178,7 @@ function TextFormatFloatingToolbar({
             }}
             className={'popup-item spaced ' + (isBold ? 'active' : '')}
             aria-label="Format text as bold">
-            <i className="format bold" />
+            <i className="doc-editor-icon format bold" />
           </button>
           <button
             type="button"
@@ -187,7 +187,7 @@ function TextFormatFloatingToolbar({
             }}
             className={'popup-item spaced ' + (isItalic ? 'active' : '')}
             aria-label="Format text as italics">
-            <i className="format italic" />
+            <i className="doc-editor-icon format italic" />
           </button>
           <button
             type="button"
@@ -196,7 +196,7 @@ function TextFormatFloatingToolbar({
             }}
             className={'popup-item spaced ' + (isUnderline ? 'active' : '')}
             aria-label="Format text to underlined">
-            <i className="format underline" />
+            <i className="doc-editor-icon format underline" />
           </button>
           <button
             type="button"
@@ -205,7 +205,7 @@ function TextFormatFloatingToolbar({
             }}
             className={'popup-item spaced ' + (isStrikethrough ? 'active' : '')}
             aria-label="Format text with a strikethrough">
-            <i className="format strikethrough" />
+            <i className="doc-editor-icon format strikethrough" />
           </button>
           <button
             type="button"
@@ -215,7 +215,7 @@ function TextFormatFloatingToolbar({
             className={'popup-item spaced ' + (isSubscript ? 'active' : '')}
             title="Subscript"
             aria-label="Format Subscript">
-            <i className="format subscript" />
+            <i className="doc-editor-icon format subscript" />
           </button>
           <button
             type="button"
@@ -225,7 +225,7 @@ function TextFormatFloatingToolbar({
             className={'popup-item spaced ' + (isSuperscript ? 'active' : '')}
             title="Superscript"
             aria-label="Format Superscript">
-            <i className="format superscript" />
+            <i className="doc-editor-icon format superscript" />
           </button>
           <button
             type="button"
@@ -234,14 +234,14 @@ function TextFormatFloatingToolbar({
             }}
             className={'popup-item spaced ' + (isCode ? 'active' : '')}
             aria-label="Insert code block">
-            <i className="format code" />
+            <i className="doc-editor-icon format code" />
           </button>
           <button
             type="button"
             onClick={insertLink}
             className={'popup-item spaced ' + (isLink ? 'active' : '')}
             aria-label="Insert link">
-            <i className="format link" />
+            <i className="doc-editor-icon format link" />
           </button>
         </>
       )}

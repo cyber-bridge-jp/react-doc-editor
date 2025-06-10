@@ -1,43 +1,6 @@
 @import 'https://fonts.googleapis.com/css?family=Reenie+Beanie';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
 
-body {
-    margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular',
-    sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background: #eee;
-    padding: 0 20px;
-}
-
-header {
-    max-width: 580px;
-    margin: auto;
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
-
-header a {
-    max-width: 220px;
-    margin: 20px 0 0 0;
-    display: block;
-}
-
-header img {
-    display: block;
-    height: 100%;
-    width: 100%;
-}
-
-header h1 {
-    text-align: left;
-    color: #333;
-    display: inline-block;
-    margin: 20px 0 0 0;
-}
-
 .doc-editor-shell {
     border-radius: 2px;
     max-width: 1100px;
@@ -250,13 +213,13 @@ header h1 {
     background-image: url(../../assets/icons/download.svg);
 }
 
-.doc-editor-shell .typeahead-popover {
+.doc-editor-typeahead-popover {
     background: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
 }
 
-.doc-editor-shell .typeahead-popover ul {
+.doc-editor-typeahead-popover ul {
     padding: 0;
     list-style: none;
     margin: 0;
@@ -265,16 +228,16 @@ header h1 {
     overflow-y: scroll;
 }
 
-.doc-editor-shell .typeahead-popover ul::-webkit-scrollbar {
+.doc-editor-typeahead-popover ul::-webkit-scrollbar {
     display: none;
 }
 
-.doc-editor-shell .typeahead-popover ul {
+.doc-editor-typeahead-popover ul {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
 
-.doc-editor-shell .typeahead-popover ul li {
+.doc-editor-typeahead-popover ul li {
     margin: 0;
     min-width: 180px;
     font-size: 14px;
@@ -283,11 +246,11 @@ header h1 {
     border-radius: 8px;
 }
 
-.doc-editor-shell .typeahead-popover ul li.selected {
+.doc-editor-typeahead-popover ul li.selected {
     background: #eee;
 }
 
-.doc-editor-shell .typeahead-popover li {
+.doc-editor-typeahead-popover li {
     margin: 0 8px 0 8px;
     padding: 8px;
     color: #050505;
@@ -303,33 +266,33 @@ header h1 {
     border: 0;
 }
 
-.doc-editor-shell .typeahead-popover li.active {
+.doc-editor-typeahead-popover li.active {
     display: flex;
     width: 20px;
     height: 20px;
     background-size: contain;
 }
 
-.doc-editor-shell .typeahead-popover li:first-child {
+.doc-editor-typeahead-popover li:first-child {
     border-radius: 8px 8px 0 0;
 }
 
-.doc-editor-shell .typeahead-popover li:last-child {
+.doc-editor-typeahead-popover li:last-child {
     border-radius: 0 0 8px 8px;
 }
 
-.doc-editor-shell .typeahead-popover li:hover {
+.doc-editor-typeahead-popover li:hover {
     background-color: #eee;
 }
 
-.doc-editor-shell .typeahead-popover li .text {
+.doc-editor-typeahead-popover li .text {
     display: flex;
     line-height: 20px;
     flex-grow: 1;
     min-width: 150px;
 }
 
-.doc-editor-shell .typeahead-popover li .icon {
+.doc-editor-typeahead-popover li .doc-editor-icon {
     display: flex;
     width: 20px;
     height: 20px;
@@ -341,95 +304,128 @@ header h1 {
     background-position: center;
 }
 
-.doc-editor-shell .component-picker-menu {
+.doc-editor-typeahead-popover.component-picker-menu {
     width: 200px;
 }
 
-.doc-editor-shell .mentions-menu {
+.doc-editor-typeahead-popover.mentions-menu {
     width: 250px;
 }
 
-.doc-editor-shell .auto-embed-menu {
+.doc-editor-typeahead-popover.auto-embed-menu {
     width: 150px;
 }
 
-.doc-editor-shell .emoji-menu {
+.doc-editor-typeahead-popover.emoji-menu {
     width: 200px;
 }
 
-.doc-editor-shell i.palette {
+.doc-editor-typeahead-popover.data-mention-input-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.doc-editor-typeahead-popover.data-mention-input-menu input {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    width: 300px;
+}
+
+.doc-editor-typeahead-popover.data-mention-input-menu button {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    width: 300px;
+    cursor: pointer;
+}
+
+.doc-editor-icon.palette {
     background-image: url(../../assets/icons/palette.svg);
 }
 
-.doc-editor-shell i.bucket {
+.doc-editor-icon.bucket {
     background-image: url(../../assets/icons/paint-bucket.svg);
 }
 
-.doc-editor-shell i.bold {
+.doc-editor-icon.bold {
     background-image: url(../../assets/icons/type-bold.svg);
 }
 
-.doc-editor-shell i.italic {
+.doc-editor-icon.italic {
     background-image: url(../../assets/icons/type-italic.svg);
 }
 
-.doc-editor-shell i.clear {
+.doc-editor-icon.clear {
     background-image: url(../../assets/icons/trash.svg);
 }
 
-.doc-editor-shell i.code {
+.doc-editor-icon.code {
     background-image: url(../../assets/icons/code.svg);
 }
 
-.doc-editor-shell i.underline {
+.doc-editor-icon.underline {
     background-image: url(../../assets/icons/type-underline.svg);
 }
 
-.doc-editor-shell i.strikethrough {
+.doc-editor-icon.strikethrough {
     background-image: url(../../assets/icons/type-strikethrough.svg);
 }
 
-.doc-editor-shell i.subscript {
+.doc-editor-icon.subscript {
     background-image: url(../../assets/icons/type-subscript.svg);
 }
 
-.doc-editor-shell i.superscript {
+.doc-editor-icon.superscript {
     background-image: url(../../assets/icons/type-superscript.svg);
 }
 
-.doc-editor-shell i.link {
+.doc-editor-icon.link {
     background-image: url(../../assets/icons/link.svg);
 }
 
-.doc-editor-shell i.horizontal-rule {
+.doc-editor-icon.horizontal-rule {
     background-image: url(../../assets/icons/horizontal-rule.svg);
 }
 
-.doc-editor-shell .icon.plus {
+.doc-editor-icon.plus {
     background-image: url(../../assets/icons/plus.svg);
 }
 
-.doc-editor-shell .icon.caret-right {
+.doc-editor-icon.caret-right {
     background-image: url(../../assets/icons/caret-right-fill.svg);
 }
 
-.doc-editor-shell .icon.dropdown-more {
+.doc-editor-icon.dropdown-more {
     background-image: url(../../assets/icons/dropdown-more.svg);
 }
 
-.doc-editor-shell .icon.font-color {
+.doc-editor-icon.font-color {
     background-image: url(../../assets/icons/font-color.svg);
 }
 
-.doc-editor-shell .icon.font-family {
+.doc-editor-icon.font-family {
     background-image: url(../../assets/icons/font-family.svg);
 }
 
-.doc-editor-shell .icon.bg-color {
+.doc-editor-icon.bg-color {
     background-image: url(../../assets/icons/bg-color.svg);
 }
 
-.doc-editor-shell .icon.table {
+.doc-editor-icon.table {
     background-color: #6c757d;
     mask-image: url(../../assets/icons/table.svg);
     -webkit-mask-image: url(../../assets/icons/table.svg);
@@ -439,128 +435,128 @@ header h1 {
     -webkit-mask-size: contain;
 }
 
-.doc-editor-shell i.image {
+.doc-editor-icon.image {
     background-image: url(../../assets/icons/file-image.svg);
 }
 
-.doc-editor-shell i.table {
+.doc-editor-icon.table {
     background-image: url(../../assets/icons/table.svg);
 }
 
-.doc-editor-shell i.close {
+.doc-editor-icon.close {
     background-image: url(../../assets/icons/close.svg);
 }
 
-.doc-editor-shell i.figma {
+.doc-editor-icon.figma {
     background-image: url(../../assets/icons/figma.svg);
 }
 
-.doc-editor-shell i.poll {
+.doc-editor-icon.poll {
     background-image: url(../../assets/icons/card-checklist.svg);
 }
 
-.doc-editor-shell i.columns {
+.doc-editor-icon.columns {
     background-image: url(../../assets/icons/3-columns.svg);
 }
 
-.doc-editor-shell i.tweet {
+.doc-editor-icon.tweet {
     background-image: url(../../assets/icons/tweet.svg);
 }
 
-.doc-editor-shell i.youtube {
+.doc-editor-icon.youtube {
     background-image: url(../../assets/icons/youtube.svg);
 }
 
-.icon.left-align,
-i.left-align {
+.doc-editor-icon.left-align,
+.doc-editor-icon.left-align {
     background-image: url(../../assets/icons/text-left.svg);
 }
 
-.doc-editor-shell .icon.center-align,
-.doc-editor-shell i.center-align {
+.doc-editor-icon.center-align,
+.doc-editor-icon.center-align {
     background-image: url(../../assets/icons/text-center.svg);
 }
 
-.doc-editor-shell .icon.right-align,
-.doc-editor-shell i.right-align {
+.doc-editor-icon.right-align,
+.doc-editor-icon.right-align {
     background-image: url(../../assets/icons/text-right.svg);
 }
 
-.doc-editor-shell .icon.justify-align,
-.doc-editor-shell i.justify-align {
+.doc-editor-icon.justify-align,
+.doc-editor-icon.justify-align {
     background-image: url(../../assets/icons/justify.svg);
 }
 
-.doc-editor-shell i.indent {
+.doc-editor-icon.indent {
     background-image: url(../../assets/icons/indent.svg);
 }
 
-.doc-editor-shell i.markdown {
+.doc-editor-icon.markdown {
     background-image: url(../../assets/icons/markdown.svg);
 }
 
-.doc-editor-shell i.outdent {
+.doc-editor-icon.outdent {
     background-image: url(../../assets/icons/outdent.svg);
 }
 
-.doc-editor-shell i.undo {
+.doc-editor-icon.undo {
     background-image: url(../../assets/icons/arrow-counterclockwise.svg);
 }
 
-.doc-editor-shell i.redo {
+.doc-editor-icon.redo {
     background-image: url(../../assets/icons/arrow-clockwise.svg);
 }
 
-.doc-editor-shell i.sticky {
+.doc-editor-icon.sticky {
     background-image: url(../../assets/icons/sticky.svg);
 }
 
-.doc-editor-shell i.mic {
+.doc-editor-icon.mic {
     background-image: url(../../assets/icons/mic.svg);
 }
 
-.doc-editor-shell i.import {
+.doc-editor-icon.import {
     background-image: url(../../assets/icons/upload.svg);
 }
 
-.doc-editor-shell i.export {
+.doc-editor-icon.export {
     background-image: url(../../assets/icons/download.svg);
 }
 
-.doc-editor-shell i.diagram-2 {
+.doc-editor-icon.diagram-2 {
     background-image: url(../../assets/icons/diagram-2.svg);
 }
 
-.doc-editor-shell i.user {
+.doc-editor-icon.user {
     background-image: url(../../assets/icons/user.svg);
 }
 
-.doc-editor-shell i.equation {
+.doc-editor-icon.equation {
     background-image: url(../../assets/icons/plus-slash-minus.svg);
 }
 
-.doc-editor-shell i.gif {
+.doc-editor-icon.gif {
     background-image: url(../../assets/icons/filetype-gif.svg);
 }
 
-.doc-editor-shell i.copy {
+.doc-editor-icon.copy {
     background-image: url(../../assets/icons/copy.svg);
 }
 
-.doc-editor-shell i.success {
+.doc-editor-icon.success {
     background-image: url(../../assets/icons/success.svg);
 }
 
-.doc-editor-shell i.prettier {
+.doc-editor-icon.prettier {
     background-image: url(../../assets/icons/prettier.svg);
 }
 
-.doc-editor-shell i.prettier-error {
+.doc-editor-icon.prettier-error {
     background-image: url(../../assets/icons/prettier-error.svg);
 }
 
-.doc-editor-shell i.page-break,
-.doc-editor-shell .icon.page-break {
+.doc-editor-icon.page-break,
+.doc-editor-icon.page-break {
     background-image: url(../../assets/icons/scissors.svg);
 }
 
@@ -708,7 +704,7 @@ i.left-align {
     color: red;
 }
 
-.doc-editor-shell .dropdown {
+.doc-editor-dropdown {
     z-index: 100;
     display: block;
     position: fixed;
@@ -719,7 +715,7 @@ i.left-align {
     background-color: #fff;
 }
 
-.doc-editor-shell .dropdown .item {
+.doc-editor-dropdown .item {
     margin: 0 8px 0 8px;
     padding: 8px;
     color: #050505;
@@ -738,38 +734,38 @@ i.left-align {
     min-width: 100px;
 }
 
-.doc-editor-shell .dropdown .item.fontsize-item,
-.doc-editor-shell .dropdown .item.fontsize-item .text {
+.doc-editor-dropdown .item.fontsize-item,
+.doc-editor-dropdown .item.fontsize-item .text {
     min-width: unset;
 }
 
-.doc-editor-shell .dropdown .item .active {
+.doc-editor-dropdown .item .active {
     display: flex;
     width: 20px;
     height: 20px;
     background-size: contain;
 }
 
-.doc-editor-shell .dropdown .item:first-child {
+.doc-editor-dropdown .item:first-child {
     margin-top: 8px;
 }
 
-.doc-editor-shell .dropdown .item:last-child {
+.doc-editor-dropdown .item:last-child {
     margin-bottom: 8px;
 }
 
-.doc-editor-shell .dropdown .item:hover {
+.doc-editor-dropdown .item:hover {
     background-color: #eee;
 }
 
-.doc-editor-shell .dropdown .item .text {
+.doc-editor-dropdown .item .text {
     display: flex;
     line-height: 20px;
     flex-grow: 1;
     min-width: 150px;
 }
 
-.doc-editor-shell .dropdown .item .icon {
+.doc-editor-dropdown .item .doc-editor-icon {
     display: flex;
     width: 20px;
     height: 20px;
@@ -781,7 +777,7 @@ i.left-align {
     background-repeat: no-repeat;
 }
 
-.doc-editor-shell .dropdown .divider {
+.doc-editor-dropdown .divider {
     width: auto;
     background-color: #eee;
     margin: 4px 8px;
@@ -806,54 +802,54 @@ i.left-align {
     }
 }
 
-.doc-editor-shell .icon.paragraph {
+.doc-editor-icon.paragraph {
     background-image: url(../../assets/icons/text-paragraph.svg);
 }
 
-.doc-editor-shell .icon.h1 {
+.doc-editor-icon.h1 {
     background-image: url(../../assets/icons/type-h1.svg);
 }
 
-.doc-editor-shell .icon.h2 {
+.doc-editor-icon.h2 {
     background-image: url(../../assets/icons/type-h2.svg);
 }
 
-.doc-editor-shell .icon.h3 {
+.doc-editor-icon.h3 {
     background-image: url(../../assets/icons/type-h3.svg);
 }
 
-.doc-editor-shell .icon.h4 {
+.doc-editor-icon.h4 {
     background-image: url(../../assets/icons/type-h4.svg);
 }
 
-.doc-editor-shell .icon.h5 {
+.doc-editor-icon.h5 {
     background-image: url(../../assets/icons/type-h5.svg);
 }
 
-.doc-editor-shell .icon.h6 {
+.doc-editor-icon.h6 {
     background-image: url(../../assets/icons/type-h6.svg);
 }
 
-.doc-editor-shell .icon.bullet-list,
-.doc-editor-shell .icon.bullet {
+.doc-editor-icon.bullet-list,
+.doc-editor-icon.bullet {
     background-image: url(../../assets/icons/list-ul.svg);
 }
 
-.doc-editor-shell .icon.check-list,
-.doc-editor-shell .icon.check {
+.doc-editor-icon.check-list,
+.doc-editor-icon.check {
     background-image: url(../../assets/icons/square-check.svg);
 }
 
-.doc-editor-shell .icon.numbered-list,
-.doc-editor-shell .icon.number {
+.doc-editor-icon.numbered-list,
+.doc-editor-icon.number {
     background-image: url(../../assets/icons/list-ol.svg);
 }
 
-.doc-editor-shell .icon.quote {
+.doc-editor-icon.quote {
     background-image: url(../../assets/icons/chat-square-quote.svg);
 }
 
-.doc-editor-shell .icon.code {
+.doc-editor-icon.code {
     background-image: url(../../assets/icons/code.svg);
 }
 
@@ -1180,7 +1176,7 @@ i.left-align {
     overflow: hidden;
 }
 
-.doc-editor-shell .emoji {
+.doc-editor-emoji {
     color: transparent;
     caret-color: rgb(5, 5, 5);
     background-size: 16px 16px;
@@ -1204,19 +1200,19 @@ i.left-align {
     background-color: rgba(150, 150, 150, 0.4);
 }
 
-.doc-editor-shell .emoji.happysmile {
+.doc-editor-emoji.happysmile {
     background-image: url(../../assets/emoji/1F642.png);
 }
 
-.doc-editor-shell .emoji.veryhappysmile {
+.doc-editor-emoji.veryhappysmile {
     background-image: url(../../assets/emoji/1F600.png);
 }
 
-.doc-editor-shell .emoji.unhappysmile {
+.doc-editor-emoji.unhappysmile {
     background-image: url(../../assets/emoji/1F641.png);
 }
 
-.doc-editor-shell .emoji.heart {
+.doc-editor-emoji.heart {
     background-image: url(../../assets/emoji/2764.png);
 }
 
@@ -1246,51 +1242,51 @@ i.left-align {
     vertical-align: -0.25em;
 }
 
-.doc-editor-shell .actions i.indent {
+.doc-editor-icon.indent {
     background-image: url(../../assets/icons/indent.svg);
 }
 
-.doc-editor-shell .actions i.outdent {
+.doc-editor-icon.outdent {
     background-image: url(../../assets/icons/outdent.svg);
 }
 
-.doc-editor-shell .actions i.lock {
+.doc-editor-icon.lock {
     background-image: url(../../assets/icons/lock-fill.svg);
 }
 
-.doc-editor-shell .actions i.image {
+.doc-editor-icon.image {
     background-image: url(../../assets/icons/file-image.svg);
 }
 
-.doc-editor-shell .actions i.table {
+.doc-editor-icon.table {
     background-image: url(../../assets/icons/table.svg);
 }
 
-.doc-editor-shell .actions i.unlock {
+.doc-editor-icon.unlock {
     background-image: url(../../assets/icons/lock.svg);
 }
 
-.doc-editor-shell .actions i.left-align {
+.doc-editor-icon.left-align {
     background-image: url(../../assets/icons/text-left.svg);
 }
 
-.doc-editor-shell .actions i.center-align {
+.doc-editor-icon.center-align {
     background-image: url(../../assets/icons/text-center.svg);
 }
 
-.doc-editor-shell .actions i.right-align {
+.doc-editor-icon.right-align {
     background-image: url(../../assets/icons/text-right.svg);
 }
 
-.doc-editor-shell .actions i.justify-align {
+.doc-editor-icon.justify-align {
     background-image: url(../../assets/icons/justify.svg);
 }
 
-.doc-editor-shell .actions i.disconnect {
+.doc-editor-icon.disconnect {
     background-image: url(../../assets/icons/plug.svg);
 }
 
-.doc-editor-shell .actions i.connect {
+.doc-editor-icon.connect {
     background-image: url(../../assets/icons/plug-fill.svg);
 }
 
@@ -1313,7 +1309,7 @@ i.left-align {
     cursor: pointer;
 }
 
-.doc-editor-shell i.chevron-down {
+.doc-editor-icon.chevron-down {
     background-color: transparent;
     background-size: contain;
     display: inline-block;
@@ -1453,6 +1449,7 @@ i.left-align {
     position: sticky;
     top: 0;
     z-index: 2;
+    align-items: center;
 }
 
 .doc-editor-shell button.toolbar-item {
@@ -1476,7 +1473,7 @@ i.left-align {
     margin-right: 2px;
 }
 
-.doc-editor-shell button.toolbar-item i.format {
+.doc-editor-shell button.toolbar-item .doc-editor-icon.format {
     background-size: contain;
     height: 18px;
     width: 18px;
@@ -1485,10 +1482,10 @@ i.left-align {
     opacity: 0.6;
 }
 
-.doc-editor-shell button.toolbar-item:disabled .icon,
+.doc-editor-shell button.toolbar-item:disabled .doc-editor-icon,
 .doc-editor-shell button.toolbar-item:disabled .text,
-.doc-editor-shell button.toolbar-item:disabled i.format,
-.doc-editor-shell button.toolbar-item:disabled .chevron-down {
+.doc-editor-shell button.toolbar-item:disabled .doc-editor-icon.format,
+.doc-editor-shell button.toolbar-item:disabled .doc-editor-icon.chevron-down {
     opacity: 0.2;
 }
 
@@ -1526,7 +1523,7 @@ i.left-align {
     padding-right: 10px;
 }
 
-.doc-editor-shell .toolbar .toolbar-item .icon {
+.doc-editor-shell .toolbar .toolbar-item .doc-editor-icon {
     display: flex;
     width: 20px;
     height: 20px;
@@ -1536,8 +1533,8 @@ i.left-align {
     background-size: contain;
 }
 
-.doc-editor-shell .toolbar i.chevron-down,
-.doc-editor-shell .toolbar-item i.chevron-down {
+.doc-editor-shell .toolbar .doc-editor-icon.chevron-down,
+.doc-editor-shell .toolbar-item .doc-editor-icon.chevron-down {
     margin-top: 3px;
     width: 16px;
     height: 16px;
@@ -1545,7 +1542,7 @@ i.left-align {
     user-select: none;
 }
 
-.doc-editor-shell .toolbar i.chevron-down.inside {
+.doc-editor-shell .toolbar .doc-editor-icon.chevron-down.inside {
     width: 16px;
     height: 16px;
     display: flex;
@@ -1557,11 +1554,15 @@ i.left-align {
 
 .doc-editor-shell .toolbar .divider {
     width: 1px;
-    background-color: #eee;
+    background-color: #bdbcbc;
     margin: 0 4px;
+    display: inline-block;
+    visibility: visible;
+    flex-shrink: 0;
+    height: 100%;
 }
 
-.doc-editor-shell .sticky-note-container {
+.doc-editor-sticky-note-container {
     position: absolute;
     z-index: 9;
     width: 120px;
@@ -1618,7 +1619,7 @@ i.left-align {
     );
 }
 
-.doc-editor-shell .sticky-note-container.dragging {
+.doc-editor-sticky-note-container.dragging {
     transition: none !important;
 }
 
@@ -1723,11 +1724,11 @@ i.left-align {
     opacity: 0.6;
 }
 
-.doc-editor-shell button.item.dropdown-item-active {
+.doc-editor-dropdown button.item.dropdown-item-active {
     background-color: rgba(223, 232, 250, 0.3);
 }
 
-.doc-editor-shell button.item.dropdown-item-active i {
+.doc-editor-dropdown button.item.dropdown-item-active i {
     opacity: 1;
 }
 

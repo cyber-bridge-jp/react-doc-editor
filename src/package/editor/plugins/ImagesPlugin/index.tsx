@@ -32,6 +32,7 @@ import TextInput from "../../ui/TextInput.tsx";
 import {DialogActions, DialogButtonsList} from "../../ui/Dialog.tsx";
 import Button from "../../ui/Button.tsx";
 import FileInput from "../../ui/FileInput.tsx";
+import {ImageUploadCallback} from "../../DocumentEditor.tsx";
 
 
 export type InsertImagePayload = Readonly<ImagePayload>;
@@ -82,10 +83,12 @@ export function InsertImageUriDialogBody({
 
 export function InsertImageUploadedDialogBody({
   onClick,
+  imageUploadCallback,
 }: {
   onClick: (payload: InsertImagePayload) => void;
-}) {
+} & ImageUploadCallback) {
   const [src, setSrc] = useState('');
+  const [file, setFile] = useState<File>();
   const [altText, setAltText] = useState('');
 
   const isDisabled = src === '';
@@ -95,6 +98,7 @@ export function InsertImageUploadedDialogBody({
     reader.onload = function () {
       if (typeof reader.result === 'string') {
         setSrc(reader.result);
+        setFile(files?.[0]);
       }
       return '';
     };
@@ -102,6 +106,17 @@ export function InsertImageUploadedDialogBody({
       reader.readAsDataURL(files[0]);
     }
   };
+
+  const onUpload = () => {
+    if (imageUploadCallback && file) {
+      imageUploadCallback(file, src, (s) => {
+        setSrc(s);
+        onClick({altText, src: s})
+      })
+    } else  {
+      onClick({altText, src})
+    }
+  }
 
   return (
     <>
@@ -122,7 +137,7 @@ export function InsertImageUploadedDialogBody({
         <Button
           data-test-id="image-modal-file-upload-btn"
           disabled={isDisabled}
-          onClick={() => onClick({altText, src})}>
+          onClick={onUpload}>
           Confirm
         </Button>
       </DialogActions>
@@ -133,10 +148,11 @@ export function InsertImageUploadedDialogBody({
 export function InsertImageDialog({
   activeEditor,
   onClose,
+  imageUploadCallback,
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
-}): React.JSX.Element {
+} & ImageUploadCallback): React.JSX.Element {
   const [mode, setMode] = useState<null | 'url' | 'file'>(null);
   const hasModifier = useRef(false);
 
@@ -173,7 +189,7 @@ export function InsertImageDialog({
         </DialogButtonsList>
       )}
       {mode === 'url' && <InsertImageUriDialogBody onClick={onClick} />}
-      {mode === 'file' && <InsertImageUploadedDialogBody onClick={onClick} />}
+      {mode === 'file' && <InsertImageUploadedDialogBody onClick={onClick} imageUploadCallback={imageUploadCallback}/>}
     </>
   );
 }

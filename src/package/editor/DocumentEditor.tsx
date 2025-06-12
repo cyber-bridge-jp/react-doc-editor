@@ -6,12 +6,30 @@ import Editor from "./Editor.tsx";
 import {DataMentionNode} from "./nodes/DataMentionNode.tsx";
 import {HistoryState} from "@lexical/react/LexicalHistoryPlugin";
 import { EditorRefPlugin } from "@lexical/react/LexicalEditorRefPlugin"
-import React from "react";
-import {EditorState, LexicalEditor} from 'lexical'
+import React, {forwardRef} from "react";
+import {EditorState, LexicalEditor, SerializedEditorState} from 'lexical'
 import {DataMentionObject} from "./plugins/DataMentionPlugin";
 import './styles.css';
 
-export interface DocumentEditorProps {
+export type UploadCallbackType = (file: File, result: string, callback: (url: string) => void) => void
+
+export interface ImageUploadCallback {
+  imageUploadCallback?: UploadCallbackType
+}
+
+export type ExportData = {
+    serializedEditorState: SerializedEditorState;
+    htmlContent: string;
+    plainContent: string;
+}
+
+export type EmailEditorRef = {
+  exportData: () => ExportData
+  updateEditorState: (editorState: InitialEditorStateType) => void
+  getEditor: () => LexicalEditor
+}
+
+export interface DocumentEditorProps extends ImageUploadCallback{
     editorState?: InitialEditorStateType;
     historyState?: HistoryState;
     step?: 1 | 2 | 3;
@@ -22,7 +40,7 @@ export interface DocumentEditorProps {
     showTableOfContents?: boolean;
 }
 
-function DocumentEditor(props: DocumentEditorProps): React.ReactElement {
+const DocumentEditor = forwardRef<EmailEditorRef, DocumentEditorProps>((props, ref) => {
     const {
         editorState,
         historyState,
@@ -32,6 +50,7 @@ function DocumentEditor(props: DocumentEditorProps): React.ReactElement {
         autoMentionData = [],
         step = 1,
         editorRef = {current: null},
+        imageUploadCallback,
     } = props;
 
     DataMentionNode.prototype.defaultStep = step;
@@ -58,11 +77,13 @@ function DocumentEditor(props: DocumentEditorProps): React.ReactElement {
                       autoMentionData={autoMentionData}
                       onChange={onChange}
                       showTableOfContents={showTableOfContents}
+                      ref={ref}
+                      imageUploadCallback={imageUploadCallback}
                     />
                 </div>
             </SharedHistoryContext>
         </LexicalComposer>
     )
-}
+})
 
 export default DocumentEditor;

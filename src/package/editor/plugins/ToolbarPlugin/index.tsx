@@ -74,6 +74,7 @@ import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin'
 import {EmbedConfigs} from '../AutoEmbedPlugin'
 import {INSERT_EMBED_COMMAND} from '@lexical/react/LexicalAutoEmbedPlugin'
 import {$isDataMentionSelection, DataMentionNode} from '../../nodes/DataMentionNode.tsx'
+import {ImageUploadCallback} from "../../DocumentEditor.tsx";
 
 const blockTypeToBlockName = {
   bullet: 'Bulleted List',
@@ -445,7 +446,7 @@ function ElementFormatDropdown({
   )
 }
 
-export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: Dispatch<boolean> }) {
+export default function ToolbarPlugin({setIsLinkEditMode, imageUploadCallback}: { setIsLinkEditMode: Dispatch<boolean> } & ImageUploadCallback) {
   const [editor] = useLexicalComposerContext()
   const [blockType, setBlockType] = useState<keyof typeof blockTypeToBlockName>('paragraph')
   const [activeEditor, setActiveEditor] = useState(editor)
@@ -939,6 +940,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
               <InsertImageDialog
                 activeEditor={activeEditor}
                 onClose={onClose}
+                imageUploadCallback={imageUploadCallback}
               />
             ))
           }}
@@ -952,6 +954,7 @@ export default function ToolbarPlugin({setIsLinkEditMode}: { setIsLinkEditMode: 
               <InsertInlineImageDialog
                 activeEditor={activeEditor}
                 onClose={onClose}
+                imageUploadCallback={imageUploadCallback}
               />
             ))
           }}

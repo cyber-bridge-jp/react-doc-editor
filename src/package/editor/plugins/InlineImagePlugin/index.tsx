@@ -37,6 +37,7 @@ import {DialogActions} from '../../ui/Dialog';
 import FileInput from '../../ui/FileInput';
 import Select from '../../ui/Select';
 import TextInput from '../../ui/TextInput';
+import {ImageUploadCallback} from "../../DocumentEditor.tsx";
 
 export type InsertInlineImagePayload = Readonly<InlineImagePayload>;
 
@@ -49,14 +50,16 @@ export const INSERT_INLINE_IMAGE_COMMAND: LexicalCommand<InlineImagePayload> =
 export function InsertInlineImageDialog({
   activeEditor,
   onClose,
+  imageUploadCallback,
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
-}): JSX.Element {
+} & ImageUploadCallback): JSX.Element {
   const hasModifier = useRef(false);
 
   const [src, setSrc] = useState('');
   const [altText, setAltText] = useState('');
+  const [file, setFile] = useState<File>()
   const [showCaption, setShowCaption] = useState(false);
   const [position, setPosition] = useState<Position>('left');
 
@@ -75,6 +78,7 @@ export function InsertInlineImageDialog({
     reader.onload = function () {
       if (typeof reader.result === 'string') {
         setSrc(reader.result);
+        setFile(files?.[0])
       }
       return '';
     };
@@ -96,7 +100,14 @@ export function InsertInlineImageDialog({
 
   const handleOnClick = () => {
     const payload = {altText, position, showCaption, src};
-    activeEditor.dispatchCommand(INSERT_INLINE_IMAGE_COMMAND, payload);
+    if (imageUploadCallback && file) {
+      imageUploadCallback(file, src, (s) => {
+        setSrc(s);
+        activeEditor.dispatchCommand(INSERT_INLINE_IMAGE_COMMAND, {...payload, src: s});
+      })
+    } else {
+      activeEditor.dispatchCommand(INSERT_INLINE_IMAGE_COMMAND, payload);
+    }
     onClose();
   };
 

@@ -36,6 +36,7 @@ import {INSERT_IMAGE_COMMAND, InsertImageDialog} from "../ImagesPlugin";
 import {INSERT_PAGE_BREAK} from "../PageBreakPlugin";
 import {InsertPollDialog} from '../PollPlugin';
 import {InsertTableDialog} from "../TablePlugin";
+import {ImageUploadCallback} from "../../DocumentEditor.tsx";
 
 
 class ComponentPickerOption extends MenuOption {
@@ -135,7 +136,7 @@ function getDynamicOptions(editor: LexicalEditor, queryString: string) {
 
 type ShowModal = ReturnType<typeof useModal>[1];
 
-function getBaseOptions(editor: LexicalEditor, showModal: ShowModal) {
+function getBaseOptions(editor: LexicalEditor, showModal: ShowModal, imageUploadCallback: ImageUploadCallback['imageUploadCallback']) {
   return [
     new ComponentPickerOption('Paragraph', {
       icon: <i className="doc-editor-icon paragraph" />,
@@ -275,7 +276,7 @@ function getBaseOptions(editor: LexicalEditor, showModal: ShowModal) {
       keywords: ['image', 'photo', 'picture', 'file'],
       onSelect: () =>
         showModal('Insert Image', (onClose) => (
-          <InsertImageDialog activeEditor={editor} onClose={onClose} />
+          <InsertImageDialog activeEditor={editor} onClose={onClose} imageUploadCallback={imageUploadCallback}/>
         )),
     }),
     new ComponentPickerOption('Collapsible', {
@@ -304,7 +305,7 @@ function getBaseOptions(editor: LexicalEditor, showModal: ShowModal) {
   ];
 }
 
-export default function ComponentPickerMenuPlugin(): React.JSX.Element {
+export default function ComponentPickerMenuPlugin({imageUploadCallback}: ImageUploadCallback): React.JSX.Element {
   const [editor] = useLexicalComposerContext();
   const [modal, showModal] = useModal();
   const [queryString, setQueryString] = useState<string | null>(null);
@@ -314,7 +315,7 @@ export default function ComponentPickerMenuPlugin(): React.JSX.Element {
   });
 
   const options = useMemo(() => {
-    const baseOptions = getBaseOptions(editor, showModal);
+    const baseOptions = getBaseOptions(editor, showModal, imageUploadCallback);
 
     if (!queryString) {
       return baseOptions;

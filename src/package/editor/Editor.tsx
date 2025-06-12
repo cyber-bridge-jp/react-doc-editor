@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {useSharedHistoryContext} from './context/SharedHistoryContext.tsx'
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin'
 import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin'
@@ -6,7 +5,7 @@ import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary'
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin'
 import {TabIndentationPlugin} from '@lexical/react/LexicalTabIndentationPlugin'
 import {HorizontalRulePlugin} from '@lexical/react/LexicalHorizontalRulePlugin'
-import {useEffect, useState} from 'react'
+import {forwardRef, useEffect, useImperativeHandle, useState} from 'react'
 import Placeholder from './ui/Placeholder.tsx'
 import ContentEditable from './ui/ContentEditable.tsx'
 import ToolbarPlugin from './plugins/ToolbarPlugin'
@@ -41,12 +40,16 @@ import EmojiPickerPlugin from './plugins/EmojiPickerPlugin'
 import DraggableBlockPlugin from './plugins/DraggableBlockPlugin'
 import DataMentionPlugin, {DataMentionObject} from './plugins/DataMentionPlugin'
 import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin'
-import {EditorState, LexicalEditor} from 'lexical'
+import {$getRoot, EditorState, LexicalEditor, SerializedEditorState} from 'lexical'
 import TableHoverActionsPlugin from './plugins/TableHoverActionsPlugin'
 import {CAN_USE_DOM} from './utils/canUseDOM.ts'
 import TableOfContentsPlugin from './plugins/TableOfContentsPlugin'
+import {EmailEditorRef, ExportData, ImageUploadCallback} from "./DocumentEditor.tsx";
+import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
+import {$generateHtmlFromNodes} from "@lexical/html";
+import {InitialEditorStateType} from "@lexical/react/LexicalComposer";
 
-interface EditorProps {
+interface EditorProps extends ImageUploadCallback{
   step: 1 | 2 | 3;
   autoMentionData: DataMentionObject[]
   autoAfterMentionData: DataMentionObject[]
@@ -54,15 +57,17 @@ interface EditorProps {
   showTableOfContents?: boolean;
 }
 
-export default function Editor(props: EditorProps): React.ReactElement {
+const Editor = forwardRef<EmailEditorRef, EditorProps>((props, ref) => {
   const {
     step,
     autoMentionData,
     autoAfterMentionData,
     onChange = () => {},
+    imageUploadCallback,
     showTableOfContents = false,
   } = props
   const {historyState} = useSharedHistoryContext()
+  const [editor] = useLexicalComposerContext()
   const placeholder = <Placeholder>Enter text...</Placeholder>
   const [isLinkEditMode, setIsLinkEditMode] = useState<boolean>(false)
   const [floatingAnchorElem, setFloatingAnchorElem] = useState<HTMLDivElement | null>(null)
@@ -91,14 +96,57 @@ export default function Editor(props: EditorProps): React.ReactElement {
     }
   }, [isSmallWidthViewport])
 
+  const exportData = (): ExportData => {
+    let htmlContent = ''
+    let plainContent = ''
+    let serializedEditorState: SerializedEditorState = {} as SerializedEditorState
+    editor.read(() => {
+      const root = $getRoot()
+      htmlContent = $generateHtmlFromNodes(editor)
+      serializedEditorState = editor.getEditorState().toJSON()
+      plainContent = root.getTextContent()
+    })
+
+    return {serializedEditorState, htmlContent, plainContent}
+  }
+
+  const updateEditorState = (initialEditorState: InitialEditorStateType) => {
+    if (initialEditorState === null) return
+    switch (typeof initialEditorState) {
+      case 'string': {
+        const parsedEditorState = editor.parseEditorState(initialEditorState);
+        editor.setEditorState(parsedEditorState, {tag: 'history-merge'});
+        break;
+      }
+      case 'object': {
+        editor.setEditorState(initialEditorState, {tag: 'history-merge'});
+        break;
+      }
+      case 'function': {
+        editor.update(() => {
+          const root = $getRoot();
+          if (root.isEmpty()) {
+            initialEditorState(editor);
+          }
+        }, {tag: 'history-merge'});
+        break;
+      }
+    }
+  }
+
+  useImperativeHandle(ref, () => ({
+    exportData,
+    updateEditorState,
+    getEditor: () => editor,
+  }))
 
   return (
     <>
-      <ToolbarPlugin setIsLinkEditMode={setIsLinkEditMode}/>
+      <ToolbarPlugin setIsLinkEditMode={setIsLinkEditMode} imageUploadCallback={imageUploadCallback}/>
       <div className="editor-container">
         <DragDropPaste/>
         <AutoFocusPlugin/>
-        <ComponentPickerPlugin/>
+        <ComponentPickerPlugin imageUploadCallback={imageUploadCallback}/>
         <EmojiPickerPlugin/>
         <AutoEmbedPlugin/>
         <DataMentionPlugin step={step} autoData={autoMentionData} afterAutoData={autoAfterMentionData}/>
@@ -165,4 +213,6 @@ export default function Editor(props: EditorProps): React.ReactElement {
       </div>
     </>
   )
-}
+})
+
+export default Editor;

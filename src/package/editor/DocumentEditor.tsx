@@ -7,7 +7,7 @@ import {DataMentionNode} from "./nodes/DataMentionNode.tsx";
 import {HistoryState} from "@lexical/react/LexicalHistoryPlugin";
 import { EditorRefPlugin } from "@lexical/react/LexicalEditorRefPlugin"
 import React, {forwardRef} from "react";
-import {EditorState, LexicalEditor, SerializedEditorState} from 'lexical'
+import {LexicalEditor, SerializedEditorState} from 'lexical'
 import {DataMentionObject} from "./plugins/DataMentionPlugin";
 import './styles.css';
 
@@ -23,7 +23,7 @@ export type ExportData = {
     plainContent: string;
 }
 
-export type EmailEditorRef = {
+export type ReactDocEditorRef = {
   exportData: () => ExportData
   updateEditorState: (editorState: InitialEditorStateType) => void
   getEditor: () => LexicalEditor
@@ -33,14 +33,14 @@ export interface DocumentEditorProps extends ImageUploadCallback{
     editorState?: InitialEditorStateType;
     historyState?: HistoryState;
     step?: 1 | 2 | 3;
-    onChange?: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => void;
+    onChange?: (data: ExportData) => void;
     autoMentionData?: DataMentionObject[]
     autoAfterMentionData?: DataMentionObject[]
     editorRef?: React.MutableRefObject<LexicalEditor | null | undefined>;
     showTableOfContents?: boolean;
 }
 
-const DocumentEditor = forwardRef<EmailEditorRef, DocumentEditorProps>((props, ref) => {
+const DocumentEditor = forwardRef<ReactDocEditorRef, DocumentEditorProps>((props, ref) => {
     const {
         editorState,
         historyState,

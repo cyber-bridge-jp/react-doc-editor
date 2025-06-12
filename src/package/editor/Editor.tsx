@@ -44,25 +44,25 @@ import {$getRoot, EditorState, LexicalEditor, SerializedEditorState} from 'lexic
 import TableHoverActionsPlugin from './plugins/TableHoverActionsPlugin'
 import {CAN_USE_DOM} from './utils/canUseDOM.ts'
 import TableOfContentsPlugin from './plugins/TableOfContentsPlugin'
-import {EmailEditorRef, ExportData, ImageUploadCallback} from "./DocumentEditor.tsx";
+import {ReactDocEditorRef, ExportData, ImageUploadCallback} from "./DocumentEditor.tsx";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {$generateHtmlFromNodes} from "@lexical/html";
 import {InitialEditorStateType} from "@lexical/react/LexicalComposer";
 
-interface EditorProps extends ImageUploadCallback{
+interface EditorProps extends ImageUploadCallback {
   step: 1 | 2 | 3;
   autoMentionData: DataMentionObject[]
   autoAfterMentionData: DataMentionObject[]
-  onChange?: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => void;
+  onChange?: (data: ExportData) => void;
   showTableOfContents?: boolean;
 }
 
-const Editor = forwardRef<EmailEditorRef, EditorProps>((props, ref) => {
+const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
   const {
     step,
     autoMentionData,
     autoAfterMentionData,
-    onChange = () => {},
+    onChange,
     imageUploadCallback,
     showTableOfContents = false,
   } = props
@@ -140,6 +140,18 @@ const Editor = forwardRef<EmailEditorRef, EditorProps>((props, ref) => {
     getEditor: () => editor,
   }))
 
+  const handleEditorChange = (editorState: EditorState, e: LexicalEditor) => {
+    if (onChange) {
+      e.read(() => {
+        const root = $getRoot()
+        const htmlContent = $generateHtmlFromNodes(e)
+        const serializedEditorState = editorState.toJSON()
+        const plainContent = root.getTextContent()
+        onChange({htmlContent, plainContent, serializedEditorState})
+      })
+    }
+  }
+
   return (
     <>
       <ToolbarPlugin setIsLinkEditMode={setIsLinkEditMode} imageUploadCallback={imageUploadCallback}/>
@@ -152,7 +164,7 @@ const Editor = forwardRef<EmailEditorRef, EditorProps>((props, ref) => {
         <DataMentionPlugin step={step} autoData={autoMentionData} afterAutoData={autoAfterMentionData}/>
         <EmojisPlugin/>
         <KeywordsPlugin/>
-        <OnChangePlugin ignoreSelectionChange={true} onChange={onChange}/>
+        <OnChangePlugin ignoreSelectionChange={true} onChange={handleEditorChange}/>
         <HistoryPlugin externalHistoryState={historyState}/>
         <AutoLinkPlugin/>
         <RichTextPlugin

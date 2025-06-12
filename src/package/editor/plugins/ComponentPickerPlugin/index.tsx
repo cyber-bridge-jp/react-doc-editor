@@ -136,7 +136,7 @@ function getDynamicOptions(editor: LexicalEditor, queryString: string) {
 
 type ShowModal = ReturnType<typeof useModal>[1];
 
-function getBaseOptions(editor: LexicalEditor, showModal: ShowModal, imageUploadCallback: ImageUploadCallback['imageUploadCallback']) {
+function getBaseOptions(editor: LexicalEditor, showModal: ShowModal, imageUploadCallback?: ImageUploadCallback['imageUploadCallback']) {
   return [
     new ComponentPickerOption('Paragraph', {
       icon: <i className="doc-editor-icon paragraph" />,

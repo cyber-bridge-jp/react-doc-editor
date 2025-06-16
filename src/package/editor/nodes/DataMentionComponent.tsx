@@ -8,7 +8,7 @@ import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin'
 import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin'
 import {ContentEditable} from '@lexical/react/LexicalContentEditable'
 import Placeholder from '../ui/Placeholder.tsx'
-import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
+import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary'
 import {LexicalEditor} from 'lexical/LexicalEditor'
 import {useSharedHistoryContext} from '../context/SharedHistoryContext.tsx'
 import './DataMentionNode.css'
@@ -167,7 +167,7 @@ export default function DataMentionComponent(
     return () => {
       unregister()
     }
-  }, [editor, onClick, onDelete])
+  }, [editor, onClick, onDelete, onFormatText, step, value])
 
   useEffect(() => {
     if (editorRef.current) {
@@ -199,7 +199,7 @@ export default function DataMentionComponent(
               )
           : (
             step !== 1 && value ?
-              <span className="data-mention-input-container" data-mention-input-step={step}>
+              <div className="data-mention-input-container" data-mention-input-step={step}>
                 <LexicalNestedComposer
                   initialEditor={value}
                   initialNodes={[RootNode, TextNode, ParagraphNode, EmojiNode, KeywordNode, ListNode, ListItemNode, TabNode]}
@@ -239,7 +239,7 @@ export default function DataMentionComponent(
                   <TableHoverActionsPlugin anchorElem={editorRef.current || undefined}/>
                   <TableActionMenuPlugin cellMerge={true}/>
                 </LexicalNestedComposer>
-              </span> :
+              </div> :
               <span data-decorate="true"><b>{label}</b></span>
           )
       }

@@ -1,8 +1,10 @@
 import { NodeKey } from 'lexical';
+import { JSX } from 'react';
 
-import * as React from 'react';
-export default function ExcalidrawComponent({ nodeKey, data, }: {
+export default function ExcalidrawComponent({ nodeKey, data, width, height, }: {
     data: string;
     nodeKey: NodeKey;
-}): React.JSX.Element;
+    width: 'inherit' | number;
+    height: 'inherit' | number;
+}): JSX.Element;
 //# sourceMappingURL=ExcalidrawComponent.d.ts.map

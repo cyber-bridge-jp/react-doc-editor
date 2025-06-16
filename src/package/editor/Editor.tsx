@@ -5,7 +5,7 @@ import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary'
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin'
 import {TabIndentationPlugin} from '@lexical/react/LexicalTabIndentationPlugin'
 import {HorizontalRulePlugin} from '@lexical/react/LexicalHorizontalRulePlugin'
-import {forwardRef, useEffect, useImperativeHandle, useState} from 'react'
+import {forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useState} from 'react'
 import Placeholder from './ui/Placeholder.tsx'
 import ContentEditable from './ui/ContentEditable.tsx'
 import ToolbarPlugin from './plugins/ToolbarPlugin'
@@ -39,8 +39,14 @@ import DragDropPaste from './plugins/DragDropPastePlugin'
 import EmojiPickerPlugin from './plugins/EmojiPickerPlugin'
 import DraggableBlockPlugin from './plugins/DraggableBlockPlugin'
 import DataMentionPlugin, {DataMentionObject} from './plugins/DataMentionPlugin'
-import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin'
-import {$getRoot, EditorState, LexicalEditor, SerializedEditorState} from 'lexical'
+import {
+  $getRoot,
+  COMMAND_PRIORITY_CRITICAL,
+  EditorState,
+  LexicalEditor,
+  SELECTION_CHANGE_COMMAND,
+  SerializedEditorState
+} from 'lexical'
 import TableHoverActionsPlugin from './plugins/TableHoverActionsPlugin'
 import {CAN_USE_DOM} from './utils/canUseDOM.ts'
 import TableOfContentsPlugin from './plugins/TableOfContentsPlugin'
@@ -55,6 +61,7 @@ interface EditorProps extends ImageUploadCallback {
   autoAfterMentionData: DataMentionObject[]
   onChange?: (data: ExportData) => void;
   showTableOfContents?: boolean;
+  ignoreSelectionChange?: boolean;
 }
 
 const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
@@ -65,9 +72,11 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
     onChange,
     imageUploadCallback,
     showTableOfContents = false,
+    ignoreSelectionChange = true,
   } = props
   const {historyState} = useSharedHistoryContext()
   const [editor] = useLexicalComposerContext()
+  const [activeEditor, setActiveEditor] = useState<LexicalEditor>(editor)
   const placeholder = <Placeholder>Enter text...</Placeholder>
   const [isLinkEditMode, setIsLinkEditMode] = useState<boolean>(false)
   const [floatingAnchorElem, setFloatingAnchorElem] = useState<HTMLDivElement | null>(null)
@@ -140,7 +149,7 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
     getEditor: () => editor,
   }))
 
-  const handleEditorChange = (editorState: EditorState, e: LexicalEditor) => {
+  const handleEditorChange = useCallback((editorState: EditorState, e: LexicalEditor) => {
     if (onChange) {
       e.read(() => {
         const root = $getRoot()
@@ -150,7 +159,32 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
         onChange({htmlContent, plainContent, serializedEditorState})
       })
     }
-  }
+  }, [onChange])
+
+  useLayoutEffect(() => {
+    if (onChange) {
+      return activeEditor.registerUpdateListener(
+        ({ dirtyElements, dirtyLeaves, prevEditorState}) => {
+          if ((dirtyElements.size === 0 && dirtyLeaves.size === 0) || prevEditorState.isEmpty()) {
+            return;
+          }
+          const editorState = editor.getEditorState();
+          handleEditorChange(editorState, editor);
+        },
+      );
+    }
+  }, [activeEditor, ignoreSelectionChange, handleEditorChange, onChange, editor]);
+
+  useEffect(() => {
+    return editor.registerCommand(
+      SELECTION_CHANGE_COMMAND,
+      (_payload, newEditor) => {
+        setActiveEditor(newEditor)
+        return false
+      },
+      COMMAND_PRIORITY_CRITICAL,
+    )
+  }, [editor])
 
   return (
     <>
@@ -164,7 +198,6 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
         <DataMentionPlugin step={step} autoData={autoMentionData} afterAutoData={autoAfterMentionData}/>
         <EmojisPlugin/>
         <KeywordsPlugin/>
-        <OnChangePlugin ignoreSelectionChange={true} onChange={handleEditorChange}/>
         <HistoryPlugin externalHistoryState={historyState}/>
         <AutoLinkPlugin/>
         <RichTextPlugin

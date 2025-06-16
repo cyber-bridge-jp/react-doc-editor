@@ -306,7 +306,7 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     const outerTag = getElementOuterTag(format)
     const innerTag = getElementInnerTag(format)
     const tag = outerTag === null ? innerTag : outerTag
-    const dom = document.createElement(isInput ? 'span' : tag)
+    const dom = document.createElement(isInput ? 'div' : tag)
     const theme = config.theme
     const className = theme.dataMention
     // copy dom
@@ -459,12 +459,11 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     return node
   }
 
-  exportDOM(): DOMExportOutput {
-    const element = document.createElement('span')
-    element.setAttribute('data-mention-type', this.__dataMention)
-    element.setAttribute('data-mention-field', this.__fieldName)
-    element.setAttribute('data-mention-label', this.__label)
-    element.setAttribute('data-lexical-data-mention', 'true')
+  exportDOM(editor:LexicalEditor): DOMExportOutput {
+    const {element, after} = super.exportDOM(editor)
+    if (element && element instanceof HTMLElement) {
+      element?.setAttribute('data-lexical-data-mention', 'true')
+    }
     if (this.__dataMention === 'input' && this.__value) {
       const value = document.createElement('span')
       value.style.wordBreak = 'break-word'
@@ -473,25 +472,13 @@ export class DataMentionNode extends DecoratorNode<React.JSX.Element> {
       value.style.display = 'inline-grid'
       const editorState = this.__value.getEditorState()
       editorState.read(() => {
-        const parser = new DOMParser()
-        const dom = parser.parseFromString(
-          $generateHtmlFromNodes(this.__value as LexicalEditor),
-          'text/html',
-        )
-        const nodes: ChildNode[] = []
-        dom.body.childNodes.forEach((node) => {
-          // create a span node
-          const span = document.createElement('span')
-          span.append(...(node.childNodes))
-          nodes.push(span)
-        })
-        value.append(...(nodes))
+        value.innerHTML = $generateHtmlFromNodes(this.__value as LexicalEditor)
       })
-      element.appendChild(value)
-    } else {
-      element.textContent = this.__data ? this.__data.toString() : ''
+      element?.appendChild(value)
+    } else if (element) {
+      element.textContent = this.__data ? this.__data.toString() : `{{${this.__fieldName}}}`
     }
-    return {element}
+    return {element, after}
   }
 
   exportJSON(): SerializedDataMentionNode {

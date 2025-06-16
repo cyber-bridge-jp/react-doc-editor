@@ -1,7 +1,7 @@
-import { t, aR as e, aQ as D, aS as n } from "./index-Bec-pY47.js";
+import { ao as t, bz as e, by as A, bA as D } from "./index-B1XK6w54.js";
 export {
   t as $isDataMentionNode,
   e as DataMentionNode,
-  D as DocumentEditor,
-  n as UPDATE_AUTO_DATA_COMMAND
+  A as DocumentEditor,
+  D as UPDATE_AUTO_DATA_COMMAND
 };

@@ -52,7 +52,7 @@ export declare class DataMentionNode extends DecoratorNode<React.JSX.Element> {
     updateDOM(prevNode: DataMentionNode, dom: HTMLElement, config: EditorConfig): boolean;
     static importDOM(): DOMConversionMap | null;
     static importJSON(serializedNode: SerializedDataMentionNode): DataMentionNode;
-    exportDOM(): DOMExportOutput;
+    exportDOM(editor: LexicalEditor): DOMExportOutput;
     exportJSON(): SerializedDataMentionNode;
     setData(data: string | number | null): this;
     setLabel(label: string): this;

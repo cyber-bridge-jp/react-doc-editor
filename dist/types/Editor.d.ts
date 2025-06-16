@@ -7,6 +7,7 @@ interface EditorProps extends ImageUploadCallback {
     autoAfterMentionData: DataMentionObject[];
     onChange?: (data: ExportData) => void;
     showTableOfContents?: boolean;
+    ignoreSelectionChange?: boolean;
 }
 declare const Editor: import('react').ForwardRefExoticComponent<EditorProps & import('react').RefAttributes<ReactDocEditorRef>>;
 export default Editor;

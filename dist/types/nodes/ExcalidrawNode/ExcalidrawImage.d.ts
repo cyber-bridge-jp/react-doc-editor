@@ -1,7 +1,10 @@
+import { JSX } from 'react';
 import { AppState, BinaryFiles } from '@excalidraw/excalidraw/dist/types/excalidraw/types';
 import { ExcalidrawElement, NonDeleted } from '@excalidraw/excalidraw/dist/types/excalidraw/element/types';
+
 import * as React from 'react';
 type ImageType = 'svg' | 'canvas';
+type Dimension = 'inherit' | number;
 type Props = {
     /**
      * Configures the export setting for SVG/Canvas
@@ -16,19 +19,17 @@ type Props = {
      */
     elements: NonDeleted<ExcalidrawElement>[];
     /**
-     * The Excalidraw elements to be rendered as an image
+     * The Excalidraw files associated with the elements
      */
     files: BinaryFiles;
     /**
      * The height of the image to be rendered
      */
-    height?: number | null;
+    height?: Dimension;
     /**
      * The ref object to be used to render the image
      */
-    imageContainerRef: {
-        current: null | HTMLDivElement;
-    };
+    imageContainerRef: React.MutableRefObject<HTMLDivElement | null>;
     /**
      * The type of image to be rendered
      */
@@ -40,12 +41,12 @@ type Props = {
     /**
      * The width of the image to be rendered
      */
-    width?: number | null;
+    width?: Dimension;
 };
 /**
  * @explorer-desc
  * A component for rendering Excalidraw elements as a static image
  */
-export default function ExcalidrawImage({ elements, files, imageContainerRef, appState, rootClassName, }: Props): React.JSX.Element;
+export default function ExcalidrawImage({ elements, files, imageContainerRef, appState, rootClassName, width, height, }: Props): JSX.Element;
 export {};
 //# sourceMappingURL=ExcalidrawImage.d.ts.map

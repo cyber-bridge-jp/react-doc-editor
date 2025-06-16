@@ -5,6 +5,7 @@
     padding-left: 4px;
     padding-right: 4px;
     min-width: 50px;
+    min-height: 26px;
 }
 
 .DataMention__contentEditable[data-mention-input-step='3'] {

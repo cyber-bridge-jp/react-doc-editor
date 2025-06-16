@@ -210,6 +210,7 @@ export default function StickyComponent({
                     }
                 }}>
                 <button
+                    type="button"
                     disabled={!editor.isEditable()}
                     onClick={handleDelete}
                     className="delete"
@@ -218,6 +219,7 @@ export default function StickyComponent({
                     X
                 </button>
                 <button
+                  type="button"
                     disabled={!editor.isEditable()}
                     onClick={handleColorChange}
                     className="color"

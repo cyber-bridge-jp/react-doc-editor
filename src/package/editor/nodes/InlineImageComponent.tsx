@@ -347,6 +347,7 @@ export default function InlineImageComponent({
       <>
         <div draggable={draggable}>
           <button
+            type="button"
             className="image-edit-button"
             ref={buttonRef}
             onClick={() => {

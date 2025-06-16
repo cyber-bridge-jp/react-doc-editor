@@ -104,6 +104,7 @@ function PollOptionComponent({
         />
       </div>
       <button
+        type="button"
         disabled={options.length < 3}
         className={joinClasses(
           'PollNode__optionDelete',

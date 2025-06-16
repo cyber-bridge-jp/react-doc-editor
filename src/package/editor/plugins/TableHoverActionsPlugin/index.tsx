@@ -225,6 +225,7 @@ function TableHoverActionsContainer({
     <>
       {isShownRow && (
         <button
+          type="button"
           className={'et_table-add-rows'}
           style={{...position}}
           onClick={() => insertAction(true)}
@@ -232,6 +233,7 @@ function TableHoverActionsContainer({
       )}
       {isShownColumn && (
         <button
+          type="button"
           className={'et_table-add-columns'}
           style={{...position}}
           onClick={() => insertAction(false)}

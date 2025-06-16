@@ -24,6 +24,7 @@ export default function Button({
 }): React.JSX.Element {
   return (
     <button
+      type="button"
       disabled={disabled}
       className={joinClasses(
         'Button__root',

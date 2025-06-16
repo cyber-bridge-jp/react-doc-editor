@@ -396,7 +396,9 @@ export default function DataMentionPlugin(
                    onChange={(e) => {
                      setInputVal(e.target.value)
                    }}/>
-            <button onClick={() => {
+            <button
+              type="button"
+              onClick={() => {
               editor.update(() => {
                 selectedItem?.setLabel(inputVal || '')
                 setShowInput(false)

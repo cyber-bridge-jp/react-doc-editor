@@ -2,12 +2,12 @@ import {
   $createParagraphNode,
   $createTextNode, $getNodeByKey,
   $getSelection,
-  $isRangeSelection, $nodesOfType, CLICK_COMMAND,
+  $isRangeSelection, $isTextNode, $nodesOfType, CLICK_COMMAND,
   COMMAND_PRIORITY_EDITOR, COMMAND_PRIORITY_HIGH,
   COMMAND_PRIORITY_LOW, CONTROLLED_TEXT_INSERTION_COMMAND,
   createCommand,
   KEY_ARROW_LEFT_COMMAND,
-  KEY_ARROW_RIGHT_COMMAND, SELECTION_CHANGE_COMMAND,
+  KEY_ARROW_RIGHT_COMMAND, LexicalNode, SELECTION_CHANGE_COMMAND,
   TextNode
 } from "lexical";
 import {useEffect} from "react";
@@ -20,7 +20,7 @@ import {
   AutofillType
 } from "../../nodes/AutofillNode.ts";
 import {$findMatchingParent, mergeRegister} from "@lexical/utils";
-import {$createAutofillTokenNode, $isAutofillTokenNode} from "../../nodes/AutofillTokenNode.ts";
+import {$createAutofillTokenNode, $isAutofillTokenNode, AutofillTokenNode} from "../../nodes/AutofillTokenNode.ts";
 import {AutofillDataObject} from "./TriggerAutofill.tsx";
 import {$createFileAttachNode} from "../../nodes/FileAttachNode.ts";
 
@@ -205,15 +205,50 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
       ),
       editor.registerCommand(
         CONTROLLED_TEXT_INSERTION_COMMAND,
-        () => {
+        (payload) => {
           const selection = $getSelection();
-          if ($isRangeSelection(selection)) {
-            const anchorNode = selection.anchor.getNode();
-            if ($isAutofillTokenNode(anchorNode) && anchorNode.isTextEntity()) {
-              return true;
+          if (!$isRangeSelection(selection)) return false;
+
+          const anchorNode = selection.anchor.getNode();
+          if (!($isAutofillTokenNode(anchorNode) && anchorNode.isTextEntity())) return false;
+
+          if (stage !== 1) return true;
+
+          const parent = anchorNode.getParent();
+          if (!(parent && $isAutofillNode(parent) && typeof payload === 'string')) return true;
+
+          const createTextNodeFrom = (refNode: AutofillTokenNode) =>
+            $createTextNode(payload)
+              .setFormat(refNode.getFormat())
+              .setDetail(refNode.getDetail())
+              .setStyle(refNode.getStyle());
+
+          const insertTextNode = (targetParent: AutofillNode, position: 'after' | 'before', refNode: AutofillTokenNode) => {
+            const textNode = createTextNodeFrom(refNode);
+            if (position === 'after') targetParent.insertAfter(textNode);
+            else targetParent.insertBefore(textNode);
+            textNode.selectEnd();
+          };
+
+          const handleSiblingInsert = (sibling: LexicalNode | null, insertFn: () => void) => {
+            if (sibling && !$isAutofillTokenNode(sibling) && $isTextNode(sibling)) {
+              sibling.setTextContent(payload + sibling.getTextContent());
+              sibling.selectEnd();
+            } else {
+              insertFn();
             }
+          };
+
+          const isAtStart = selection.anchor.offset === 0;
+
+          if (isAtStart) {
+            const prev = parent.getPreviousSibling();
+            handleSiblingInsert(prev, () => insertTextNode(parent, 'before', anchorNode));
+          } else {
+            const next = parent.getNextSibling();
+            handleSiblingInsert(next, () => insertTextNode(parent, 'after', anchorNode));
           }
-          return false;
+          return true;
         },
         COMMAND_PRIORITY_HIGH
       ),

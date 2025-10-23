@@ -16,6 +16,7 @@ import * as ReactDOM from 'react-dom'
 import {AutofillNode, AutofillStage, AutofillType} from "../../nodes/AutofillNode.ts";
 import {INSERT_AUTOFILL} from "./AutofillPlugin.tsx";
 import {$createAutofillTokenNode, $isAutofillTokenNode} from "../../nodes/AutofillTokenNode.ts";
+import './TriggerAutofill.css';
 
 const PUNCTUATION =
   '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;'
@@ -250,12 +251,12 @@ export default function TriggerAutofill(
 
   const insertAutoFill = useCallback(
     ({
-      label,
-      autofillType,
-      nodeToReplace,
-      data,
-      fieldName,
-      callback
+       label,
+       autofillType,
+       nodeToReplace,
+       data,
+       fieldName,
+       callback
      }: {
       label: string,
       autofillType: AutofillType,
@@ -300,14 +301,16 @@ export default function TriggerAutofill(
             nodeToReplace,
             data: data || undefined,
             fieldName: selectedOption.fieldName
-        })
+          })
           closeMenu()
         } else {
           insertAutoFill({
             label: selectedOption.label,
             autofillType: 'input',
             nodeToReplace,
-            callback: (n) => {setAutofillNode(n)}
+            callback: (n) => {
+              setAutofillNode(n)
+            }
           })
           setShowInput(true)
           closeMenu()
@@ -376,33 +379,35 @@ export default function TriggerAutofill(
       />
       {
         showInput && autofillNode && ReactDOM.createPortal(
-          <div className="doc-editor-typeahead-popover data-mention-input-menu">
-            <input
-              placeholder="ラベルを入力してください"
-              value={inputVal.label || ''}
-              type="text"
-              onChange={(e) => {
-                setInputVal((prev) => ({...prev, label: e.target.value}))
-              }}
-            />
-            <label>
-              <span>ファイル用</span>
-              <input type="checkbox" checked={!!inputVal.isFile} onChange={(e) => {
-                setInputVal((prev) => ({...prev, isFile: e.target.checked}))
-              }} />
-            </label>
-            {
-              inputVal.isFile && (
-                <input
-                  placeholder="ファイルのタイトルを入力してください 例：こちら"
-                  value={inputVal.title || ''}
-                  type="text"
-                  onChange={(e) => {
-                    setInputVal((prev) => ({...prev, title: e.target.value}))
-                  }}
-                />
-              )
-            }
+          <div className="trigger-autofill-menu">
+            <div className="trigger-autofill-form">
+              <input
+                placeholder="ラベル"
+                value={inputVal.label || ''}
+                type="text"
+                onChange={(e) => {
+                  setInputVal((prev) => ({...prev, label: e.target.value}))
+                }}
+              />
+              <label className="switch">
+                <span>ファイル用</span>
+                <input type="checkbox" checked={!!inputVal.isFile} onChange={(e) => {
+                  setInputVal((prev) => ({...prev, isFile: e.target.checked}))
+                }}/>
+              </label>
+              {
+                inputVal.isFile && (
+                  <input
+                    placeholder="ファイルのタイトル 例：こちら"
+                    value={inputVal.title || ''}
+                    type="text"
+                    onChange={(e) => {
+                      setInputVal((prev) => ({...prev, title: e.target.value}))
+                    }}
+                  />
+                )
+              }
+            </div>
             <button
               type="button"
               onClick={() => {
@@ -421,7 +426,8 @@ export default function TriggerAutofill(
                 setShowInput(false)
                 setInputVal({label: ''})
                 setAutofillNode(null)
-              }}>Save
+              }}>
+              保存
             </button>
           </div>
           , document.body,

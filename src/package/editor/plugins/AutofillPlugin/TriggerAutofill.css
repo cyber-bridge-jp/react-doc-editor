@@ -12,7 +12,8 @@
     z-index: 999;
 }
 
-.trigger-autofill-menu input {
+.trigger-autofill-menu input,
+.trigger-autofill-menu textarea {
     padding: 10px;
     margin: 10px;
     border-radius: 10px;

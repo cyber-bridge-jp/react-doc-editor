@@ -1,6 +1,6 @@
 import {
-  $createParagraphNode,
-  $createTextNode, $getNodeByKey,
+  $createTextNode,
+  $getNodeByKey,
   $getSelection,
   $isRangeSelection, $isTextNode, $nodesOfType, CLICK_COMMAND,
   COMMAND_PRIORITY_EDITOR, COMMAND_PRIORITY_HIGH,
@@ -55,16 +55,22 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
       const anchor = selection.anchor.getNode();
 
       // If selection is currently inside an AutofillNode → move out
-      const container = $findMatchingParent(anchor, $isAutofillNode);
+      const container = $findMatchingParent(anchor, (node) => {
+        return $isAutofillNode(node)
+      });
+
       if ($isAutofillNode(container) && stage !== 2) {
-        editor.update(() => {
-          if (isLeft) {
-            container.selectPrevious();
-          } else {
-            container.selectNext();
-          }
-        });
-        return true;
+        const textNodes = container.getAllTextNodes()
+        if ((selection.anchor.offset === 0 && isLeft && anchor.is(textNodes[0])) || (selection.anchor.offset === anchor.getTextContentSize() && !isLeft && anchor.is(textNodes[textNodes.length - 1]))) {
+          editor.update(() => {
+            if (isLeft) {
+              container.selectPrevious();
+            } else {
+              container.selectNext();
+            }
+          });
+          return true;
+        }
       }
       return false;
     };
@@ -112,26 +118,17 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
             }
           } else if (node.__autofillType === 'input' && (stage === 2 || stage === 3)) {
             const child = node.getFirstChild()
-            if (child && $isAutofillTokenNode(child)) {
-              if (node.__inputType === 'file') {
-                const newNode = $createAutofillTokenNode(node.__title || '')
-                  .setFormat(child.getFormat())
-                  .setDetail(child.getDetail())
-                  .setStyle(child.getStyle())
+            if (child && $isAutofillTokenNode(child) && node.__inputType === 'file') {
+              const newNode = $createAutofillTokenNode(node.__title || '')
+                .setFormat(child.getFormat())
+                .setDetail(child.getDetail())
+                .setStyle(child.getStyle())
 
-                node.append(
-                  $createFileAttachNode('https://', {target: '_blank', title: node.__title})
-                    .append(newNode)
-                )
-                child.remove()
-              } else {
-                if (stage === 2) {
-                  node.append($createParagraphNode())
-                  child.remove()
-                } else {
-                  node.remove()
-                }
-              }
+              node.append(
+                $createFileAttachNode('https://', {target: '_blank', title: node.__title})
+                  .append(newNode)
+              )
+              child.remove()
             }
           }
         })

@@ -22,6 +22,7 @@ export type SerializedAutofillNode = Spread<
     data?: string | number;
     inputType?: string;
     dataIsSet?: boolean;
+    helpText?: string;
   },
   SerializedElementNode
 >;
@@ -35,6 +36,7 @@ export type AutoFillPayload = {
   inputType?: string,
   stage?: AutofillStage,
   dataIsSet?: boolean
+  helpText?: string
 }
 
 export class AutofillNode extends ElementNode {
@@ -58,6 +60,7 @@ export class AutofillNode extends ElementNode {
     inputType?: string,
     stage?: AutofillStage,
     dataIsSet?: boolean,
+    helpText?: string,
     key?: NodeKey
   ) {
     super(key);
@@ -69,6 +72,7 @@ export class AutofillNode extends ElementNode {
     this.__inputType = inputType;
     this.__stage = stage || 1;
     this.__dataIsSet = dataIsSet || false;
+    this.__helpText = helpText;
   }
 
   static getType(): string {
@@ -85,6 +89,7 @@ export class AutofillNode extends ElementNode {
       node.__inputType,
       node.__stage,
       node.__dataIsSet,
+      node.__helpText,
       node.__key,
     );
   }
@@ -98,6 +103,7 @@ export class AutofillNode extends ElementNode {
       data,
       inputType,
       dataIsSet,
+      helpText,
     } = serializedNode;
     return $createAutofillNode({
       autofillType,
@@ -107,6 +113,7 @@ export class AutofillNode extends ElementNode {
       data,
       inputType,
       dataIsSet,
+      helpText,
     })
   }
 
@@ -119,6 +126,7 @@ export class AutofillNode extends ElementNode {
     if (this.__autofillType === 'input' && this.__label) {
       dom.setAttribute('data-autofill-label', this.__label)
       dom.setAttribute('tabindex', '0')
+      dom.setAttribute('data-autofill-empty', (this.getTextContentSize() === 0).toString())
     }
     if (this.__fieldName) {
       dom.setAttribute('data-autofill-field', this.__fieldName)
@@ -130,8 +138,10 @@ export class AutofillNode extends ElementNode {
   }
 
   updateDOM(prevNode:AutofillNode, dom:HTMLElement): boolean {
-    if (this.__stage !== prevNode.__stage) {
+    const isEmpty = (this.getTextContentSize() === 0).toString()
+    if (this.__stage !== prevNode.__stage || dom.getAttribute('data-autofill-empty') !== isEmpty) {
       dom.setAttribute('data-autofill-stage', this.__stage?.toString() || '1');
+      dom.setAttribute('data-autofill-empty', isEmpty)
       return true
     }
     return false;
@@ -232,6 +242,18 @@ export class AutofillNode extends ElementNode {
     return self
   }
 
+  setHelpText(value: string): this {
+    const self = this.getWritable()
+    self.__helpText = value
+    return self
+  }
+
+  setError(value: string): this {
+    const self = this.getWritable()
+    self.__error = value
+    return self
+  }
+
   setDataIsSet(value: boolean): this {
     const self = this.getWritable()
     self.__dataIsSet = value
@@ -248,7 +270,8 @@ export function $createAutofillNode(
     data,
     inputType,
     stage,
-    dataIsSet
+    dataIsSet,
+    helpText
   }: AutoFillPayload): AutofillNode {
   const node = new AutofillNode(
     autofillType,
@@ -258,7 +281,8 @@ export function $createAutofillNode(
     data,
     inputType,
     stage,
-    dataIsSet
+    dataIsSet,
+    helpText
   );
   return $applyNodeReplacement(node)
 }

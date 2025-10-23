@@ -7,6 +7,7 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin'
 
 import {
+  $createParagraphNode, $createTextNode,
   TextNode,
 } from 'lexical'
 import {useCallback, useEffect, useMemo, useState} from 'react'
@@ -15,7 +16,7 @@ import * as ReactDOM from 'react-dom'
 
 import {AutofillNode, AutofillStage, AutofillType} from "../../nodes/AutofillNode.ts";
 import {INSERT_AUTOFILL} from "./AutofillPlugin.tsx";
-import {$createAutofillTokenNode, $isAutofillTokenNode} from "../../nodes/AutofillTokenNode.ts";
+import {$isAutofillTokenNode} from "../../nodes/AutofillTokenNode.ts";
 import './TriggerAutofill.css';
 
 const PUNCTUATION =
@@ -209,6 +210,8 @@ type InputAttributes = {
   label: string;
   title?: string;
   isFile?: boolean;
+  helpText?: string;
+  defaultValue?: string;
 }
 
 export default function TriggerAutofill(
@@ -407,18 +410,27 @@ export default function TriggerAutofill(
                   />
                 )
               }
+              <input
+                type="text"
+                placeholder="ヘルプテキスト"
+                value={inputVal.helpText || ''}
+                onChange={(e) => {
+                  setInputVal((prev) => ({...prev, helpText: e.target.value}))
+                }}
+              />
             </div>
             <button
               type="button"
               onClick={() => {
                 editor.update(() => {
                   autofillNode?.setLabel(inputVal.label || '')
+                  autofillNode?.setHelpText(inputVal.helpText || '')
                   if (inputVal.isFile) {
                     autofillNode?.setInputTypeFile(inputVal.title || '')
                   }
                   const child = autofillNode?.getFirstChild()
                   if (child && $isAutofillTokenNode(child)) {
-                    autofillNode?.append($createAutofillTokenNode(autofillNode?.getLabelForText()))
+                    autofillNode?.append($createParagraphNode().append($createTextNode('')))
                     child.remove()
                     autofillNode?.selectNext()
                   }

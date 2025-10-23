@@ -12,6 +12,7 @@ export type SerializedAutofillNode = Spread<{
     data?: string | number;
     inputType?: string;
     dataIsSet?: boolean;
+    helpText?: string;
 }, SerializedElementNode>;
 export type AutoFillPayload = {
     autofillType: AutofillType;
@@ -22,6 +23,7 @@ export type AutoFillPayload = {
     inputType?: string;
     stage?: AutofillStage;
     dataIsSet?: boolean;
+    helpText?: string;
 };
 export declare class AutofillNode extends ElementNode {
     __autofillType: AutofillType;
@@ -34,7 +36,7 @@ export declare class AutofillNode extends ElementNode {
     __stage: AutofillStage;
     __inputType?: string;
     __dataIsSet?: boolean;
-    constructor(autofillType: AutofillType, label: string, fieldName?: string, title?: string, data?: string | number, inputType?: string, stage?: AutofillStage, dataIsSet?: boolean, key?: NodeKey);
+    constructor(autofillType: AutofillType, label: string, fieldName?: string, title?: string, data?: string | number, inputType?: string, stage?: AutofillStage, dataIsSet?: boolean, helpText?: string, key?: NodeKey);
     static getType(): string;
     static clone(node: AutofillNode): AutofillNode;
     static importJSON(serializedNode: SerializedAutofillNode): AutofillNode;
@@ -54,8 +56,10 @@ export declare class AutofillNode extends ElementNode {
     setLabel(value: string): this;
     setStage(stage: AutofillStage): this;
     setInputTypeFile(title: string): this;
+    setHelpText(value: string): this;
+    setError(value: string): this;
     setDataIsSet(value: boolean): this;
 }
-export declare function $createAutofillNode({ autofillType, label, fieldName, title, data, inputType, stage, dataIsSet }: AutoFillPayload): AutofillNode;
+export declare function $createAutofillNode({ autofillType, label, fieldName, title, data, inputType, stage, dataIsSet, helpText }: AutoFillPayload): AutofillNode;
 export declare function $isAutofillNode(node: unknown): node is AutofillNode;
 //# sourceMappingURL=AutofillNode.d.ts.map

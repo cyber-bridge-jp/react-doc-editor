@@ -1,8 +1,9 @@
 import { AutofillDataObject } from './plugins/AutofillPlugin/TriggerAutofill.tsx';
 import { ReactDocEditorRef, ExportData, ImageUploadCallback } from './DocumentEditor.tsx';
+import { AutofillStage } from './nodes/AutofillNode.ts';
 
 interface EditorProps extends ImageUploadCallback {
-    stage: 1 | 2 | 3;
+    stage: AutofillStage;
     autofillPreData: AutofillDataObject[];
     autofillPostData: AutofillDataObject[];
     onChange?: (data: ExportData) => void;

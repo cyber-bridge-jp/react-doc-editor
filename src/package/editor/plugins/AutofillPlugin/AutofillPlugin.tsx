@@ -224,7 +224,7 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
       })
     )
 
-  }, [editor])
+  }, [editor, preData, stage])
 
   return null
 }

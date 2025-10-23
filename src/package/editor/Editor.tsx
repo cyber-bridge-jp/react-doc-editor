@@ -56,9 +56,10 @@ import {$generateHtmlFromNodes} from "@lexical/html";
 import {InitialEditorStateType} from "@lexical/react/LexicalComposer";
 import AutofillPlugin from "./plugins/AutofillPlugin/AutofillPlugin.tsx";
 import FloatingFileAttachEditorPlugin from "./plugins/FloatingFileAttachEditorPlugin";
+import {AutofillStage} from "./nodes/AutofillNode.ts";
 
 interface EditorProps extends ImageUploadCallback {
-  stage: 1 | 2 | 3;
+  stage: AutofillStage;
   autofillPreData: AutofillDataObject[]
   autofillPostData: AutofillDataObject[]
   onChange?: (data: ExportData) => void;

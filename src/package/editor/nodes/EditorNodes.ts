@@ -25,6 +25,9 @@ import {LayoutItemNode} from "./LayoutItemNode.ts";
 import {PollNode} from "./PollNode.tsx";
 import {InlineImageNode} from "./InlineImageNode.tsx";
 import {StickyNode} from "./StickyNode.tsx";
+import {AutofillTokenNode} from "./AutofillTokenNode.ts";
+import {AutofillNode} from "./AutofillNode.ts";
+import {FileAttachNode} from "./FileAttachNode.ts";
 
 const EditorNodes: Array<Klass<LexicalNode>> = [
     CodeNode,
@@ -58,6 +61,9 @@ const EditorNodes: Array<Klass<LexicalNode>> = [
     TableCellNode,
     StickyNode,
     OverflowNode,
+    AutofillTokenNode,
+    AutofillNode,
+    FileAttachNode,
 ];
 
 export default EditorNodes;

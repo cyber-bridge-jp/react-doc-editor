@@ -3,7 +3,7 @@ import './index.css'
 import {
   $createLinkNode,
   $isAutoLinkNode,
-  $isLinkNode,
+  $isLinkNode, AutoLinkNode, LinkNode,
   TOGGLE_LINK_COMMAND,
 } from '@lexical/link'
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext'
@@ -28,6 +28,7 @@ import {createPortal} from 'react-dom'
 import {getSelectedNode} from '../../utils/getSelectedNode'
 import {setFloatingElemPositionForLinkEditor} from '../../utils/setFloatingElemPositionForLinkEditor'
 import {sanitizeUrl} from '../../utils/url'
+import {$isFileAttachNode} from "../../nodes/FileAttachNode.ts";
 
 function FloatingLinkEditor({
                               editor,
@@ -57,7 +58,6 @@ function FloatingLinkEditor({
     if ($isRangeSelection(selection)) {
       const node = getSelectedNode(selection)
       const linkParent = $findMatchingParent(node, $isLinkNode)
-
       if (linkParent) {
         setLinkUrl(linkParent.getURL())
       } else if ($isLinkNode(node)) {
@@ -78,7 +78,6 @@ function FloatingLinkEditor({
     }
 
     const rootElement = editor.getRootElement()
-
     if (
       selection !== null &&
       nativeSelection !== null &&
@@ -294,6 +293,10 @@ function useFloatingLinkEditorToolbar(
           focusNode,
           $isAutoLinkNode,
         )
+        if ($isFileAttachNode(focusNode) || $isFileAttachNode(focusAutoLinkNode)) {
+          setIsLink(false)
+          return
+        }
         if (!(focusLinkNode || focusAutoLinkNode)) {
           setIsLink(false)
           return
@@ -301,9 +304,12 @@ function useFloatingLinkEditorToolbar(
         const badNode = selection.getNodes().find((node) => {
           const linkNode = $findMatchingParent(node, $isLinkNode)
           const autoLinkNode = $findMatchingParent(node, $isAutoLinkNode)
+          if ($isFileAttachNode(linkNode) || $isFileAttachNode(autoLinkNode)) {
+            return node
+          }
           if (
-            !linkNode?.is(focusLinkNode) &&
-            !autoLinkNode?.is(focusAutoLinkNode) &&
+            !(linkNode as LinkNode | null)?.is(focusLinkNode) &&
+            !(autoLinkNode as AutoLinkNode | null)?.is(focusAutoLinkNode) &&
             !linkNode &&
             !autoLinkNode &&
             !$isLineBreakNode(node)

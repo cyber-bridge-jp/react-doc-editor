@@ -1,0 +1,168 @@
+.file-attach-editor {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    max-width: 400px;
+    width: 100%;
+    opacity: 0;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 0 0 8px 8px;
+    transition: opacity 0.5s;
+    will-change: transform;
+}
+
+.file-attach-editor .button {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0 2px;
+}
+
+.file-attach-editor .button.hovered {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-color: #eee;
+}
+
+.file-attach-editor .button i,
+.actions i {
+    background-size: contain;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    vertical-align: -0.25em;
+}
+
+.file-attach-editor .file-attach-view {
+    padding: 8px;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.file-attach-editor .file-attach-view dl {
+    display: flex;
+    margin: 0;
+    flex-flow: column;
+}
+
+.file-attach-editor .file-attach-view dt {
+    font-weight: bold;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+}
+
+.file-attach-editor .file-attach-view dd {
+    margin: 0;
+    padding-left: 8px;
+}
+
+.file-attach-editor .file-attach-view dd a {
+    color: #333;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.file-attach-editor .file-attach-view dd a:hover {
+    text-decoration: underline;
+}
+
+.file-attach-editor .file-attach-edit {
+    background-image: url(../../../../assets/icons/pencil-fill.svg);
+    background-size: 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    vertical-align: -0.25em;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.file-attach-editor .file-attach-cancel {
+    background-image: url(../../../../assets/icons/close.svg);
+    background-size: 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    vertical-align: -0.25em;
+    margin-right: 28px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.file-attach-editor .file-attach-confirm {
+    background-image: url(../../../../assets/icons/success-alt.svg);
+    background-size: 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    vertical-align: -0.25em;
+    margin-right: 2px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.file-attach-form {
+    padding: 8px;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.file-attach-inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-attach-inputs:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.file-attach-inputs label {
+    margin-bottom: 4px;
+}
+
+.file-attach-input {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.file-attach-input-file {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.file-attach-input-file input {
+    display: none;
+}
+
+.file-attach-input-file span {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f38c20;
+}

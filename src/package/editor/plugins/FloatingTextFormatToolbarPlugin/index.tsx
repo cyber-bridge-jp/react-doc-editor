@@ -3,7 +3,7 @@ import './index.css';
 import {$isCodeHighlightNode} from '@lexical/code';
 import {$isLinkNode, TOGGLE_LINK_COMMAND} from '@lexical/link';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {mergeRegister} from '@lexical/utils';
+import {$findMatchingParent, mergeRegister} from '@lexical/utils';
 import {
   $getSelection,
   $isParagraphNode,
@@ -21,6 +21,7 @@ import {createPortal} from 'react-dom';
 import {getDOMRangeRect} from '../../utils/getDOMRangeRect';
 import {getSelectedNode} from '../../utils/getSelectedNode';
 import {setFloatingElemPosition} from '../../utils/setFloatingElemPosition';
+import {$isFileAttachNode} from "../../nodes/FileAttachNode.ts";
 
 function TextFormatFloatingToolbar({
   editor,
@@ -288,6 +289,11 @@ function useFloatingTextFormatToolbar(
       }
 
       const node = getSelectedNode(selection);
+      const parentNode = $findMatchingParent(node, $isFileAttachNode);
+      if (parentNode) {
+        setIsText(false);
+        return;
+      }
 
       // Update text format
       setIsBold(selection.hasFormat('bold'));

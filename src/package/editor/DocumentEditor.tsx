@@ -3,12 +3,11 @@ import EditorTheme from "./themes/EditorTheme.ts";
 import EditorNodes from "./nodes/EditorNodes.ts";
 import {SharedHistoryContext} from "./context/SharedHistoryContext.tsx";
 import Editor from "./Editor.tsx";
-import {DataMentionNode} from "./nodes/DataMentionNode.tsx";
 import {HistoryState} from "@lexical/react/LexicalHistoryPlugin";
 import { EditorRefPlugin } from "@lexical/react/LexicalEditorRefPlugin"
 import React, {forwardRef} from "react";
 import {LexicalEditor, SerializedEditorState} from 'lexical'
-import {DataMentionObject} from "./plugins/DataMentionPlugin";
+import {AutofillDataObject} from "./plugins/AutofillPlugin/TriggerAutofill.tsx";
 import './styles.css';
 
 export type UploadCallbackType = (file: File, result: string, callback: (url: string) => void) => void
@@ -34,8 +33,8 @@ export interface DocumentEditorProps extends ImageUploadCallback{
     historyState?: HistoryState;
     step?: 1 | 2 | 3;
     onChange?: (data: ExportData) => void;
-    autoMentionData?: DataMentionObject[]
-    autoAfterMentionData?: DataMentionObject[]
+    autofillPreData?: AutofillDataObject[]
+    autofillPostData?: AutofillDataObject[]
     editorRef?: React.MutableRefObject<LexicalEditor | null | undefined>;
     showTableOfContents?: boolean;
 }
@@ -46,14 +45,12 @@ const DocumentEditor = forwardRef<ReactDocEditorRef, DocumentEditorProps>((props
         historyState,
         onChange,
         showTableOfContents,
-        autoAfterMentionData = [],
-        autoMentionData = [],
+        autofillPreData = [],
+        autofillPostData = [],
         step = 1,
         editorRef = {current: null},
         imageUploadCallback,
     } = props;
-
-    DataMentionNode.prototype.defaultStep = step;
 
     const initialConfig: InitialConfigType = {
         editorState: editorState,
@@ -63,7 +60,7 @@ const DocumentEditor = forwardRef<ReactDocEditorRef, DocumentEditorProps>((props
         onError: (error: Error) => {
             console.log('Error:', error.message)
         },
-        nodes: [...EditorNodes, DataMentionNode],
+        nodes: EditorNodes,
     };
 
     return (
@@ -73,8 +70,8 @@ const DocumentEditor = forwardRef<ReactDocEditorRef, DocumentEditorProps>((props
                 <div className="doc-editor-shell">
                     <Editor
                       step={step}
-                      autoAfterMentionData={autoAfterMentionData}
-                      autoMentionData={autoMentionData}
+                      autofillPostData={autofillPostData}
+                      autofillPreData={autofillPreData}
                       onChange={onChange}
                       showTableOfContents={showTableOfContents}
                       ref={ref}

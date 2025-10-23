@@ -75,6 +75,7 @@ import {EmbedConfigs} from '../AutoEmbedPlugin'
 import {INSERT_EMBED_COMMAND} from '@lexical/react/LexicalAutoEmbedPlugin'
 import {$isDataMentionSelection, DataMentionNode} from '../../nodes/DataMentionNode.tsx'
 import {ImageUploadCallback} from "../../DocumentEditor.tsx";
+import {$isAutofillNode, AutofillStage} from "../../nodes/AutofillNode.ts";
 
 const blockTypeToBlockName = {
   bullet: 'Bulleted List',
@@ -446,7 +447,10 @@ function ElementFormatDropdown({
   )
 }
 
-export default function ToolbarPlugin({setIsLinkEditMode, imageUploadCallback}: { setIsLinkEditMode: Dispatch<boolean> } & ImageUploadCallback) {
+export default function ToolbarPlugin({setIsLinkEditMode, imageUploadCallback, stage}: {
+  setIsLinkEditMode: Dispatch<boolean>,
+  stage: AutofillStage
+} & ImageUploadCallback) {
   const [editor] = useLexicalComposerContext()
   const [blockType, setBlockType] = useState<keyof typeof blockTypeToBlockName>('paragraph')
   const [activeEditor, setActiveEditor] = useState(editor)
@@ -498,7 +502,6 @@ export default function ToolbarPlugin({setIsLinkEditMode, imageUploadCallback}: 
       if (element === null) {
         element = anchorNode.getTopLevelElementOrThrow()
       }
-
       const elementKey = element.getKey()
       const elementDOM = activeEditor.getElementByKey(elementKey)
       // Update text format
@@ -581,9 +584,32 @@ export default function ToolbarPlugin({setIsLinkEditMode, imageUploadCallback}: 
     return editor.registerCommand(
       SELECTION_CHANGE_COMMAND,
       (_payload, newEditor) => {
+        if (stage === 2) {
+          const selection = $getSelection()
+          if ($isRangeSelection(selection)) {
+            const anchorNode = selection.anchor.getNode();
+            const focusNode = selection.focus.getNode();
+            const anchorParent = $findMatchingParent(anchorNode, $isAutofillNode);
+            const focusParent = $findMatchingParent(focusNode, $isAutofillNode);
+            if (anchorParent && anchorParent === focusParent) {
+              if (anchorParent.getAutofillType() === 'input') {
+                newEditor.setEditable(true)
+                setIsEditable(true)
+              } else {
+                newEditor.setEditable(false)
+                setIsEditable(false)
+              }
+            } else {
+              newEditor.setEditable(false)
+              setIsEditable(false)
+            }
+          }
+        }
         $updateToolbar()
         setActiveEditor(newEditor)
-        setIsEditable(newEditor.isEditable())
+        if (stage !== 2) {
+          setIsEditable(newEditor.isEditable())
+        }
         return false
       },
       COMMAND_PRIORITY_CRITICAL,

@@ -38,7 +38,7 @@ import TableActionMenuPlugin from './plugins/TableActionMenuPlugin'
 import DragDropPaste from './plugins/DragDropPastePlugin'
 import EmojiPickerPlugin from './plugins/EmojiPickerPlugin'
 import DraggableBlockPlugin from './plugins/DraggableBlockPlugin'
-import DataMentionPlugin, {DataMentionObject} from './plugins/DataMentionPlugin'
+import TriggerAutofill , {AutofillDataObject} from './plugins/AutofillPlugin/TriggerAutofill.tsx'
 import {
   $getRoot,
   COMMAND_PRIORITY_CRITICAL,
@@ -54,11 +54,13 @@ import {ReactDocEditorRef, ExportData, ImageUploadCallback} from "./DocumentEdit
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {$generateHtmlFromNodes} from "@lexical/html";
 import {InitialEditorStateType} from "@lexical/react/LexicalComposer";
+import AutofillPlugin from "./plugins/AutofillPlugin/AutofillPlugin.tsx";
+import FloatingFileAttachEditorPlugin from "./plugins/FloatingFileAttachEditorPlugin";
 
 interface EditorProps extends ImageUploadCallback {
   step: 1 | 2 | 3;
-  autoMentionData: DataMentionObject[]
-  autoAfterMentionData: DataMentionObject[]
+  autofillPreData: AutofillDataObject[]
+  autofillPostData: AutofillDataObject[]
   onChange?: (data: ExportData) => void;
   showTableOfContents?: boolean;
   ignoreSelectionChange?: boolean;
@@ -67,8 +69,8 @@ interface EditorProps extends ImageUploadCallback {
 const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
   const {
     step,
-    autoMentionData,
-    autoAfterMentionData,
+    autofillPreData,
+    autofillPostData,
     onChange,
     imageUploadCallback,
     showTableOfContents = false,
@@ -79,6 +81,7 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
   const [activeEditor, setActiveEditor] = useState<LexicalEditor>(editor)
   const placeholder = <Placeholder>Enter text...</Placeholder>
   const [isLinkEditMode, setIsLinkEditMode] = useState<boolean>(false)
+  const [isFileAttachEditMode, setIsFileAttachEditMode] = useState<boolean>(false)
   const [floatingAnchorElem, setFloatingAnchorElem] = useState<HTMLDivElement | null>(null)
   const [isSmallWidthViewport, setIsSmallWidthViewport] = useState<boolean>(false)
 
@@ -188,14 +191,19 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
 
   return (
     <>
-      <ToolbarPlugin setIsLinkEditMode={setIsLinkEditMode} imageUploadCallback={imageUploadCallback}/>
+      <ToolbarPlugin
+        setIsLinkEditMode={setIsLinkEditMode}
+        imageUploadCallback={imageUploadCallback}
+        stage={step}
+      />
       <div className="editor-container">
         <DragDropPaste/>
         <AutoFocusPlugin/>
         <ComponentPickerPlugin imageUploadCallback={imageUploadCallback}/>
         <EmojiPickerPlugin/>
         <AutoEmbedPlugin/>
-        <DataMentionPlugin step={step} autoData={autoMentionData} afterAutoData={autoAfterMentionData}/>
+        <AutofillPlugin stage={step} preData={autofillPreData}/>
+        <TriggerAutofill step={step} preData={autofillPreData} postData={autofillPostData}/>
         <EmojisPlugin/>
         <KeywordsPlugin/>
         <HistoryPlugin externalHistoryState={historyState}/>
@@ -243,6 +251,12 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
               anchorElem={floatingAnchorElem}
               isLinkEditMode={isLinkEditMode}
               setIsLinkEditMode={setIsLinkEditMode}
+            />
+            <FloatingFileAttachEditorPlugin
+              anchorElem={floatingAnchorElem}
+              isFileAttachEditMode={isFileAttachEditMode}
+              setIsFileAttachEditMode={setIsFileAttachEditMode}
+              imageUploadCallback={imageUploadCallback}
             />
             <TableHoverActionsPlugin anchorElem={floatingAnchorElem}/>
             <FloatingTextFormatToolbarPlugin

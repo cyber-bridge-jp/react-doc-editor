@@ -219,9 +219,9 @@ export class AutofillNode extends ElementNode {
     return self
   }
 
-  setStage(step: AutofillStage): this {
+  setStage(stage: AutofillStage): this {
     const self = this.getWritable()
-    self.__stage = step
+    self.__stage = stage
     return self
   }
 

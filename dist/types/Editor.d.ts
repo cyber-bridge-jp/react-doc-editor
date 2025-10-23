@@ -1,10 +1,10 @@
-import { DataMentionObject } from './plugins/DataMentionPlugin';
+import { AutofillDataObject } from './plugins/AutofillPlugin/TriggerAutofill.tsx';
 import { ReactDocEditorRef, ExportData, ImageUploadCallback } from './DocumentEditor.tsx';
 
 interface EditorProps extends ImageUploadCallback {
-    step: 1 | 2 | 3;
-    autoMentionData: DataMentionObject[];
-    autoAfterMentionData: DataMentionObject[];
+    stage: 1 | 2 | 3;
+    autofillPreData: AutofillDataObject[];
+    autofillPostData: AutofillDataObject[];
     onChange?: (data: ExportData) => void;
     showTableOfContents?: boolean;
     ignoreSelectionChange?: boolean;

@@ -13,7 +13,7 @@ import {useCallback, useEffect, useMemo, useState} from 'react'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
-import {AutofillNode, AutofillType} from "../../nodes/AutofillNode.ts";
+import {AutofillNode, AutofillStage, AutofillType} from "../../nodes/AutofillNode.ts";
 import {INSERT_AUTOFILL} from "./AutofillPlugin.tsx";
 import {$createAutofillTokenNode, $isAutofillTokenNode} from "../../nodes/AutofillTokenNode.ts";
 
@@ -214,8 +214,9 @@ export default function TriggerAutofill(
   {
     preData,
     postData,
+    stage
   }: {
-    step: 1 | 2 | 3;
+    stage: AutofillStage;
     preData: AutofillDataObject[];
     postData: AutofillDataObject[];
   },
@@ -331,6 +332,10 @@ export default function TriggerAutofill(
     },
     [checkForSlashTriggerMatch, editor],
   )
+
+  if (stage !== 1) {
+    return null
+  }
 
   return (
     <>

@@ -58,7 +58,7 @@ import AutofillPlugin from "./plugins/AutofillPlugin/AutofillPlugin.tsx";
 import FloatingFileAttachEditorPlugin from "./plugins/FloatingFileAttachEditorPlugin";
 
 interface EditorProps extends ImageUploadCallback {
-  step: 1 | 2 | 3;
+  stage: 1 | 2 | 3;
   autofillPreData: AutofillDataObject[]
   autofillPostData: AutofillDataObject[]
   onChange?: (data: ExportData) => void;
@@ -68,7 +68,7 @@ interface EditorProps extends ImageUploadCallback {
 
 const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
   const {
-    step,
+    stage,
     autofillPreData,
     autofillPostData,
     onChange,
@@ -194,7 +194,7 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
       <ToolbarPlugin
         setIsLinkEditMode={setIsLinkEditMode}
         imageUploadCallback={imageUploadCallback}
-        stage={step}
+        stage={stage}
       />
       <div className="editor-container">
         <DragDropPaste/>
@@ -202,8 +202,8 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
         <ComponentPickerPlugin imageUploadCallback={imageUploadCallback}/>
         <EmojiPickerPlugin/>
         <AutoEmbedPlugin/>
-        <AutofillPlugin stage={step} preData={autofillPreData}/>
-        <TriggerAutofill step={step} preData={autofillPreData} postData={autofillPostData}/>
+        <AutofillPlugin stage={stage} preData={autofillPreData}/>
+        <TriggerAutofill stage={stage} preData={autofillPreData} postData={autofillPostData}/>
         <EmojisPlugin/>
         <KeywordsPlugin/>
         <HistoryPlugin externalHistoryState={historyState}/>

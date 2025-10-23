@@ -3,7 +3,6 @@ import './fontSize.css'
 import {$patchStyleText} from '@lexical/selection'
 import {$getSelection, LexicalEditor} from 'lexical'
 import * as React from 'react'
-import {$isDataMentionSelection, DataMentionNode} from '../../nodes/DataMentionNode.tsx'
 
 const MIN_ALLOWED_FONT_SIZE = 8
 const MAX_ALLOWED_FONT_SIZE = 72
@@ -115,14 +114,9 @@ export default function FontSize({
         if (editor.isEditable()) {
           const selection = $getSelection()
           if (selection !== null) {
-            if ($isDataMentionSelection(selection)) {
-              const node = selection.getNodes()[0] as DataMentionNode
-              node.patchStyle({'font-size': newFontSize || '15px'})
-            } else {
-              $patchStyleText(selection, {
-                'font-size': newFontSize || getNextFontSize,
-              })
-            }
+            $patchStyleText(selection, {
+              'font-size': newFontSize || getNextFontSize,
+            })
           }
         }
       })

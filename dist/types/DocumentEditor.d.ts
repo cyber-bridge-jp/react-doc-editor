@@ -2,7 +2,7 @@ import { InitialEditorStateType } from '@lexical/react/LexicalComposer';
 import { HistoryState } from '@lexical/react/LexicalHistoryPlugin';
 import { default as React } from 'react';
 import { LexicalEditor, SerializedEditorState } from 'lexical';
-import { DataMentionObject } from './plugins/DataMentionPlugin';
+import { AutofillDataObject } from './plugins/AutofillPlugin/TriggerAutofill.tsx';
 
 export type UploadCallbackType = (file: File, result: string, callback: (url: string) => void) => void;
 export interface ImageUploadCallback {
@@ -21,10 +21,10 @@ export type ReactDocEditorRef = {
 export interface DocumentEditorProps extends ImageUploadCallback {
     editorState?: InitialEditorStateType;
     historyState?: HistoryState;
-    step?: 1 | 2 | 3;
+    stage?: 1 | 2 | 3;
     onChange?: (data: ExportData) => void;
-    autoMentionData?: DataMentionObject[];
-    autoAfterMentionData?: DataMentionObject[];
+    autofillPreData?: AutofillDataObject[];
+    autofillPostData?: AutofillDataObject[];
     editorRef?: React.MutableRefObject<LexicalEditor | null | undefined>;
     showTableOfContents?: boolean;
 }

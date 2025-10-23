@@ -73,7 +73,6 @@ import {$createStickyNode} from '../../nodes/StickyNode.tsx'
 import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin'
 import {EmbedConfigs} from '../AutoEmbedPlugin'
 import {INSERT_EMBED_COMMAND} from '@lexical/react/LexicalAutoEmbedPlugin'
-import {$isDataMentionSelection, DataMentionNode} from '../../nodes/DataMentionNode.tsx'
 import {ImageUploadCallback} from "../../DocumentEditor.tsx";
 import {$isAutofillNode, AutofillStage} from "../../nodes/AutofillNode.ts";
 
@@ -296,14 +295,9 @@ function FontDropDown({
       editor.update(() => {
         const selection = $getSelection()
         if (selection !== null) {
-          if ($isDataMentionSelection(selection)) {
-            const node = selection.getNodes()[0] as DataMentionNode
-            node.patchStyle({[style]: option})
-          } else {
-            $patchStyleText(selection, {
-              [style]: option,
-            })
-          }
+          $patchStyleText(selection, {
+            [style]: option,
+          })
         }
       })
     },
@@ -475,21 +469,7 @@ export default function ToolbarPlugin({setIsLinkEditMode, imageUploadCallback, s
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection()
-    if (selection && $isDataMentionSelection(selection)) {
-      const node = selection.getNodes()[0] as DataMentionNode
-      setIsBold(node.hasFormat('bold'))
-      setIsItalic(node.hasFormat('italic'))
-      setIsUnderline(node.hasFormat('underline'))
-      setIsStrikethrough(node.hasFormat('strikethrough'))
-      setIsSubscript(node.hasFormat('subscript'))
-      setIsSuperscript(node.hasFormat('superscript'))
-      setIsCode(node.hasFormat('code'))
-
-      setFontSize(node.getStyleValue('font-size', '15px'))
-      setFontColor(node.getStyleValue('color', '#000'))
-      setBgColor(node.getStyleValue('background-color', '#fff'))
-      setFontFamily(node.getStyleValue('font-family', '"Noto Sans JP", serif'))
-    } else if ($isRangeSelection(selection)) {
+    if ($isRangeSelection(selection)) {
       const anchorNode = selection.anchor.getNode()
       let element =
         anchorNode.getKey() === 'root'
@@ -676,12 +656,7 @@ export default function ToolbarPlugin({setIsLinkEditMode, imageUploadCallback, s
         () => {
           const selection = $getSelection()
           if (selection !== null) {
-            if ($isDataMentionSelection(selection)) {
-              const node = selection.getNodes()[0] as DataMentionNode
-              node.patchStyle(styles)
-            } else {
               $patchStyleText(selection, styles)
-            }
           }
         },
         skipHistoryStack ? {tag: 'historic'} : {},
@@ -693,10 +668,7 @@ export default function ToolbarPlugin({setIsLinkEditMode, imageUploadCallback, s
   const clearFormatting = useCallback(() => {
     activeEditor.update(() => {
       const selection = $getSelection()
-      if (selection && $isDataMentionSelection(selection)) {
-        const node = selection.getNodes()[0] as DataMentionNode
-        node.clearAllFormats()
-      } else if ($isRangeSelection(selection)) {
+      if ($isRangeSelection(selection)) {
         const anchor = selection.anchor
         const focus = selection.focus
         const nodes = selection.getNodes()

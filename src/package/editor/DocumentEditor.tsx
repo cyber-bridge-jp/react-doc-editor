@@ -31,7 +31,7 @@ export type ReactDocEditorRef = {
 export interface DocumentEditorProps extends ImageUploadCallback{
     editorState?: InitialEditorStateType;
     historyState?: HistoryState;
-    step?: 1 | 2 | 3;
+    stage?: 1 | 2 | 3;
     onChange?: (data: ExportData) => void;
     autofillPreData?: AutofillDataObject[]
     autofillPostData?: AutofillDataObject[]
@@ -47,7 +47,7 @@ const DocumentEditor = forwardRef<ReactDocEditorRef, DocumentEditorProps>((props
         showTableOfContents,
         autofillPreData = [],
         autofillPostData = [],
-        step = 1,
+        stage = 1,
         editorRef = {current: null},
         imageUploadCallback,
     } = props;
@@ -55,7 +55,7 @@ const DocumentEditor = forwardRef<ReactDocEditorRef, DocumentEditorProps>((props
     const initialConfig: InitialConfigType = {
         editorState: editorState,
         namespace: 'Doc App',
-        editable: step === 1,
+        editable: stage === 1,
         theme: EditorTheme,
         onError: (error: Error) => {
             console.log('Error:', error.message)
@@ -69,7 +69,7 @@ const DocumentEditor = forwardRef<ReactDocEditorRef, DocumentEditorProps>((props
             <SharedHistoryContext initHistoryState={historyState}>
                 <div className="doc-editor-shell">
                     <Editor
-                      step={step}
+                      stage={stage}
                       autofillPostData={autofillPostData}
                       autofillPreData={autofillPreData}
                       onChange={onChange}

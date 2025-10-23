@@ -1,7 +1,8 @@
-import { ao as t, bz as e, by as A, bA as D } from "./index-B-hVvLl3.js";
+import { bg as i, bi as l, bh as s, bj as t, bf as f } from "./index-BEwq7YSb.js";
 export {
-  t as $isDataMentionNode,
-  e as DataMentionNode,
-  A as DocumentEditor,
-  D as UPDATE_AUTO_DATA_COMMAND
+  i as $isAutofillNode,
+  l as $isAutofillTokenNode,
+  s as AutofillNode,
+  t as AutofillTokenNode,
+  f as DocumentEditor
 };

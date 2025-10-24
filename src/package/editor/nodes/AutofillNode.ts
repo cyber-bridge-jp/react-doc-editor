@@ -66,7 +66,7 @@ export class AutofillNode extends ElementNode {
     super(key);
     this.__autofillType = autofillType;
     this.__label = label;
-    this.__fieldName = fieldName;
+    this.__fieldName = fieldName || Date.now().toString();
     this.__title = title;
     this.__data = data;
     this.__inputType = inputType;

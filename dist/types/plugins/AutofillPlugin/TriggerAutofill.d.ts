@@ -5,6 +5,7 @@ export type AutofillData = {
     value: string | number | null;
     isMan?: boolean;
     isNumber?: boolean;
+    isInput?: boolean;
 };
 export type AutofillDataObject = {
     [key: string]: AutofillData;

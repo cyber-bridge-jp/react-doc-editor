@@ -56,7 +56,7 @@ import {$generateHtmlFromNodes} from "@lexical/html";
 import {InitialEditorStateType} from "@lexical/react/LexicalComposer";
 import AutofillPlugin from "./plugins/AutofillPlugin/AutofillPlugin.tsx";
 import FloatingFileAttachEditorPlugin from "./plugins/FloatingFileAttachEditorPlugin";
-import {AutofillNode, AutofillStage} from "./nodes/AutofillNode.ts";
+import {AutofillNode, AutofillStage, SerializedAutofillNode} from "./nodes/AutofillNode.ts";
 import {exportNodeToJSON} from "./utils/editorState.ts";
 
 interface EditorProps extends ImageUploadCallback {
@@ -66,6 +66,7 @@ interface EditorProps extends ImageUploadCallback {
   onChange?: (data: ExportData) => void;
   showTableOfContents?: boolean;
   ignoreSelectionChange?: boolean;
+  inputNodes?: SerializedAutofillNode[]
 }
 
 const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
@@ -77,6 +78,7 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
     imageUploadCallback,
     showTableOfContents = false,
     ignoreSelectionChange = true,
+    inputNodes,
   } = props
   const {historyState} = useSharedHistoryContext()
   const [editor] = useLexicalComposerContext()
@@ -207,7 +209,7 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
         <ComponentPickerPlugin imageUploadCallback={imageUploadCallback}/>
         <EmojiPickerPlugin/>
         <AutoEmbedPlugin/>
-        <AutofillPlugin stage={stage} preData={autofillPreData}/>
+        <AutofillPlugin stage={stage} preData={autofillPreData} inputNodes={inputNodes}/>
         <TriggerAutofill stage={stage} preData={autofillPreData} postData={autofillPostData}/>
         <EmojisPlugin/>
         <KeywordsPlugin/>

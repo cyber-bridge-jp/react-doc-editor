@@ -148,11 +148,12 @@ class MentionTypeaheadOption extends MenuOption {
   autofillType: AutofillType
   fieldName: string
   label: string
-  data: string | number | null
+  data?: string | number | null
   isMan: boolean
   isNumber: boolean
+  isInput: boolean
 
-  constructor(autofillType: AutofillType, fieldName: string, label: string, data: string | number | null, isMan = false, isNumber = false) {
+  constructor(autofillType: AutofillType, fieldName: string, label: string, data?: string | number | null, isMan = false, isNumber = false, isInput = false) {
     super(autofillType + label)
     this.autofillType = autofillType
     this.fieldName = fieldName
@@ -160,6 +161,7 @@ class MentionTypeaheadOption extends MenuOption {
     this.data = data
     this.isMan = isMan
     this.isNumber = isNumber
+    this.isInput = isInput
   }
 }
 
@@ -199,7 +201,7 @@ function MentionsTypeaheadMenuItem({
 
 export type AutofillData = {
   label: string;
-  value: string | number | null;
+  value?: string | number | null;
   isMan?: boolean;
   isNumber?: boolean;
   isInput?: boolean;
@@ -213,6 +215,7 @@ type InputAttributes = {
   isFile?: boolean;
   helpText?: string;
   defaultValue?: string;
+  isInput?: boolean;
 }
 
 export default function TriggerAutofill(
@@ -247,7 +250,7 @@ export default function TriggerAutofill(
         .map(
           (result) => {
             const key = Object.keys(result)[0]
-            return new MentionTypeaheadOption(trigger === AUTO_TRIGGER ? 'pre' : 'post', key, result[key].label, result[key].value, result[key].isMan, result[key].isNumber)
+            return new MentionTypeaheadOption(trigger === AUTO_TRIGGER ? 'pre' : 'post', key, result[key].label, result[key].value, result[key].isMan, result[key].isNumber, result[key].isInput)
           },
         ),
     [results],
@@ -260,14 +263,16 @@ export default function TriggerAutofill(
        nodeToReplace,
        data,
        fieldName,
-       callback
+       callback,
+       isPreInput
      }: {
       label: string,
       autofillType: AutofillType,
       nodeToReplace?: TextNode | null,
       data?: string | number,
       fieldName?: string,
-      callback?: (node: AutofillNode) => void
+      callback?: (node: AutofillNode) => void,
+      isPreInput?: boolean
     }) => {
       editor.dispatchCommand(INSERT_AUTOFILL, {
         label,
@@ -275,7 +280,8 @@ export default function TriggerAutofill(
         nodeToReplace,
         data,
         fieldName,
-        callback
+        callback,
+        isPreInput
       })
     },
     [editor],
@@ -304,7 +310,8 @@ export default function TriggerAutofill(
             autofillType: trigger === AUTO_TRIGGER ? 'pre' : 'post',
             nodeToReplace,
             data: data || undefined,
-            fieldName: selectedOption.fieldName
+            fieldName: selectedOption.fieldName,
+            isPreInput: selectedOption.isInput
           })
           closeMenu()
         } else {

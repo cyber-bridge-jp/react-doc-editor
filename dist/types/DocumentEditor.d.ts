@@ -28,6 +28,7 @@ export interface DocumentEditorProps extends ImageUploadCallback {
     autofillPreData?: AutofillDataObject[];
     autofillPostData?: AutofillDataObject[];
     editorRef?: React.MutableRefObject<LexicalEditor | null | undefined>;
+    inputNodes?: SerializedAutofillNode[];
     showTableOfContents?: boolean;
 }
 declare const DocumentEditor: React.ForwardRefExoticComponent<DocumentEditorProps & React.RefAttributes<ReactDocEditorRef>>;

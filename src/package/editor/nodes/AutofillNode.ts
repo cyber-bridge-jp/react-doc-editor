@@ -23,6 +23,7 @@ export type SerializedAutofillNode = Spread<
     inputType?: string;
     dataIsSet?: boolean;
     helpText?: string;
+    isPreInput?: boolean
   },
   SerializedElementNode
 >;
@@ -37,6 +38,7 @@ export type AutoFillPayload = {
   stage?: AutofillStage,
   dataIsSet?: boolean
   helpText?: string
+  isPreInput?: boolean
 }
 
 export class AutofillNode extends ElementNode {
@@ -50,6 +52,7 @@ export class AutofillNode extends ElementNode {
   __stage: AutofillStage
   __inputType?: string
   __dataIsSet?: boolean
+  __isPreInput?: boolean
 
   constructor(
     autofillType: AutofillType,
@@ -61,6 +64,7 @@ export class AutofillNode extends ElementNode {
     stage?: AutofillStage,
     dataIsSet?: boolean,
     helpText?: string,
+    isPreInput?: boolean,
     key?: NodeKey
   ) {
     super(key);
@@ -73,6 +77,7 @@ export class AutofillNode extends ElementNode {
     this.__stage = stage || 1;
     this.__dataIsSet = dataIsSet || false;
     this.__helpText = helpText;
+    this.__isPreInput = isPreInput || false;
   }
 
   static getType(): string {
@@ -90,6 +95,7 @@ export class AutofillNode extends ElementNode {
       node.__stage,
       node.__dataIsSet,
       node.__helpText,
+      node.__isPreInput,
       node.__key,
     );
   }
@@ -104,6 +110,7 @@ export class AutofillNode extends ElementNode {
       inputType,
       dataIsSet,
       helpText,
+      isPreInput,
     } = serializedNode;
     return $createAutofillNode({
       autofillType,
@@ -114,6 +121,7 @@ export class AutofillNode extends ElementNode {
       inputType,
       dataIsSet,
       helpText,
+      isPreInput,
     })
   }
 
@@ -133,6 +141,9 @@ export class AutofillNode extends ElementNode {
     }
     if (this.__inputType) {
       dom.setAttribute('data-autofill-input', this.__inputType);
+    }
+    if (this.__isPreInput) {
+      dom.setAttribute('data-autofill-pre-input', 'true');
     }
     return dom;
   }
@@ -159,6 +170,7 @@ export class AutofillNode extends ElementNode {
       data: this.__data,
       inputType: this.__inputType,
       dataIsSet: this.__dataIsSet,
+      isPreInput: this.__isPreInput,
     };
   }
 
@@ -302,7 +314,8 @@ export function $createAutofillNode(
     inputType,
     stage,
     dataIsSet,
-    helpText
+    helpText,
+    isPreInput
   }: AutoFillPayload): AutofillNode {
   const node = new AutofillNode(
     autofillType,
@@ -313,7 +326,8 @@ export function $createAutofillNode(
     inputType,
     stage,
     dataIsSet,
-    helpText
+    helpText,
+    isPreInput
   );
   return $applyNodeReplacement(node)
 }

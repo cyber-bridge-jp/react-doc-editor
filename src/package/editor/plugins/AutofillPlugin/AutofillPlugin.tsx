@@ -4,8 +4,8 @@ import {
   $getSelection,
   $isRangeSelection,
   $isTextNode,
-  $nodesOfType,
-  CLICK_COMMAND,
+  $nodesOfType, $parseSerializedNode,
+  CLICK_COMMAND, COMMAND_PRIORITY_CRITICAL,
   COMMAND_PRIORITY_EDITOR,
   COMMAND_PRIORITY_HIGH,
   CONTROLLED_TEXT_INSERTION_COMMAND,
@@ -23,12 +23,13 @@ import {
   $isAutofillNode,
   AutofillNode,
   AutofillStage,
-  AutofillType
+  AutofillType, SerializedAutofillNode
 } from "../../nodes/AutofillNode.ts";
 import {$findMatchingParent, mergeRegister} from "@lexical/utils";
 import {$createAutofillTokenNode, $isAutofillTokenNode, AutofillTokenNode} from "../../nodes/AutofillTokenNode.ts";
 import {AutofillDataObject} from "./TriggerAutofill.tsx";
 import {$createFileAttachNode} from "../../nodes/FileAttachNode.ts";
+import {$createAutofillParagraphNode} from "../../nodes/AutofillParagraphNode.ts";
 
 type InsertAutofillCommandProps = {
   label: string;
@@ -37,6 +38,7 @@ type InsertAutofillCommandProps = {
   data?: string | number;
   fieldName?: string;
   callback?: (node: AutofillNode) => void;
+  isPreInput?: boolean
 }
 
 export const INSERT_AUTOFILL = createCommand<InsertAutofillCommandProps>('INSERT_AUTOFILL');
@@ -44,9 +46,10 @@ export const INSERT_AUTOFILL = createCommand<InsertAutofillCommandProps>('INSERT
 interface AutofillPluginProps {
   stage: AutofillStage
   preData: AutofillDataObject[]
+  inputNodes?: SerializedAutofillNode[]
 }
 
-export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
+export default function AutofillPlugin({stage, preData, inputNodes}: AutofillPluginProps) {
   const [editor] = useLexicalComposerContext()
 
   useEffect(() => {
@@ -118,9 +121,25 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
         nodes.forEach(node => {
           node.setStage(stage)
           if (node.__autofillType === 'pre' && (stage === 2 || stage === 3) && node.__fieldName) {
-            if (stage === 2) {
+            if (node.__isPreInput && !node.getDataIsSet()) {
+              if (inputNodes) {
+                const v = inputNodes.find(value => value.fieldName === node.__fieldName)
+                if (v) {
+                  const parsedNode = $parseSerializedNode(v)
+                  if ($isAutofillNode(parsedNode)){
+                    node.replace(parsedNode)
+                    parsedNode.setDataIsSet(true)
+                    parsedNode.setStage(stage)
+                    return
+                  }
+                }
+              }
+              const newNode= $createAutofillNode({autofillType: 'input', stage, fieldName: node.__fieldName, label: node.__label, isPreInput: true})
+              newNode.append($createAutofillParagraphNode())
+              node.replace(newNode)
+            } else if(!node.__isPreInput && stage === 2) {
               node.setData(getData(node.__fieldName, node.__label) || '-')
-            } else {
+            } else if(!node.__isPreInput) {
               const child = node.getFirstChild()
               if (child && $isAutofillTokenNode(child)) {
                 const textNode = $createTextNode(child.getTextContent())
@@ -139,7 +158,17 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
             }
           } else if (node.__autofillType === 'input' && (stage === 2 || stage === 3)) {
             const child = node.getFirstChild()
-            if (child && $isAutofillTokenNode(child) && node.__inputType === 'file') {
+            if (node.__isPreInput && !node.getDataIsSet() && node.__fieldName && inputNodes) {
+              const v = inputNodes.find(value => value.fieldName === node.__fieldName)
+              if (v) {
+                const parsedNode = $parseSerializedNode(v)
+                if ($isAutofillNode(parsedNode)){
+                  node.replace(parsedNode)
+                  parsedNode.setDataIsSet(true)
+                  parsedNode.setStage(stage)
+                }
+              }
+            } else if (child && $isAutofillTokenNode(child) && node.__inputType === 'file') {
               const newNode = $createAutofillTokenNode(node.__title || '')
                 .setFormat(child.getFormat())
                 .setDetail(child.getDetail())
@@ -167,7 +196,7 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
           }
           return onArrowKey(false)
         },
-        COMMAND_PRIORITY_HIGH,
+        COMMAND_PRIORITY_CRITICAL,
       ),
       editor.registerCommand(
         KEY_ARROW_LEFT_COMMAND,
@@ -177,7 +206,7 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
           }
           return onArrowKey(true)
         },
-        COMMAND_PRIORITY_HIGH,
+        COMMAND_PRIORITY_CRITICAL,
       ),
       editor.registerCommand(
         CLICK_COMMAND,
@@ -199,13 +228,14 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
       ),
       editor.registerCommand(
         INSERT_AUTOFILL,
-        ({label, autofillType, nodeToReplace, data, fieldName, callback}) => {
+        ({label, autofillType, nodeToReplace, data, fieldName, callback, isPreInput}) => {
           editor.update(() => {
             const container = $createAutofillNode({
               label,
               autofillType,
               data,
-              fieldName
+              fieldName,
+              isPreInput
             });
             container.append($createAutofillTokenNode(container.getLabelForText()))
             if (nodeToReplace && nodeToReplace.isAttached()) {
@@ -280,7 +310,7 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
       })
     )
 
-  }, [editor, preData, stage])
+  }, [editor, inputNodes, preData, stage])
 
   return null
 }

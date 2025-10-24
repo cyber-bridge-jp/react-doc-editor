@@ -38,6 +38,7 @@ export interface DocumentEditorProps extends ImageUploadCallback {
   autofillPreData?: AutofillDataObject[]
   autofillPostData?: AutofillDataObject[]
   editorRef?: React.MutableRefObject<LexicalEditor | null | undefined>;
+  inputNodes?: SerializedAutofillNode[]
   showTableOfContents?: boolean;
 }
 
@@ -52,6 +53,7 @@ const DocumentEditor = forwardRef<ReactDocEditorRef, DocumentEditorProps>((props
     stage = 1,
     editorRef = {current: null},
     imageUploadCallback,
+    inputNodes
   } = props;
 
   const initialConfig: InitialConfigType = {
@@ -78,6 +80,7 @@ const DocumentEditor = forwardRef<ReactDocEditorRef, DocumentEditorProps>((props
             showTableOfContents={showTableOfContents}
             ref={ref}
             imageUploadCallback={imageUploadCallback}
+            inputNodes={inputNodes}
           />
         </div>
       </SharedHistoryContext>

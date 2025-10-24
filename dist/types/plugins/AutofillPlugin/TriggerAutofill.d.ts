@@ -2,7 +2,7 @@ import { AutofillStage } from '../../nodes/AutofillNode.ts';
 import * as React from 'react';
 export type AutofillData = {
     label: string;
-    value: string | number | null;
+    value?: string | number | null;
     isMan?: boolean;
     isNumber?: boolean;
     isInput?: boolean;

@@ -8,7 +8,6 @@ import {
   CLICK_COMMAND,
   COMMAND_PRIORITY_EDITOR,
   COMMAND_PRIORITY_HIGH,
-  COMMAND_PRIORITY_LOW,
   CONTROLLED_TEXT_INSERTION_COMMAND,
   createCommand,
   KEY_ARROW_LEFT_COMMAND,
@@ -162,7 +161,7 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
           }
           return onArrowKey(false)
         },
-        COMMAND_PRIORITY_LOW,
+        COMMAND_PRIORITY_HIGH,
       ),
       editor.registerCommand(
         KEY_ARROW_LEFT_COMMAND,
@@ -172,7 +171,7 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
           }
           return onArrowKey(true)
         },
-        COMMAND_PRIORITY_LOW,
+        COMMAND_PRIORITY_HIGH,
       ),
       editor.registerCommand(
         CLICK_COMMAND,

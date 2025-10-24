@@ -137,7 +137,7 @@ export class AutofillNode extends ElementNode {
     return dom;
   }
 
-  updateDOM(prevNode:AutofillNode, dom:HTMLElement): boolean {
+  updateDOM(prevNode: AutofillNode, dom: HTMLElement): boolean {
     const isEmpty = (this.getTextContentSize() === 0).toString()
     if (this.__stage !== prevNode.__stage || dom.getAttribute('data-autofill-empty') !== isEmpty) {
       dom.setAttribute('data-autofill-stage', this.__stage?.toString() || '1');
@@ -167,7 +167,15 @@ export class AutofillNode extends ElementNode {
   }
 
   canBeEmpty(): boolean {
-    return this.getStage() !== 3;
+    return this.getStage() === 2;
+  }
+
+  canInsertTextBefore(): boolean {
+    return true
+  }
+
+  canInsertTextAfter(): boolean {
+    return true
   }
 
   getLabel(): string {
@@ -208,6 +216,12 @@ export class AutofillNode extends ElementNode {
 
   isShadowRoot(): boolean {
     return true;
+  }
+
+  isFirstChild(): boolean {
+    const self = this.getLatest();
+    const parentFirstChild = this.getParentOrThrow().getFirstChild();
+    return parentFirstChild !== null && parentFirstChild.is(self);
   }
 
   setData(value: string | number): this {

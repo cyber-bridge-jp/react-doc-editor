@@ -2,12 +2,19 @@ import {
   $createTextNode,
   $getNodeByKey,
   $getSelection,
-  $isRangeSelection, $isTextNode, $nodesOfType, CLICK_COMMAND,
-  COMMAND_PRIORITY_EDITOR, COMMAND_PRIORITY_HIGH,
-  COMMAND_PRIORITY_LOW, CONTROLLED_TEXT_INSERTION_COMMAND,
+  $isRangeSelection,
+  $isTextNode,
+  $nodesOfType,
+  CLICK_COMMAND,
+  COMMAND_PRIORITY_EDITOR,
+  COMMAND_PRIORITY_HIGH,
+  COMMAND_PRIORITY_LOW,
+  CONTROLLED_TEXT_INSERTION_COMMAND,
   createCommand,
   KEY_ARROW_LEFT_COMMAND,
-  KEY_ARROW_RIGHT_COMMAND, LexicalNode, SELECTION_CHANGE_COMMAND,
+  KEY_ARROW_RIGHT_COMMAND, KEY_BACKSPACE_COMMAND, KEY_DELETE_COMMAND,
+  LexicalNode,
+  SELECTION_CHANGE_COMMAND,
   TextNode
 } from "lexical";
 import {useEffect} from "react";
@@ -23,6 +30,7 @@ import {$findMatchingParent, mergeRegister} from "@lexical/utils";
 import {$createAutofillTokenNode, $isAutofillTokenNode, AutofillTokenNode} from "../../nodes/AutofillTokenNode.ts";
 import {AutofillDataObject} from "./TriggerAutofill.tsx";
 import {$createFileAttachNode} from "../../nodes/FileAttachNode.ts";
+import {$isEmptyInlineNode} from "../../nodes/EmptyInlineNode.ts";
 
 type InsertAutofillCommandProps = {
   label: string;
@@ -61,7 +69,7 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
 
       if ($isAutofillNode(container) && stage !== 2) {
         const textNodes = container.getAllTextNodes()
-        if ((selection.anchor.offset === 0 && isLeft && anchor.is(textNodes[0])) || (selection.anchor.offset === anchor.getTextContentSize() && !isLeft && anchor.is(textNodes[textNodes.length - 1]))) {
+        if ((selection.anchor.offset === 0 && isLeft && anchor.is(textNodes[0])) || (selection.anchor.offset === anchor.getTextContentSize() && !isLeft && anchor.is(textNodes[textNodes.length - 1])) || textNodes.length === 0) {
           editor.update(() => {
             if (isLeft) {
               container.selectPrevious();
@@ -135,6 +143,32 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
       })
     }
 
+    const onDelete = (payload: KeyboardEvent, isBackspace: boolean) => {
+      const selection = $getSelection()
+      if ($isRangeSelection(selection)) {
+        payload.preventDefault();
+        const node = selection.anchor.getNode()
+        if ($isEmptyInlineNode(node) && stage !== 2) {
+          if (isBackspace && node.getTextContentSize() === 0 && $isAutofillNode(node.getPreviousSibling())) {
+            const prevNode = node.getPreviousSibling()
+            if (prevNode?.getPreviousSibling()?.getTextContentSize() === 0) {
+              prevNode?.getPreviousSibling()?.remove()
+            }
+            prevNode?.remove()
+            node.remove();
+            return true;
+          } else if (!isBackspace && $isAutofillNode(node.getNextSibling())) {
+            node.getNextSibling()?.remove();
+            if (node.getTextContentSize() === 0) {
+              node.remove()
+            }
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
     updateAutoData()
 
     return mergeRegister(
@@ -159,14 +193,27 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
         COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
+        KEY_BACKSPACE_COMMAND,
+        (payload) => onDelete(payload, true),
+        COMMAND_PRIORITY_LOW,
+      ),
+      editor.registerCommand(
+        KEY_DELETE_COMMAND,
+        (payload) => onDelete(payload, false),
+        COMMAND_PRIORITY_LOW,
+      ),
+      editor.registerCommand(
         CLICK_COMMAND,
         (event) => {
           const target = event.target as HTMLElement;
           const nodeKey = target.getAttribute('data-node-key');
-          if (!nodeKey) return false;
+          if (!nodeKey) {
+            return false
+          }
 
           const node = $getNodeByKey(nodeKey);
           if (!node || !$isAutofillTokenNode(node)) return false;
+
           node.select(0, node.getTextContentSize())
           editor.dispatchCommand(SELECTION_CHANGE_COMMAND, undefined)
           return true;

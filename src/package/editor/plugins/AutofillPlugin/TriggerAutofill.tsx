@@ -7,7 +7,7 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin'
 
 import {
-  $createParagraphNode, $createTextNode,
+  $createParagraphNode,
   TextNode,
 } from 'lexical'
 import {useCallback, useEffect, useMemo, useState} from 'react'
@@ -18,6 +18,7 @@ import {AutofillNode, AutofillStage, AutofillType} from "../../nodes/AutofillNod
 import {INSERT_AUTOFILL} from "./AutofillPlugin.tsx";
 import {$isAutofillTokenNode} from "../../nodes/AutofillTokenNode.ts";
 import './TriggerAutofill.css';
+import {$createEmptyInlineNode} from "../../nodes/EmptyInlineNode.ts";
 
 const PUNCTUATION =
   '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;'
@@ -430,7 +431,9 @@ export default function TriggerAutofill(
                   }
                   const child = autofillNode?.getFirstChild()
                   if (child && $isAutofillTokenNode(child)) {
-                    autofillNode?.append($createParagraphNode().append($createTextNode('')))
+                    autofillNode?.append($createParagraphNode())
+                    autofillNode?.insertBefore($createEmptyInlineNode())
+                    autofillNode?.insertAfter($createEmptyInlineNode())
                     child.remove()
                     autofillNode?.selectNext()
                   }

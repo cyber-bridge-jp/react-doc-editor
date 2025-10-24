@@ -45,6 +45,8 @@ export declare class AutofillNode extends ElementNode {
     exportJSON(): SerializedAutofillNode;
     isInline(): true;
     canBeEmpty(): boolean;
+    canInsertTextBefore(): boolean;
+    canInsertTextAfter(): boolean;
     getLabel(): string;
     getStage(): AutofillStage;
     getAutofillType(): AutofillType;
@@ -52,6 +54,7 @@ export declare class AutofillNode extends ElementNode {
     getData(): string | number | undefined;
     getDataIsSet(): boolean;
     isShadowRoot(): boolean;
+    isFirstChild(): boolean;
     setData(value: string | number): this;
     setLabel(value: string): this;
     setStage(stage: AutofillStage): this;

@@ -3,7 +3,7 @@ import { HistoryState } from '@lexical/react/LexicalHistoryPlugin';
 import { default as React } from 'react';
 import { LexicalEditor, SerializedEditorState } from 'lexical';
 import { AutofillDataObject } from './plugins/AutofillPlugin/TriggerAutofill.tsx';
-import { AutofillStage } from './nodes/AutofillNode.ts';
+import { AutofillStage, SerializedAutofillNode } from './nodes/AutofillNode.ts';
 
 export type UploadCallbackType = (file: File, result: string, callback: (url: string) => void) => void;
 export interface ImageUploadCallback {
@@ -18,6 +18,7 @@ export type ReactDocEditorRef = {
     exportData: () => ExportData;
     updateEditorState: (editorState: InitialEditorStateType) => void;
     getEditor: () => LexicalEditor;
+    extractAllInputNodes: () => SerializedAutofillNode[];
 };
 export interface DocumentEditorProps extends ImageUploadCallback {
     editorState?: InitialEditorStateType;

@@ -40,7 +40,7 @@ import EmojiPickerPlugin from './plugins/EmojiPickerPlugin'
 import DraggableBlockPlugin from './plugins/DraggableBlockPlugin'
 import TriggerAutofill , {AutofillDataObject} from './plugins/AutofillPlugin/TriggerAutofill.tsx'
 import {
-  $getRoot,
+  $getRoot, $nodesOfType,
   COMMAND_PRIORITY_CRITICAL,
   EditorState,
   LexicalEditor,
@@ -56,7 +56,8 @@ import {$generateHtmlFromNodes} from "@lexical/html";
 import {InitialEditorStateType} from "@lexical/react/LexicalComposer";
 import AutofillPlugin from "./plugins/AutofillPlugin/AutofillPlugin.tsx";
 import FloatingFileAttachEditorPlugin from "./plugins/FloatingFileAttachEditorPlugin";
-import {AutofillStage} from "./nodes/AutofillNode.ts";
+import {AutofillNode, AutofillStage} from "./nodes/AutofillNode.ts";
+import {exportNodeToJSON} from "./utils/editorState.ts";
 
 interface EditorProps extends ImageUploadCallback {
   stage: AutofillStage;
@@ -151,6 +152,9 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
     exportData,
     updateEditorState,
     getEditor: () => editor,
+    extractAllInputNodes: () => editor.getEditorState().read(() => {
+      return $nodesOfType(AutofillNode).filter(n => n.__autofillType === 'input').map(n => exportNodeToJSON(n))
+    })
   }))
 
   const handleEditorChange = useCallback((editorState: EditorState, e: LexicalEditor) => {

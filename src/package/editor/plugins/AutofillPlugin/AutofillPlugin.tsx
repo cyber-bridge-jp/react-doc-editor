@@ -69,17 +69,23 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
         if ((selection.anchor.offset === 0 && isLeft && anchor.is(textNodes[0])) || (selection.anchor.offset === anchor.getTextContentSize() && !isLeft && anchor.is(textNodes[textNodes.length - 1])) || textNodes.length === 0) {
           editor.update(() => {
             if (isLeft) {
-              if ((!container.getPreviousSibling() || $isAutofillNode(container.getPreviousSibling())) && container.getAutofillType() === 'input') {
+              const prevSibling = container.getPreviousSibling()
+              if ((!prevSibling || $isAutofillNode(prevSibling)) && container.getAutofillType() === 'input') {
                 const text = $createTextNode(' ')
                 container.insertBefore(text, true)
-              } else {
+              } else if (prevSibling) {
+                prevSibling.selectEnd()
+              }else {
                 container.selectPrevious();
               }
             } else {
-              if ((!container.getNextSibling() || $isAutofillNode(container.getNextSibling())) && container.getAutofillType() === 'input') {
+              const nextSibling = container.getNextSibling()
+              if ((!nextSibling || $isAutofillNode(nextSibling)) && container.getAutofillType() === 'input') {
                 const text = $createTextNode(' ')
                 container.insertAfter(text, true)
-              } else {
+              } else if(nextSibling) {
+                nextSibling.selectStart()
+              }else {
                 container.selectNext();
               }
             }

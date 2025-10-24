@@ -1,5 +1,5 @@
 import {
-  $applyNodeReplacement,
+  $applyNodeReplacement, $createTextNode, $isParagraphNode,
   ElementNode,
   NodeKey,
   SerializedElementNode,
@@ -167,15 +167,15 @@ export class AutofillNode extends ElementNode {
   }
 
   canBeEmpty(): boolean {
-    return this.getStage() === 2;
+    return true;
   }
 
   canInsertTextBefore(): boolean {
-    return true
+    return false
   }
 
   canInsertTextAfter(): boolean {
-    return true
+    return false
   }
 
   getLabel(): string {
@@ -215,7 +215,7 @@ export class AutofillNode extends ElementNode {
   }
 
   isShadowRoot(): boolean {
-    return true;
+    return false;
   }
 
   isFirstChild(): boolean {
@@ -272,6 +272,23 @@ export class AutofillNode extends ElementNode {
     const self = this.getWritable()
     self.__dataIsSet = value
     return self
+  }
+
+  collapseAtStart(): boolean {
+    // When cursor is at the start and user types or presses backspace
+    const paragraph = this.getParent();
+    if ($isParagraphNode(paragraph)) {
+      // Insert empty TextNode before this node
+      const textNode = $createTextNode('');
+      this.insertBefore(textNode);
+      textNode.select();
+      return true; // handled
+    }
+    return false; // default behavior
+  }
+
+  canMergeWhenEmpty(): boolean {
+    return false
   }
 }
 

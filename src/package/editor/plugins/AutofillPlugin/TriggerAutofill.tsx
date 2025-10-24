@@ -7,7 +7,6 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin'
 
 import {
-  $createParagraphNode,
   TextNode,
 } from 'lexical'
 import {useCallback, useEffect, useMemo, useState} from 'react'
@@ -16,9 +15,9 @@ import * as ReactDOM from 'react-dom'
 
 import {AutofillNode, AutofillStage, AutofillType} from "../../nodes/AutofillNode.ts";
 import {INSERT_AUTOFILL} from "./AutofillPlugin.tsx";
-import {$isAutofillTokenNode} from "../../nodes/AutofillTokenNode.ts";
+import {$createAutofillTokenNode, $isAutofillTokenNode} from "../../nodes/AutofillTokenNode.ts";
 import './TriggerAutofill.css';
-import {$createEmptyInlineNode} from "../../nodes/EmptyInlineNode.ts";
+import {$createAutofillParagraphNode} from "../../nodes/AutofillParagraphNode.ts";
 
 const PUNCTUATION =
   '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;'
@@ -431,11 +430,14 @@ export default function TriggerAutofill(
                   }
                   const child = autofillNode?.getFirstChild()
                   if (child && $isAutofillTokenNode(child)) {
-                    autofillNode?.append($createParagraphNode())
-                    autofillNode?.insertBefore($createEmptyInlineNode())
-                    autofillNode?.insertAfter($createEmptyInlineNode())
+                    if (inputVal.isFile) {
+                      autofillNode?.append($createAutofillTokenNode(autofillNode?.getLabelForText()))
+                    } else {
+                      const p = $createAutofillParagraphNode()
+                      autofillNode?.append(p)
+                      p.select(0, 0)
+                    }
                     child.remove()
-                    autofillNode?.selectNext()
                   }
                 })
                 setShowInput(false)

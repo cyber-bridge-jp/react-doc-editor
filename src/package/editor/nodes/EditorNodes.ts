@@ -28,7 +28,7 @@ import {StickyNode} from "./StickyNode.tsx";
 import {AutofillTokenNode} from "./AutofillTokenNode.ts";
 import {AutofillNode} from "./AutofillNode.ts";
 import {FileAttachNode} from "./FileAttachNode.ts";
-import {EmptyInlineNode} from "./EmptyInlineNode.ts";
+import {AutofillParagraphNode} from "./AutofillParagraphNode.ts";
 
 const EditorNodes: Array<Klass<LexicalNode>> = [
     CodeNode,
@@ -65,7 +65,7 @@ const EditorNodes: Array<Klass<LexicalNode>> = [
     AutofillTokenNode,
     AutofillNode,
     FileAttachNode,
-    EmptyInlineNode,
+    AutofillParagraphNode,
 ];
 
 export default EditorNodes;

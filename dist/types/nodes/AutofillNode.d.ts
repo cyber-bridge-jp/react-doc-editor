@@ -62,6 +62,8 @@ export declare class AutofillNode extends ElementNode {
     setHelpText(value: string): this;
     setError(value: string): this;
     setDataIsSet(value: boolean): this;
+    collapseAtStart(): boolean;
+    canMergeWhenEmpty(): boolean;
 }
 export declare function $createAutofillNode({ autofillType, label, fieldName, title, data, inputType, stage, dataIsSet, helpText }: AutoFillPayload): AutofillNode;
 export declare function $isAutofillNode(node: unknown): node is AutofillNode;

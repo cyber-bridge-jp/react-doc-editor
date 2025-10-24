@@ -12,7 +12,7 @@ import {
   CONTROLLED_TEXT_INSERTION_COMMAND,
   createCommand,
   KEY_ARROW_LEFT_COMMAND,
-  KEY_ARROW_RIGHT_COMMAND, KEY_BACKSPACE_COMMAND, KEY_DELETE_COMMAND,
+  KEY_ARROW_RIGHT_COMMAND,
   LexicalNode,
   SELECTION_CHANGE_COMMAND,
   TextNode
@@ -30,7 +30,6 @@ import {$findMatchingParent, mergeRegister} from "@lexical/utils";
 import {$createAutofillTokenNode, $isAutofillTokenNode, AutofillTokenNode} from "../../nodes/AutofillTokenNode.ts";
 import {AutofillDataObject} from "./TriggerAutofill.tsx";
 import {$createFileAttachNode} from "../../nodes/FileAttachNode.ts";
-import {$isEmptyInlineNode} from "../../nodes/EmptyInlineNode.ts";
 
 type InsertAutofillCommandProps = {
   label: string;
@@ -66,15 +65,24 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
       const container = $findMatchingParent(anchor, (node) => {
         return $isAutofillNode(node)
       });
-
       if ($isAutofillNode(container) && stage !== 2) {
         const textNodes = container.getAllTextNodes()
         if ((selection.anchor.offset === 0 && isLeft && anchor.is(textNodes[0])) || (selection.anchor.offset === anchor.getTextContentSize() && !isLeft && anchor.is(textNodes[textNodes.length - 1])) || textNodes.length === 0) {
           editor.update(() => {
             if (isLeft) {
-              container.selectPrevious();
+              if ((!container.getPreviousSibling() || $isAutofillNode(container.getPreviousSibling())) && container.getAutofillType() === 'input') {
+                const text = $createTextNode(' ')
+                container.insertBefore(text, true)
+              } else {
+                container.selectPrevious();
+              }
             } else {
-              container.selectNext();
+              if ((!container.getNextSibling() || $isAutofillNode(container.getNextSibling())) && container.getAutofillType() === 'input') {
+                const text = $createTextNode(' ')
+                container.insertAfter(text, true)
+              } else {
+                container.selectNext();
+              }
             }
           });
           return true;
@@ -143,32 +151,6 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
       })
     }
 
-    const onDelete = (payload: KeyboardEvent, isBackspace: boolean) => {
-      const selection = $getSelection()
-      if ($isRangeSelection(selection)) {
-        payload.preventDefault();
-        const node = selection.anchor.getNode()
-        if ($isEmptyInlineNode(node) && stage !== 2) {
-          if (isBackspace && node.getTextContentSize() === 0 && $isAutofillNode(node.getPreviousSibling())) {
-            const prevNode = node.getPreviousSibling()
-            if (prevNode?.getPreviousSibling()?.getTextContentSize() === 0) {
-              prevNode?.getPreviousSibling()?.remove()
-            }
-            prevNode?.remove()
-            node.remove();
-            return true;
-          } else if (!isBackspace && $isAutofillNode(node.getNextSibling())) {
-            node.getNextSibling()?.remove();
-            if (node.getTextContentSize() === 0) {
-              node.remove()
-            }
-            return true;
-          }
-        }
-      }
-      return false;
-    }
-
     updateAutoData()
 
     return mergeRegister(
@@ -190,16 +172,6 @@ export default function AutofillPlugin({stage, preData}: AutofillPluginProps) {
           }
           return onArrowKey(true)
         },
-        COMMAND_PRIORITY_LOW,
-      ),
-      editor.registerCommand(
-        KEY_BACKSPACE_COMMAND,
-        (payload) => onDelete(payload, true),
-        COMMAND_PRIORITY_LOW,
-      ),
-      editor.registerCommand(
-        KEY_DELETE_COMMAND,
-        (payload) => onDelete(payload, false),
         COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(

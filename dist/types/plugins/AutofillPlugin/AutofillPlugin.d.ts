@@ -12,6 +12,9 @@ type InsertAutofillCommandProps = {
     isPreInput?: boolean;
 };
 export declare const INSERT_AUTOFILL: import('lexical').LexicalCommand<InsertAutofillCommandProps>;
+export declare const UPDATE_DATA: import('lexical').LexicalCommand<{
+    preData: AutofillDataObject[];
+}>;
 interface AutofillPluginProps {
     stage: AutofillStage;
     preData: AutofillDataObject[];

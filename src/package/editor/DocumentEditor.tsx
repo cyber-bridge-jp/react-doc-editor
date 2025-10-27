@@ -28,6 +28,7 @@ export type ReactDocEditorRef = {
   updateEditorState: (editorState: InitialEditorStateType) => void
   getEditor: () => LexicalEditor
   extractAllInputNodes: () => SerializedAutofillNode[]
+  updatePreData: (preData: AutofillDataObject[]) => void
 }
 
 export interface DocumentEditorProps extends ImageUploadCallback {

@@ -42,6 +42,7 @@ type InsertAutofillCommandProps = {
 }
 
 export const INSERT_AUTOFILL = createCommand<InsertAutofillCommandProps>('INSERT_AUTOFILL');
+export const UPDATE_DATA = createCommand<{ preData: AutofillDataObject[] }>('UPDATE_DATA')
 
 interface AutofillPluginProps {
   stage: AutofillStage
@@ -99,8 +100,8 @@ export default function AutofillPlugin({stage, preData, inputNodes}: AutofillPlu
       return false;
     };
 
-    const getData = (field: string, label: string) => {
-      const data = preData.find((d) => d[field] && d[field].label === label)
+    const getData = (_data: AutofillDataObject[], field: string, label: string) => {
+      const data = _data.find((d) => d[field] && d[field].label === label)
       if (data) {
         const dataOption = data[field]
         let value = dataOption.value
@@ -115,7 +116,7 @@ export default function AutofillPlugin({stage, preData, inputNodes}: AutofillPlu
       return '-'
     }
 
-    const updateAutoData = () => {
+    const updateAutoData = (_data: AutofillDataObject[]) => {
       editor.update(() => {
         const nodes = $nodesOfType(AutofillNode)
         nodes.forEach(node => {
@@ -138,7 +139,7 @@ export default function AutofillPlugin({stage, preData, inputNodes}: AutofillPlu
               newNode.append($createAutofillParagraphNode())
               node.replace(newNode)
             } else if(!node.__isPreInput && stage === 2) {
-              node.setData(getData(node.__fieldName, node.__label) || '-')
+              node.setData(getData(_data, node.__fieldName, node.__label) || '-')
             } else if(!node.__isPreInput) {
               const child = node.getFirstChild()
               if (child && $isAutofillTokenNode(child)) {
@@ -149,7 +150,7 @@ export default function AutofillPlugin({stage, preData, inputNodes}: AutofillPlu
                 node.append(textNode)
                 child.remove()
                 if (!node.getDataIsSet()) {
-                  const v = getData(node.__fieldName, node.__label)
+                  const v = getData(_data, node.__fieldName, node.__label)
                   node.setData(v || '-')
                   textNode.setTextContent(v.toString())
                   node.setDataIsSet(true)
@@ -185,9 +186,17 @@ export default function AutofillPlugin({stage, preData, inputNodes}: AutofillPlu
       })
     }
 
-    updateAutoData()
+    updateAutoData(preData)
 
     return mergeRegister(
+      editor.registerCommand(
+        UPDATE_DATA,
+        (payload) => {
+          updateAutoData(payload.preData)
+          return true
+        },
+        COMMAND_PRIORITY_EDITOR,
+      ),
       editor.registerCommand(
         KEY_ARROW_RIGHT_COMMAND,
         () => {

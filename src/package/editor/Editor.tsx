@@ -54,7 +54,7 @@ import {ReactDocEditorRef, ExportData, ImageUploadCallback} from "./DocumentEdit
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {$generateHtmlFromNodes} from "@lexical/html";
 import {InitialEditorStateType} from "@lexical/react/LexicalComposer";
-import AutofillPlugin from "./plugins/AutofillPlugin/AutofillPlugin.tsx";
+import AutofillPlugin, {UPDATE_DATA} from "./plugins/AutofillPlugin/AutofillPlugin.tsx";
 import FloatingFileAttachEditorPlugin from "./plugins/FloatingFileAttachEditorPlugin";
 import {AutofillNode, AutofillStage, SerializedAutofillNode} from "./nodes/AutofillNode.ts";
 import {exportNodeToJSON} from "./utils/editorState.ts";
@@ -156,7 +156,10 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
     getEditor: () => editor,
     extractAllInputNodes: () => editor.getEditorState().read(() => {
       return $nodesOfType(AutofillNode).filter(n => n.__autofillType === 'input').map(n => exportNodeToJSON(n))
-    })
+    }),
+    updatePreData: (preData: AutofillDataObject[]) => {
+      editor.dispatchCommand(UPDATE_DATA, {preData})
+    }
   }))
 
   const handleEditorChange = useCallback((editorState: EditorState, e: LexicalEditor) => {

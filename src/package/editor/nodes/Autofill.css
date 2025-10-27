@@ -9,7 +9,8 @@
     position: relative;
 }
 
-.autofill-node[data-autofill-type="pre"] {
+.autofill-node[data-autofill-type="pre"],
+.autofill-node[data-autofill-type="post"] {
     position: relative;
 }
 

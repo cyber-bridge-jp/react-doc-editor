@@ -2,7 +2,6 @@ import {useSharedHistoryContext} from './context/SharedHistoryContext.tsx'
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin'
 import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin'
 import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary'
-import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin'
 import {TabIndentationPlugin} from '@lexical/react/LexicalTabIndentationPlugin'
 import {HorizontalRulePlugin} from '@lexical/react/LexicalHorizontalRulePlugin'
 import {forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useState} from 'react'
@@ -208,7 +207,6 @@ const Editor = forwardRef<ReactDocEditorRef, EditorProps>((props, ref) => {
       />
       <div className="editor-container">
         <DragDropPaste/>
-        <AutoFocusPlugin/>
         <ComponentPickerPlugin imageUploadCallback={imageUploadCallback}/>
         <EmojiPickerPlugin/>
         <AutoEmbedPlugin/>

@@ -1,6 +1,6 @@
 import {
-  $applyNodeReplacement, $createTextNode, $isParagraphNode,
-  ElementNode,
+  $applyNodeReplacement, $createTextNode, $isParagraphNode, DOMExportOutput,
+  ElementNode, LexicalEditor,
   NodeKey,
   SerializedElementNode,
   Spread,
@@ -126,7 +126,7 @@ export class AutofillNode extends ElementNode {
   }
 
   createDOM(): HTMLElement {
-    const dom = document.createElement("div");
+    const dom = document.createElement("span");
     dom.className = "autofill-node";
     dom.setAttribute('data-lexical-autofill', 'true');
     dom.setAttribute('data-autofill-stage', this.__stage?.toString() || '1');
@@ -172,6 +172,14 @@ export class AutofillNode extends ElementNode {
       dataIsSet: this.__dataIsSet,
       isPreInput: this.__isPreInput,
     };
+  }
+
+  exportDOM(editor: LexicalEditor): DOMExportOutput {
+    const exportOutput = super.exportDOM(editor)
+    if (exportOutput.element && exportOutput.element instanceof HTMLElement) {
+      exportOutput.element.style.display = 'inline-block'
+    }
+    return exportOutput
   }
 
   isInline(): true {

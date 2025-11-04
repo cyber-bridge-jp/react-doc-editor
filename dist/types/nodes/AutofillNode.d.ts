@@ -1,4 +1,4 @@
-import { ElementNode, NodeKey, SerializedElementNode, Spread } from 'lexical';
+import { DOMExportOutput, ElementNode, LexicalEditor, NodeKey, SerializedElementNode, Spread } from 'lexical';
 
 export type AutofillType = 'pre' | 'post' | 'input';
 export type AutofillStage = 1 | 2 | 3;
@@ -46,6 +46,7 @@ export declare class AutofillNode extends ElementNode {
     createDOM(): HTMLElement;
     updateDOM(prevNode: AutofillNode, dom: HTMLElement): boolean;
     exportJSON(): SerializedAutofillNode;
+    exportDOM(editor: LexicalEditor): DOMExportOutput;
     isInline(): true;
     canBeEmpty(): boolean;
     canInsertTextBefore(): boolean;

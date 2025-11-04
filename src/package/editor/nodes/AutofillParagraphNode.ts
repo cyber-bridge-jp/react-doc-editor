@@ -2,7 +2,7 @@ import {
   $isTextNode,
   DOMConversionMap, DOMConversionOutput, DOMExportOutput,
   EditorConfig, ElementFormatType,
-  ElementNode, isHTMLElement, LexicalEditor, NodeKey, RangeSelection,
+  ElementNode, NodeKey, RangeSelection,
   SerializedParagraphNode, setNodeIndentFromDOM,
   Spread, TEXT_TYPE_TO_FORMAT, TextFormatType
 } from "lexical";
@@ -102,23 +102,15 @@ export class AutofillParagraphNode extends ElementNode {
     }
   }
 
-  exportDOM(editor: LexicalEditor): DOMExportOutput {
-    const {element} = super.exportDOM(editor);
-
-    if (element && isHTMLElement(element)) {
-      if (this.isEmpty()) {
-        element.append(document.createElement('br'));
-      }
-
-      const formatType = this.getFormatType();
-      if (formatType) {
-        element.style.textAlign = formatType;
-      }
+  exportDOM(): DOMExportOutput {
+    const element = document.createDocumentFragment();
+    const next = this.getPreviousSibling()
+    if (next && $isAutofillParagraphNode(next)) {
+      element.appendChild(document.createElement('br'))
     }
-
     return {
-      element,
-    };
+      element
+    }
   }
 
 

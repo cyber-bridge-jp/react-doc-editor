@@ -1,4 +1,4 @@
-import { DOMConversionMap, DOMExportOutput, EditorConfig, ElementNode, LexicalEditor, NodeKey, RangeSelection, SerializedParagraphNode, Spread, TextFormatType } from 'lexical';
+import { DOMConversionMap, DOMExportOutput, EditorConfig, ElementNode, NodeKey, RangeSelection, SerializedParagraphNode, Spread, TextFormatType } from 'lexical';
 
 export type SerializedAutofillParagraphNode = Spread<{
     textFormat: number;
@@ -20,7 +20,7 @@ export declare class AutofillParagraphNode extends ElementNode {
     createDOM(config: EditorConfig): HTMLElement;
     updateDOM(): boolean;
     static importDOM(): DOMConversionMap | null;
-    exportDOM(editor: LexicalEditor): DOMExportOutput;
+    exportDOM(): DOMExportOutput;
     static importJSON(serializedNode: SerializedAutofillParagraphNode): AutofillParagraphNode;
     exportJSON(): SerializedAutofillParagraphNode;
     insertNewAfter(rangeSelection: RangeSelection, restoreSelection: boolean): AutofillParagraphNode;

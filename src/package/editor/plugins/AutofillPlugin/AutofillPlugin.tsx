@@ -7,11 +7,11 @@ import {
   $nodesOfType, $parseSerializedNode,
   CLICK_COMMAND, COMMAND_PRIORITY_CRITICAL,
   COMMAND_PRIORITY_EDITOR,
-  COMMAND_PRIORITY_HIGH,
+  COMMAND_PRIORITY_HIGH, COMMAND_PRIORITY_LOW,
   CONTROLLED_TEXT_INSERTION_COMMAND,
   createCommand,
   KEY_ARROW_LEFT_COMMAND,
-  KEY_ARROW_RIGHT_COMMAND,
+  KEY_ARROW_RIGHT_COMMAND, KEY_BACKSPACE_COMMAND,
   LexicalNode,
   SELECTION_CHANGE_COMMAND,
   TextNode
@@ -311,6 +311,23 @@ export default function AutofillPlugin({stage, preData, inputNodes}: AutofillPlu
           return true;
         },
         COMMAND_PRIORITY_HIGH
+      ),
+      editor.registerCommand(
+        KEY_BACKSPACE_COMMAND,
+        () => {
+          const selection = $getSelection();
+          if (!$isRangeSelection(selection) || !selection.isCollapsed()) return false;
+          const anchor = selection.anchor;
+          const node = anchor.getNode();
+          if (anchor.offset > 0) return false;
+          const prevNode = node.getPreviousSibling();
+          if ($isAutofillNode(prevNode)) {
+            prevNode.selectEnd()
+            return true
+          }
+          return false
+        },
+        COMMAND_PRIORITY_LOW
       ),
       editor.registerNodeTransform(AutofillNode, (node) => {
         if (node.getChildrenSize() === 0 && stage === 1) {

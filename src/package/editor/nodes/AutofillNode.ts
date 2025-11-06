@@ -1,6 +1,6 @@
 import {
   $applyNodeReplacement, $createTextNode, $isParagraphNode, DOMExportOutput,
-  ElementNode, LexicalEditor,
+  ElementNode,
   NodeKey,
   SerializedElementNode,
   Spread,
@@ -145,14 +145,20 @@ export class AutofillNode extends ElementNode {
     if (this.__isPreInput) {
       dom.setAttribute('data-autofill-pre-input', 'true');
     }
+    if (this.__autofillType !== "input" && !this.__isPreInput) {
+      dom.setAttribute('data-autofill-label', this.__label)
+    }
     return dom;
   }
 
   updateDOM(prevNode: AutofillNode, dom: HTMLElement): boolean {
     const isEmpty = (this.getTextContentSize() === 0).toString()
-    if (this.__stage !== prevNode.__stage || dom.getAttribute('data-autofill-empty') !== isEmpty) {
+    if (this.__stage !== prevNode.__stage || dom.getAttribute('data-autofill-empty') !== isEmpty || this.__inputType !== prevNode.__inputType) {
       dom.setAttribute('data-autofill-stage', this.__stage?.toString() || '1');
       dom.setAttribute('data-autofill-empty', isEmpty)
+      if (this.__inputType) {
+        dom.setAttribute('data-autofill-input', this.__inputType);
+      }
       return true
     }
     return false;
@@ -174,12 +180,14 @@ export class AutofillNode extends ElementNode {
     };
   }
 
-  exportDOM(editor: LexicalEditor): DOMExportOutput {
-    const exportOutput = super.exportDOM(editor)
-    if (exportOutput.element && exportOutput.element instanceof HTMLElement) {
-      exportOutput.element.style.display = 'inline-block'
+  exportDOM(): DOMExportOutput {
+    const element = document.createElement('span');
+    if (element instanceof HTMLElement) {
+      element.style.display = 'inline-block';
     }
-    return exportOutput
+    return {
+      element,
+    };
   }
 
   isInline(): true {
@@ -213,8 +221,13 @@ export class AutofillNode extends ElementNode {
     return self.__autofillType
   }
 
+  getFieldName(): string {
+    const self = this.getLatest()
+    return self.__fieldName || ''
+  }
+
   getLabelForText(): string {
-    const label = this.getLabel()
+    const label = this.getFieldName()
     let val = label
     if (this.__stage === 1 && this.__autofillType !== 'input') {
       val = `{{${label}}}`

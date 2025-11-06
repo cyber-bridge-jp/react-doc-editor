@@ -7,6 +7,7 @@ import {
   SerializedTextNode,
   TextNode
 } from "lexical";
+import {$isAutofillNode} from "./AutofillNode.ts";
 
 export class AutofillTokenNode extends TextNode {
   constructor(text: string = '', key?: NodeKey) {
@@ -34,6 +35,15 @@ export class AutofillTokenNode extends TextNode {
   createDOM(config: EditorConfig, editor?: LexicalEditor): HTMLElement {
     const dom = super.createDOM(config, editor);
     dom.setAttribute('data-node-key', this.__key);
+    const parent = this.getParents().find((node) => $isAutofillNode(node));
+    if (parent && parent.__autofillType !== 'input' && !parent.__data && !parent.__isPreInput) {
+      const label = `{{${parent.__label}}}`
+      if (this.__text === label) {
+        editor?.update(() => {
+          this.setTextContent(`{{${parent.__fieldName}}}`)
+        })
+      }
+    }
     return dom;
   }
 

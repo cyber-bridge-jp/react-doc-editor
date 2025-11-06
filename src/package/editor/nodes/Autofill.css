@@ -120,6 +120,27 @@
     pointer-events: none;
 }
 
+.autofill-node[data-autofill-label]:hover::after {
+    content: attr(data-autofill-label);
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    padding: 2px 8px;
+    margin: 0;
+    border: none;
+    opacity: 1;
+    pointer-events: none;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    vertical-align: baseline;
+    white-space: pre;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+}
+
 .autofill-node[data-autofill-type="input"][data-autofill-empty="true"]::after {
     content: attr(data-autofill-label);
     position: relative;
